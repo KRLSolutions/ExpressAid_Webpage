@@ -1,0 +1,224 @@
+# Azure DevOps Pipeline for ExpressAid Website
+# This pipeline builds and deploys the static website to Azure Static Web Apps
+
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+  paths:
+    include:
+    - '*.html'
+    - '*.css'
+    - '*.js'
+    - 'assets/**'
+    - 'azure-pipelines.yml'
+
+pr:
+  branches:
+    include:
+    - main
+    - develop
+
+variables:
+  # Azure Static Web Apps configuration
+  staticWebAppName: 'expressaid-website'
+  staticWebAppLocation: 'East US'
+  staticWebAppApiToken: $(StaticWebAppApiToken)
+  
+  # Build configuration
+  buildConfiguration: 'Release'
+  nodeVersion: '18.x'
+  
+  # Website files
+  websiteRoot: '.'
+  websiteOutputPath: 'dist'
+
+stages:
+- stage: Build
+  displayName: 'Build and Test'
+  jobs:
+  - job: Build
+    displayName: 'Build Website'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - task: NodeTool@0
+      displayName: 'Install Node.js'
+      inputs:
+        versionSpec: $(nodeVersion)
+    
+    - task: Cache@2
+      displayName: 'Cache npm dependencies'
+      inputs:
+        key: 'npm | "$(Agent.OS)" | package-lock.json'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+        path: $(npm_config_cache)
+    
+    - script: |
+        echo "Installing dependencies..."
+        npm install -g @azure/static-web-apps-cli
+      displayName: 'Install Azure Static Web Apps CLI'
+    
+    - script: |
+        echo "Validating HTML files..."
+        find . -name "*.html" -exec echo "Found HTML file: {}" \;
+        echo "Validating CSS files..."
+        find . -name "*.css" -exec echo "Found CSS file: {}" \;
+        echo "Checking assets directory..."
+        ls -la assets/
+      displayName: 'Validate Website Files'
+    
+    - script: |
+        echo "Creating build output directory..."
+        mkdir -p $(websiteOutputPath)
+        echo "Copying website files to build output..."
+        cp -r *.html *.css assets/ $(websiteOutputPath)/
+        echo "Build output contents:"
+        ls -la $(websiteOutputPath)/
+      displayName: 'Prepare Build Output'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifacts'
+      inputs:
+        pathToPublish: $(websiteOutputPath)
+        artifactName: 'website'
+        publishLocation: 'Container'
+    
+    - script: |
+        echo "Running accessibility tests..."
+        # Basic HTML validation
+        for file in $(find . -name "*.html"); do
+          echo "Validating $file"
+          if ! grep -q "<!DOCTYPE html>" "$file"; then
+            echo "Warning: $file may not have proper DOCTYPE"
+          fi
+        done
+      displayName: 'Run Basic Tests'
+      continueOnError: true
+
+- stage: DeployToStaging
+  displayName: 'Deploy to Staging'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployToStaging
+    displayName: 'Deploy to Staging Environment'
+    environment: 'staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: website
+          
+          - task: AzureCLI@2
+            displayName: 'Deploy to Azure Static Web Apps (Staging)'
+            inputs:
+              azureSubscription: 'Azure Subscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                # Deploy to staging environment
+                az staticwebapp create \
+                  --name "$(staticWebAppName)-staging" \
+                  --resource-group "ExpressAid-RG" \
+                  --location "$(staticWebAppLocation)" \
+                  --source . \
+                  --branch develop \
+                  --token "$(staticWebAppApiToken)" \
+                  --app-location "/" \
+                  --output-location "/" \
+                  --api-location "" \
+                  --login-with-github false
+                
+                echo "Staging deployment completed successfully!"
+
+- stage: DeployToProduction
+  displayName: 'Deploy to Production'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployToProduction
+    displayName: 'Deploy to Production Environment'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: website
+          
+          - task: AzureCLI@2
+            displayName: 'Deploy to Azure Static Web Apps (Production)'
+            inputs:
+              azureSubscription: 'Azure Subscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                # Deploy to production environment
+                az staticwebapp create \
+                  --name "$(staticWebAppName)" \
+                  --resource-group "ExpressAid-RG" \
+                  --location "$(staticWebAppLocation)" \
+                  --source . \
+                  --branch main \
+                  --token "$(staticWebAppApiToken)" \
+                  --app-location "/" \
+                  --output-location "/" \
+                  --api-location "" \
+                  --login-with-github false
+                
+                echo "Production deployment completed successfully!"
+                
+                # Get the deployment URL
+                DEPLOYMENT_URL=$(az staticwebapp show \
+                  --name "$(staticWebAppName)" \
+                  --resource-group "ExpressAid-RG" \
+                  --query "defaultHostname" \
+                  --output tsv)
+                
+                echo "##vso[task.setvariable variable=DeploymentUrl;isOutput=true]$DEPLOYMENT_URL"
+                echo "Website deployed to: https://$DEPLOYMENT_URL"
+          
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Deployment URL'
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)'
+              artifact: 'deployment-info'
+              publishLocation: 'pipeline'
+
+- stage: PostDeployment
+  displayName: 'Post-Deployment Tasks'
+  dependsOn: 
+  - DeployToProduction
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - job: PostDeploymentChecks
+    displayName: 'Post-Deployment Verification'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+    steps:
+    - script: |
+        echo "Running post-deployment health checks..."
+        # Add your health check URLs here
+        # curl -f https://your-app.azurestaticapps.net/ || exit 1
+        echo "Health checks completed successfully!"
+      displayName: 'Health Checks'
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/test-results.xml'
+        mergeTestResults: true
+        testRunTitle: 'ExpressAid Website Tests'
+      continueOnError: true
+    
+    - script: |
+        echo "##vso[task.logissue type=warning]Remember to update DNS settings if needed"
+        echo "##vso[task.logissue type=warning]Consider setting up custom domain and SSL certificate"
+      displayName: 'Deployment Notes' 

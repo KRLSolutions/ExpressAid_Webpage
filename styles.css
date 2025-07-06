@@ -1,0 +1,940 @@
+/* Custom styles for ExpressAid */
+
+/* Import Google Fonts for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Hero section gradient background with animated gradient */
+.hero-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #3b82f6, #1d4ed8, #3b82f6);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    opacity: 0.8;
+}
+
+/* Hero background image overlay */
+.hero-gradient::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="20" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="80" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="30" cy="70" r="0.3" fill="rgba(255,255,255,0.03)"/><circle cx="70" cy="30" r="0.3" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    z-index: 1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating animation for hero elements */
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animated background blur elements - Bigger and Static */
+.blur-element {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.7;
+}
+
+.blur-element:nth-child(1) {
+    width: 650px;
+    height: 650px;
+    background: linear-gradient(45deg, #60a5fa, #3b82f6);
+    top: -8%;
+    left: -3%;
+}
+
+.blur-element:nth-child(2) {
+    width: 550px;
+    height: 550px;
+    background: linear-gradient(45deg, #a78bfa, #8b5cf6);
+    top: 35%;
+    right: -8%;
+}
+
+.blur-element:nth-child(3) {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, #34d399, #10b981);
+    bottom: -12%;
+    left: 12%;
+}
+
+/* Floating medical icons - Static and Bigger */
+.floating-icon {
+    position: absolute;
+    opacity: 0.35;
+    pointer-events: none;
+    filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.35));
+    z-index: 5;
+}
+
+.floating-icon:nth-child(1) {
+    top: 12%;
+    left: 6%;
+    font-size: 5rem;
+}
+
+.floating-icon:nth-child(2) {
+    top: 22%;
+    right: 10%;
+    font-size: 4.5rem;
+}
+
+.floating-icon:nth-child(3) {
+    bottom: 18%;
+    left: 15%;
+    font-size: 4.5rem;
+}
+
+.floating-icon:nth-child(4) {
+    bottom: 25%;
+    right: 6%;
+    font-size: 5rem;
+}
+
+/* Stats section with medical background - Much Bigger */
+.stats-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="60" cy="60" r="6" fill="rgba(59,130,246,0.18)"/><path d="M45 60h30M60 45v30" stroke="rgba(59,130,246,0.12)" stroke-width="3" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical)"/></svg>');
+    opacity: 0.6;
+}
+
+/* Features section with test image background */
+.features-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.features-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/test.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: blur(2px);
+}
+
+/* How it works section with process background - Much Bigger */
+.how-it-works-section {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.how-it-works-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="steps" width="160" height="160" patternUnits="userSpaceOnUse"><circle cx="80" cy="80" r="10" fill="rgba(59,130,246,0.18)"/><path d="M80 40v80M40 80h80" stroke="rgba(59,130,246,0.12)" stroke-width="3" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23steps)"/></svg>');
+    opacity: 0.55;
+}
+
+/* Testimonials section with no background */
+.testimonials-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonials-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: none;
+}
+
+/* Application section with professional background - Much Bigger */
+.application-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.application-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/nurses-standing.jpg');
+    background-size: 120% auto;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    filter: blur(2px);
+}
+
+.application-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="professional" width="140" height="140" patternUnits="userSpaceOnUse"><rect x="40" y="40" width="60" height="60" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="70" r="10" fill="rgba(255,255,255,0.18)"/></pattern></defs><rect width="100" height="100" fill="url(%23professional)"/></svg>');
+    opacity: 0.3;
+    z-index: 1;
+}
+
+/* Hide floating icons in nurses section */
+.application-section .floating-icon {
+    display: none;
+}
+
+/* FAQ section with knowledge background - Much Bigger */
+.faq-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="knowledge" width="130" height="130" patternUnits="userSpaceOnUse"><circle cx="65" cy="65" r="6" fill="rgba(59,130,246,0.18)"/><path d="M65 35c-15 0-30 15-30 30s15 30 30 30 30-15 30-30-15-30-30-30z" stroke="rgba(59,130,246,0.12)" stroke-width="3" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23knowledge)"/></svg>');
+    opacity: 0.55;
+}
+
+/* Enhanced section backgrounds with multiple layers - Much Bigger */
+.enhanced-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.enhanced-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(29, 78, 216, 0.12) 100%);
+    z-index: 1;
+}
+
+.enhanced-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="45" height="45" patternUnits="userSpaceOnUse"><circle cx="22.5" cy="22.5" r="3" fill="rgba(59,130,246,0.22)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.6;
+    z-index: 2;
+}
+
+/* Enhanced hero section with medical theme - Much Bigger */
+.hero-medical {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-medical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medicalHero" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="60" cy="60" r="3" fill="rgba(255,255,255,0.22)"/><path d="M45 60h30M60 45v30" stroke="rgba(255,255,255,0.12)" stroke-width="3" fill="none"/><circle cx="60" cy="60" r="8" fill="rgba(255,255,255,0.06)"/></pattern></defs><rect width="100" height="100" fill="url(%23medicalHero)"/></svg>');
+    opacity: 0.55;
+    z-index: 1;
+}
+
+/* Enhanced testimonials with trust pattern - Much Bigger */
+.trust-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="trust" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 20l8 25h25l-20 15 8 25-21-15-21 15 8-25-20-15h25z" fill="rgba(251,191,36,0.22)"/><circle cx="50" cy="50" r="3" fill="rgba(251,191,36,0.28)"/></pattern></defs><rect width="100" height="100" fill="url(%23trust)"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.45;
+}
+
+/* Professional application section enhancement - Much Bigger */
+.professional-bg {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.professional-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="professionalDots" width="70" height="70" patternUnits="userSpaceOnUse"><circle cx="35" cy="35" r="3" fill="rgba(255,255,255,0.22)"/><rect x="28" y="28" width="14" height="14" fill="rgba(255,255,255,0.12)"/></pattern></defs><rect width="100" height="100" fill="url(%23professionalDots)"/></svg>');
+    opacity: 0.55;
+    z-index: 1;
+}
+
+/* Remove the old pattern classes since we're using real images now */
+.medical-pattern,
+.heartbeat-pattern,
+.stethoscope-pattern,
+.trust-pattern {
+    background: none;
+}
+
+/* Feature card hover effects with enhanced animations */
+.feature-card {
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.15), transparent);
+    transition: left 0.8s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card .icon-container {
+    transition: all 0.5s ease;
+}
+
+.feature-card:hover .icon-container {
+    transform: scale(1.3) rotate(10deg);
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+.feature-card:hover .icon-container i {
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Staggered animation for feature cards */
+.feature-card:nth-child(1) { animation: slideInUp 0.8s ease-out 0.1s both; }
+.feature-card:nth-child(2) { animation: slideInUp 0.8s ease-out 0.2s both; }
+.feature-card:nth-child(3) { animation: slideInUp 0.8s ease-out 0.3s both; }
+.feature-card:nth-child(4) { animation: slideInUp 0.8s ease-out 0.4s both; }
+.feature-card:nth-child(5) { animation: slideInUp 0.8s ease-out 0.5s both; }
+.feature-card:nth-child(6) { animation: slideInUp 0.8s ease-out 0.6s both; }
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(80px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Testimonial card hover effects with enhanced animations */
+.testimonial-card {
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.testimonial-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    transition: width 0.5s ease;
+}
+
+.testimonial-card:hover::after {
+    width: 100%;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.08) translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+/* Stats counter animation */
+.stat-number {
+    display: inline-block;
+    animation: countUp 3s ease-out;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Application form styling with enhanced animations */
+.apply-form {
+    transition: all 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.apply-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8, #60a5fa);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.apply-form:hover::before {
+    transform: scaleX(1);
+}
+
+.apply-form:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Navigation link hover effects with underline animation */
+.nav-link {
+    position: relative;
+    transition: all 0.4s ease;
+    font-size: 1.1rem;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    transition: width 0.4s ease;
+    border-radius: 2px;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+/* Mobile menu transitions with slide animation */
+.mobile-menu {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mobile-menu.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Button hover animations */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    transform: scale(1);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.8s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+}
+
+/* Scroll-triggered animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Pulse animation for important elements */
+.pulse {
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+}
+
+/* Loading spinner animation */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Parallax effect for background elements */
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+    .blur-element {
+        display: none;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .hero-gradient::before {
+        opacity: 0.9;
+    }
+    
+    .blur-element {
+        opacity: 0.2;
+    }
+}
+
+/* Enhanced button animations */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    transform: scale(1);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.8s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+}
+
+/* Enhanced form input animations */
+input:focus, select:focus, textarea:focus {
+    transform: scale(1.05);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Star rating animation */
+.fa-star {
+    transition: all 0.4s ease;
+    font-size: 1.2rem;
+}
+
+.testimonial-card:hover .fa-star {
+    transform: scale(1.3) rotate(15deg);
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* Enhanced mobile menu animation */
+.mobile-menu {
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mobile-menu.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Loading animation for form submission */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Enhanced navigation animations */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Enhanced hero image animation */
+.hero-image {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Enhanced section headers */
+.section-header {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8, #60a5fa);
+    border-radius: 3px;
+    animation: expandWidth 1.5s ease-out 0.5s both;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+@keyframes expandWidth {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100px;
+        opacity: 1;
+    }
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.6));
+    }
+}
+
+/* Enhanced card shadows */
+.feature-card, .testimonial-card, .apply-form {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feature-card:hover, .testimonial-card:hover, .apply-form:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Enhanced gradient backgrounds */
+.gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    opacity: 0.8;
+}
+
+/* Enhanced medical cross pattern - Much Bigger */
+.medical-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medicalCross" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 35v30M35 50h30" stroke="rgba(59,130,246,0.18)" stroke-width="4" fill="none"/><circle cx="50" cy="50" r="3" fill="rgba(59,130,246,0.22)"/></pattern></defs><rect width="100" height="100" fill="url(%23medicalCross)"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.6;
+}
+
+/* Heartbeat pattern for care sections - Much Bigger */
+.heartbeat-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="heartbeat" width="140" height="140" patternUnits="userSpaceOnUse"><path d="M70 40c-6-12-18-18-30-18s-24 6-30 18c-6 12-6 24 0 36l30 42 30-42c6-12 6-24 0-36z" fill="rgba(239,68,68,0.15)"/><circle cx="70" cy="70" r="3" fill="rgba(239,68,68,0.22)"/></pattern></defs><rect width="100" height="100" fill="url(%23heartbeat)"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.5;
+}
+
+/* Stethoscope pattern for professional sections - Much Bigger */
+.stethoscope-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stethoscope" width="160" height="160" patternUnits="userSpaceOnUse"><circle cx="80" cy="80" r="10" fill="rgba(59,130,246,0.18)"/><path d="M80 40c-15 0-30 15-30 30s15 30 30 30 30-15 30-30-15-30-30-30z" stroke="rgba(59,130,246,0.12)" stroke-width="3" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23stethoscope)"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.45;
+}
+
+/* Enhanced section backgrounds with multiple layers - Much Bigger */
+.enhanced-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.enhanced-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(29, 78, 216, 0.12) 100%);
+    z-index: 1;
+}
+
+.enhanced-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="45" height="45" patternUnits="userSpaceOnUse"><circle cx="22.5" cy="22.5" r="3" fill="rgba(59,130,246,0.22)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.6;
+    z-index: 2;
+}
+
+/* Enhanced hero section with medical theme - Much Bigger */
+.hero-medical {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-medical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medicalHero" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="60" cy="60" r="3" fill="rgba(255,255,255,0.22)"/><path d="M45 60h30M60 45v30" stroke="rgba(255,255,255,0.12)" stroke-width="3" fill="none"/><circle cx="60" cy="60" r="8" fill="rgba(255,255,255,0.06)"/></pattern></defs><rect width="100" height="100" fill="url(%23medicalHero)"/></svg>');
+    opacity: 0.55;
+    z-index: 1;
+}
+
+/* Enhanced testimonials with trust pattern - Much Bigger */
+.trust-pattern {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="trust" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 20l8 25h25l-20 15 8 25-21-15-21 15 8-25-20-15h25z" fill="rgba(251,191,36,0.22)"/><circle cx="50" cy="50" r="3" fill="rgba(251,191,36,0.28)"/></pattern></defs><rect width="100" height="100" fill="url(%23trust)"/></svg>');
+    background-repeat: repeat;
+    opacity: 0.45;
+}
+
+/* Professional application section enhancement - Much Bigger */
+.professional-bg {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.professional-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="professionalDots" width="70" height="70" patternUnits="userSpaceOnUse"><circle cx="35" cy="35" r="3" fill="rgba(255,255,255,0.22)"/><rect x="28" y="28" width="14" height="14" fill="rgba(255,255,255,0.12)"/></pattern></defs><rect width="100" height="100" fill="url(%23professionalDots)"/></svg>');
+    opacity: 0.55;
+    z-index: 1;
+} 

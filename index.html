@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpressAid | On-Demand Nursing Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Initialize EmailJS
+            emailjs.init("XDIe98FcNydiqXNcG"); // Replace with your EmailJS public key
+        })();
+    </script>
+    <script>
+        // Intersection Observer for scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('show');
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('show');
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Animate stats on scroll
+            const statsObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            stat.style.animation = 'countUp 2s ease-out';
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            // Observe stats section
+            const statsSection = document.querySelector('.bg-gray-50');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-heartbeat text-blue-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-blue-600">ExpressAid</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Features</a>
+                    <a href="#how-it-works" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300">How It Works</a>
+                    <a href="#testimonials" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Testimonials</a>
+                    <a href="#apply" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300">For Nurses</a>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300">
+                        Download App
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Features</a>
+                <a href="#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">How It Works</a>
+                <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Testimonials</a>
+                <a href="#apply" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">For Nurses</a>
+                <button class="w-full mt-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300">
+                    Download App
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white relative overflow-hidden">
+        <!-- Animated background blur elements -->
+        <div class="blur-element"></div>
+        <div class="blur-element"></div>
+        <div class="blur-element"></div>
+        
+        <!-- Floating medical icons -->
+        <div class="floating-icon">
+            <i class="fas fa-heartbeat text-white text-4xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-stethoscope text-white text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-user-md text-white text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-hospital text-white text-4xl"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 hero-content">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Quality Nursing Care <br>On Your Schedule</h1>
+                    <p class="text-xl mb-8 opacity-90">Book certified nurses instantly for in-home care, post-surgery assistance, elderly care, and more with our easy-to-use app.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="btn-primary bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md font-semibold">
+                            <div class="flex items-center justify-center">
+                                <i class="fab fa-apple mr-2 text-xl"></i>
+                                <div>
+                                    <div class="text-xs">Download on the</div>
+                                    <div class="text-lg">App Store</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button class="btn-primary bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-md font-semibold">
+                            <div class="flex items-center justify-center">
+                                <i class="fab fa-google-play mr-2 text-xl"></i>
+                                <div>
+                                    <div class="text-xs">Get it on</div>
+                                    <div class="text-lg">Google Play</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="/assets/nurse-hero.jpg" 
+                         alt="Nurse helping elderly patient" 
+                         class="hero-image rounded-lg shadow-2xl max-w-full h-auto md:max-w-2xl hover:scale-105 transition-transform duration-300">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4 fade-in">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2 stat-number">500+</div>
+                    <div class="text-gray-600">Certified Nurses</div>
+                </div>
+                <div class="p-4 fade-in">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2 stat-number">24/7</div>
+                    <div class="text-gray-600">Availability</div>
+                </div>
+                <div class="p-4 fade-in">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2 stat-number">10k+</div>
+                    <div class="text-gray-600">Patients Served</div>
+                </div>
+                <div class="p-4 fade-in">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2 stat-number">15min</div>
+                    <div class="text-gray-600">Average Response</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section py-20 bg-white">
+        <!-- Additional floating care icons -->
+        <div class="floating-icon">
+            <i class="fas fa-heart text-red-400 text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-shield-alt text-blue-400 text-4xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-clock text-green-400 text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-hand-holding-heart text-pink-400 text-4xl"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-header text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose ExpressAid</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">We're revolutionizing healthcare by connecting patients with qualified nurses instantly.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-bolt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instant Booking</h3>
+                    <p class="text-gray-600">Find and book a qualified nurse in minutes, not days. Our platform matches you with available nurses in your area instantly.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Verified Professionals</h3>
+                    <p class="text-gray-600">Every nurse on our platform is thoroughly vetted, licensed, and background-checked for your peace of mind.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-dollar-sign text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Transparent Pricing</h3>
+                    <p class="text-gray-600">No hidden fees. See the exact cost before booking and pay securely through our app with multiple payment options.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-calendar-check text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Flexible Scheduling</h3>
+                    <p class="text-gray-600">Need care for an hour or a week? Book exactly when you need it with our flexible scheduling options.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-comment-medical text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Specialized Care</h3>
+                    <p class="text-gray-600">Find nurses specialized in pediatric care, geriatric care, post-surgical care, chronic conditions, and more.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6 icon-container">
+                        <i class="fas fa-heart text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Continuity of Care</h3>
+                    <p class="text-gray-600">Request the same nurse for follow-up visits to ensure consistent, personalized care for you or your loved ones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How ExpressAid Works</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Getting quality nursing care has never been easier</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Download the App</h3>
+                            <p class="text-gray-600">Get started by downloading our free app from the App Store or Google Play Store.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Create Your Profile</h3>
+                            <p class="text-gray-600">Set up your profile in minutes and tell us about your care needs or medical conditions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Book a Nurse</h3>
+                            <p class="text-gray-600">Browse available services and then book a nurse with just a few taps.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Woman using smartphone app"
+                         class="rounded-lg shadow-lg max-w-full h-auto">
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row-reverse items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pl-10">
+                    <div class="flex items-start mb-6">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">4</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Nurse Arrives</h3>
+                            <p class="text-gray-600">Your nurse arrives at the scheduled time with all necessary equipment and medications.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start mb-6">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">5</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Receive Care</h3>
+                            <p class="text-gray-600">Get professional medical care in the comfort of your home from our certified nurses.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 text-blue-600 rounded-full w-10 h-10 flex items-center justify-center mr-4 flex-shrink-0">
+                            <span class="font-bold">6</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Rate & Review</h3>
+                            <p class="text-gray-600">After your visit, rate your experience and provide feedback to help us improve.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <img src="/assets/nurse.webp" 
+                         alt="Nurse taking care of elderly woman" 
+                         class="rounded-lg shadow-lg max-w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section py-20 bg-white">
+        <!-- Floating trust and satisfaction icons -->
+        <div class="floating-icon">
+            <i class="fas fa-star text-yellow-400 text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-thumbs-up text-green-400 text-4xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-smile text-blue-400 text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-check-circle text-green-400 text-4xl"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Patients Say</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Don't just take our word for it - hear from those who've experienced ExpressAid</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full hover:scale-110 transition-transform duration-300" src="/assets/amulya.webp" alt="Amulya K.">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Amulya K.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"After my surgery, I needed daily wound care but couldn't get to the clinic. ExpressAid saved me! The nurse was professional, kind, and exactly what I needed during recovery."</p>
+                </div>
+                
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full hover:scale-110 transition-transform duration-300" src="/assets/vishnu.jpg" alt="Vishnu B.">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Vishnu B.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Caring for my aging father was becoming overwhelming. With ExpressAid, we found an amazing nurse who comes twice a week. The peace of mind is priceless."</p>
+                </div>
+                
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full hover:scale-110 transition-transform duration-300" src="/assets/priya.avif" alt="Priya T.">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold">Priya T.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"When my regular nanny called in sick and my baby had a fever, I panicked. ExpressAid had a pediatric nurse at my door in 15 minutes. Lifesaver!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nurse Application Section -->
+    <section id="apply" class="application-section py-20 bg-blue-600 text-white relative overflow-hidden">
+        <!-- Animated background blur elements -->
+        <div class="blur-element"></div>
+        <div class="blur-element"></div>
+        
+        <!-- Floating professional icons -->
+        <div class="floating-icon">
+            <i class="fas fa-user-nurse text-white text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-certificate text-white text-4xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-award text-white text-3xl"></i>
+        </div>
+        <div class="floating-icon">
+            <i class="fas fa-graduation-cap text-white text-4xl"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Join Our Network of Nurses</h2>
+                    <p class="text-xl mb-8 opacity-90">Earn competitive pay with flexible hours while making a real difference in patients' lives.</p>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-lg">Set your own schedule and work when you want</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-lg">Earn 20-30% more than traditional nursing jobs</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center mr-4">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-lg">Get paid instantly after each completed visit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white text-blue-600 inline-block px-6 py-3 rounded-md font-semibold">
+                        Learn More About Nursing With Us <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white apply-form rounded-lg p-8 text-gray-800">
+                        <h3 class="text-2xl font-bold mb-6 text-center">Apply Now</h3>
+                        <form id="nurseApplicationForm">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="email">Email *</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" maxlength="10" placeholder="1234567890" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="license">Nursing License Number *</label>
+                                <input type="text" id="license" name="license" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="experience">Years of Experience *</label>
+                                <select id="experience" name="experience" required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select</option>
+                                    <option value="0-1">0-1 years</option>
+                                    <option value="1-3">1-3 years</option>
+                                    <option value="3-5">3-5 years</option>
+                                    <option value="5+">5+ years</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Specialization *</label>
+                                <select id="specialization" name="specialization" multiple required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="ICU Nurse">ICU Nurse</option>
+                                    <option value="Pediatric Nurse">Pediatric Nurse</option>
+                                    <option value="Geriatric Nurse">Geriatric Nurse</option>
+                                    <option value="Maternity Nurse">Maternity Nurse</option>
+                                    <option value="Home Care Nurse">Home Care Nurse</option>
+                                    <option value="Postoperative Nurse">Postoperative Nurse</option>
+                                    <option value="Mental Health Nurse">Mental Health Nurse</option>
+                                    <option value="Oncology Nurse">Oncology Nurse</option>
+                                    <option value="Emergency Nurse">Emergency Nurse</option>
+                                    <option value="Wound Care Nurse">Wound Care Nurse</option>
+                                    <option value="Dialysis Nurse">Dialysis Nurse</option>
+                                  </select>
+                                  <small class="text-gray-500">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">Certifications *</label>
+                                <select id="certifications" name="certifications" multiple required class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="BLS">Basic Life Support (BLS)</option>
+                                    <option value="Wound Care">Wound Care Certification</option>
+                                    <option value="Geriatric">Geriatric Nursing Certification</option>
+                                    <option value="Infection Control">Infection Control Certification</option>
+                                    <option value="Palliative">Palliative Care Certification</option>
+                                    <option value="First Aid">First Aid Certification</option>
+                                    <option value="IV Therapy">IV Therapy Certification</option>
+                                    <option value="Nursing Assistant">Nursing Assistant Certification</option>
+                                  </select>
+                                  <small class="text-gray-500">Hold Ctrl (Windows) or Cmd (Mac) to select multiple</small>
+                            </div>
+
+
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-semibold transition duration-300">
+                                Submit Application
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Find answers to common questions about ExpressAid</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">How quickly can I get a nurse?</span>
+                        <i class="fas fa-plus text-blue-500"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2">
+                        <p class="text-gray-600">Most bookings are fulfilled within 30-60 minutes, depending on your location and the type of care needed. For non-urgent needs, you can schedule visits in advance.</p>
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">What types of nursing services do you offer?</span>
+                        <i class="fas fa-plus text-blue-500"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2">
+                        <p class="text-gray-600">We offer a wide range of services including wound care, medication administration, post-surgical care, elderly care, pediatric care, chronic disease management, and more. Our nurses can also assist with basic daily activities when needed.</p>
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">How are your nurses vetted?</span>
+                        <i class="fas fa-plus text-blue-500"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2">
+                        <p class="text-gray-600">All nurses undergo a rigorous 5-step verification process including license verification, background checks, skills assessment, reference checks, and in-person interviews. Only 25% of applicants are accepted into our network.</p>
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">Is ExpressAid covered by insurance?</span>
+                        <i class="fas fa-plus text-blue-500"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2">
+                        <p class="text-gray-600">We currently partner with several major insurance providers. While we don't bill insurance directly, we can provide detailed receipts for you to submit to your insurance for possible reimbursement. Many patients successfully use HSA/FSA funds for our services.</p>
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-200 py-4">
+                    <button class="faq-toggle flex justify-between items-center w-full text-left focus:outline-none">
+                        <span class="text-lg font-medium text-gray-900">What if I need to cancel or reschedule?</span>
+                        <i class="fas fa-plus text-blue-500"></i>
+                    </button>
+                    <div class="faq-content hidden mt-2">
+                        <p class="text-gray-600">You can cancel or reschedule up to 2 minutes after your booking with no penalty. For cancellations after 2 minutes, a small fee may apply to compensate the nurse for their time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-blue-600 rounded-2xl p-8 md:p-12 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Experience Better Healthcare?</h2>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">Download the ExpressAid app today and get your first visit at 20% off</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md font-semibold transition duration-300">
+                        <div class="flex items-center justify-center">
+                            <i class="fab fa-apple mr-2 text-xl"></i>
+                            <div>
+                                <div class="text-xs">Download on the</div>
+                                <div class="text-lg">App Store</div>
+                            </div>
+                        </div>
+                    </button>
+                    <button class="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-md font-semibold transition duration-300">
+                        <div class="flex items-center justify-center">
+                            <i class="fab fa-google-play mr-2 text-xl"></i>
+                            <div>
+                                <div class="text-xs">Get it on</div>
+                                <div class="text-lg">Google Play</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">ExpressAid</h3>
+                    <p class="text-gray-400">Revolutionizing healthcare by connecting patients with qualified nurses instantly.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">For Patients</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Pricing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">For Nurses</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Apply Now</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Benefits</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Requirements</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Nurse Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-400">© 2023 ExpressAid. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle content visibility
+                content.classList.toggle('hidden');
+                
+                // Toggle icon between plus and minus
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                } else {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            });
+        });
+
+        // Helper functions for form validation
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'text-red-500 text-sm mt-1';
+            errorDiv.id = fieldId + '-error';
+            errorDiv.textContent = message;
+            
+            // Remove existing error message if any
+            const existingError = document.getElementById(fieldId + '-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Add error message after the field
+            field.parentNode.appendChild(errorDiv);
+            
+            // Add red border to the field
+            field.classList.add('border-red-500');
+            field.classList.remove('border-gray-300');
+        }
+        
+        function clearErrorMessages() {
+            // Remove all error messages
+            document.querySelectorAll('[id$="-error"]').forEach(error => {
+                error.remove();
+            });
+            
+            // Remove red borders from all fields
+            document.querySelectorAll('#nurseApplicationForm input, #nurseApplicationForm select').forEach(field => {
+                field.classList.remove('border-red-500');
+                field.classList.add('border-gray-300');
+            });
+        }
+        
+        // Form submission handler
+        document.getElementById('nurseApplicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous error messages
+            clearErrorMessages();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                license: document.getElementById('license').value.trim(),
+                experience: document.getElementById('experience').value,
+                specialization: Array.from(document.getElementById('specialization').selectedOptions).map(option => option.value).join(', '),
+                certifications: Array.from(document.getElementById('certifications').selectedOptions).map(option => option.value).join(', ')
+            };
+            
+            let hasErrors = false;
+            
+            // Validate name
+            if (!formData.name) {
+                showError('name', 'Please enter your full name');
+                hasErrors = true;
+            }
+            
+            // Validate email
+            if (!formData.email) {
+                showError('email', 'Please enter your email address');
+                hasErrors = true;
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email)) {
+                    showError('email', 'Please enter a valid email address');
+                    hasErrors = true;
+                }
+            }
+            
+            // Validate phone number
+            if (!formData.phone) {
+                showError('phone', 'Please enter your phone number');
+                hasErrors = true;
+            } else if (!/^\d{10}$/.test(formData.phone)) {
+                showError('phone', 'Please enter a valid phone number');
+                hasErrors = true;
+            }
+            
+            // Validate license
+            if (!formData.license) {
+                showError('license', 'Please enter your nursing license number');
+                hasErrors = true;
+            }
+            
+            // Validate experience
+            if (!formData.experience) {
+                showError('experience', 'Please select your years of experience');
+                hasErrors = true;
+            }
+            
+            // Validate specialization
+            const specializations = Array.from(document.getElementById('specialization').selectedOptions);
+            if (specializations.length === 0) {
+                showError('specialization', 'Please select at least one specialization');
+                hasErrors = true;
+            }
+            
+            // Validate certifications
+            const certifications = Array.from(document.getElementById('certifications').selectedOptions);
+            if (certifications.length === 0) {
+                showError('certifications', 'Please select at least one certification');
+                hasErrors = true;
+            }
+            
+            if (hasErrors) {
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('#nurseApplicationForm button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Prepare email template parameters
+            const templateParams = {
+                to_email: 'krlsolutions5@example.com', // Replace with your email
+                from_name: formData.name,
+                from_email: formData.email,
+                phone: formData.phone,
+                license: formData.license,
+                experience: formData.experience,
+                specialization: formData.specialization,
+                certifications: formData.certifications,
+                message: `
+New Nurse Application Received
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+License Number: ${formData.license}
+Years of Experience: ${formData.experience}
+Specialization: ${formData.specialization}
+Certifications: ${formData.certifications}
+
+Application submitted on: ${new Date().toLocaleString()}
+                `
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_mu1l2wp', 'template_lk92bng', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    alert('Application submitted successfully! We will contact you soon.');
+                    
+                    // Reset form
+                    document.getElementById('nurseApplicationForm').reset();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('There was an error submitting your application. Please try again or contact us directly.');
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+        });
+        
+        // Real-time validation for form fields
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('nurseApplicationForm');
+            
+            // Validate name field
+            document.getElementById('name').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (!value) {
+                    showError('name', 'Please enter your full name');
+                } else {
+                    clearFieldError('name');
+                }
+            });
+            
+            // Validate email field
+            document.getElementById('email').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (!value) {
+                    showError('email', 'Please enter your email address');
+                } else {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        showError('email', 'Please enter a valid email address');
+                    } else {
+                        clearFieldError('email');
+                    }
+                }
+            });
+            
+            // Validate phone field
+            document.getElementById('phone').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (!value) {
+                    showError('phone', 'Please enter your phone number');
+                } else if (!/^\d{10}$/.test(value)) {
+                    showError('phone', 'Please enter a valid phone number');
+                } else {
+                    clearFieldError('phone');
+                }
+            });
+            
+            // Validate license field
+            document.getElementById('license').addEventListener('blur', function() {
+                const value = this.value.trim();
+                if (!value) {
+                    showError('license', 'Please enter your nursing license number');
+                } else {
+                    clearFieldError('license');
+                }
+            });
+            
+            // Validate experience field
+            document.getElementById('experience').addEventListener('change', function() {
+                const value = this.value;
+                if (!value) {
+                    showError('experience', 'Please select your years of experience');
+                } else {
+                    clearFieldError('experience');
+                }
+            });
+            
+            // Validate specialization field
+            document.getElementById('specialization').addEventListener('change', function() {
+                const selectedOptions = Array.from(this.selectedOptions);
+                if (selectedOptions.length === 0) {
+                    showError('specialization', 'Please select at least one specialization');
+                } else {
+                    clearFieldError('specialization');
+                }
+            });
+            
+            // Validate certifications field
+            document.getElementById('certifications').addEventListener('change', function() {
+                const selectedOptions = Array.from(this.selectedOptions);
+                if (selectedOptions.length === 0) {
+                    showError('certifications', 'Please select at least one certification');
+                } else {
+                    clearFieldError('certifications');
+                }
+            });
+            
+            // Helper function to clear individual field errors
+            function clearFieldError(fieldId) {
+                const existingError = document.getElementById(fieldId + '-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+                const field = document.getElementById(fieldId);
+                field.classList.remove('border-red-500');
+                field.classList.add('border-gray-300');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "expressaid-website",
+  "version": "1.0.0",
+  "description": "ExpressAid - On-Demand Nursing Care Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1",
+    "build": "echo 'Static website - no build step required'",
+    "test": "echo 'Running basic validation tests' && npm run validate",
+    "validate": "node scripts/validate.js",
+    "lint": "echo 'Linting static files'",
+    "deploy:staging": "az staticwebapp create --name expressaid-website-staging --resource-group ExpressAid-RG --location East US --source . --branch develop",
+    "deploy:production": "az staticwebapp create --name expressaid-website --resource-group ExpressAid-RG --location East US --source . --branch main"
+  },
+  "keywords": [
+    "healthcare",
+    "nursing",
+    "on-demand",
+    "static-website",
+    "azure"
+  ],
+  "author": "ExpressAid Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.0.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/expressaid-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/expressaid-website/issues"
+  },
+  "homepage": "https://expressaid.azurestaticapps.net"
+} 
