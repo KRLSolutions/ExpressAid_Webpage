@@ -244,22 +244,11 @@ body {
     display: none;
 }
 
-/* FAQ section with knowledge background - Much Bigger */
+/* FAQ section with clean background */
 .faq-section {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     position: relative;
     overflow: hidden;
-}
-
-.faq-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="knowledge" width="130" height="130" patternUnits="userSpaceOnUse"><circle cx="65" cy="65" r="6" fill="rgba(59,130,246,0.18)"/><path d="M65 35c-15 0-30 15-30 30s15 30 30 30 30-15 30-30-15-30-30-30z" stroke="rgba(59,130,246,0.12)" stroke-width="3" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23knowledge)"/></svg>');
-    opacity: 0.55;
 }
 
 /* Enhanced section backgrounds with multiple layers - Much Bigger */
