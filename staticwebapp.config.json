@@ -5,8 +5,8 @@
       "rewrite": "/terms-and-conditions.html"
     },
     {
-      "route": "/features",
-      "rewrite": "/#features"
+      "route": "/privacy-policy",
+      "rewrite": "/privacy-policy.html"
     },
     { 
       "route": "/about-us",
