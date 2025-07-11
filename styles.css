@@ -957,3 +957,11 @@ input:focus, select:focus, textarea:focus {
     opacity: 0.55;
     z-index: 1;
 } 
+
+.mobile-menu {
+    display: none;
+    transition: all 0.3s;
+  }
+  .mobile-menu.show {
+    display: block;
+  }
