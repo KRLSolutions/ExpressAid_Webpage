@@ -495,16 +495,46 @@ body {
     transform: translateY(-2px);
 }
 
+/* Mobile menu button hover effect */
+#mobile-menu-button {
+    transition: all 0.3s ease;
+}
+
+#mobile-menu-button:hover,
+#mobile-menu-button:focus {
+    transform: scale(1.1);
+    color: #3b82f6;
+    outline: none;
+}
+
+#mobile-menu-button:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Mobile menu link focus styles */
+#mobile-menu a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 /* Mobile menu transitions with slide animation */
 .mobile-menu {
     transform: translateY(-100%);
     opacity: 0;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-height: 0;
+    overflow: hidden;
+    z-index: 60;
+    position: relative;
 }
 
 .mobile-menu.show {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
+    max-height: 300px;
 }
 
 /* Button hover animations */

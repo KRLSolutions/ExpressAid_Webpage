@@ -24,6 +24,24 @@
         pointer-events: none;
         }
     </style>
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('show');
+            });
+
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('show');
+                });
+            });
+        });
+    </script>
 </head>
 
 <body class="font-sans antialiased text-gray-800">
@@ -52,11 +70,15 @@
         </div>
         
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden bg-white shadow-lg">
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="index.html#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Features</a>
+                <a href="index.html#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">How It Works</a>
+                <a href="index.html#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Testimonials</a>
+                <a href="index.html#apply" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">For Nurses</a>
                 <a href="terms-and-conditions" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Terms & Conditions</a>
-                <a href="privacy-policy" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">Privacy Policy</a>
-                <a href="about-us" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300">About Us</a>
+                <a href="privacy-policy" class="block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-blue-50">Privacy Policy</a>
+                <a href="about-us" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50">About Us</a>
             </div>
         </div>
     </nav>
