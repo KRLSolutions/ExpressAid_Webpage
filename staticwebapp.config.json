@@ -13,10 +13,6 @@
       "rewrite": "/about-us.html"
     },
     {
-      "route": "/how-it-works",
-      "rewrite": "/#how-it-works"
-    },
-    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200
