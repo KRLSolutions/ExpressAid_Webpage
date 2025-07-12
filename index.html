@@ -1005,6 +1005,33 @@ Application submitted on: ${new Date().toLocaleString()}
                 }
             });
         });
+
+        // Scroll to top functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            
+            // Show/hide scroll to top button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+            
+            // Smooth scroll to top when button is clicked
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" class="scroll-to-top-btn" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 </body>
 </html>
