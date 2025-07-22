@@ -180,6 +180,12 @@ app.get('/test', (req, res) => {
     res.json({ message: 'Server is working!', timestamp: new Date().toISOString() });
 });
 
+// Simple text route for testing
+app.get('/simple', (req, res) => {
+    console.log('📝 Simple route hit');
+    res.send('This is a simple text response from the server!');
+});
+
 // Static file middleware (MUST come after specific routes)
 app.use(express.static(__dirname));
 
