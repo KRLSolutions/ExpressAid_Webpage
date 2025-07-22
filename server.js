@@ -60,7 +60,6 @@ async function connectToMongoDB() {
 }
 
 // Middleware
-app.use(express.static(__dirname));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -110,8 +109,7 @@ app.delete('/api/users/:id', async (req, res) => {
     }
 });
 
-
-// Route handlers for specific pages
+// Route handlers for specific pages (MUST come before static middleware)
 app.get('/terms-and-conditions', (req, res) => {
     res.sendFile(path.join(__dirname, 'terms-and-conditions.html'));
 });
@@ -128,7 +126,10 @@ app.get('/delete', (req, res) => {
     res.sendFile(path.join(__dirname, 'delete-user.html'));
 });
 
-// Catch-all route for SPA routing (similar to staticwebapp.config.json)
+// Static file middleware (MUST come after specific routes)
+app.use(express.static(__dirname));
+
+// Catch-all route for SPA routing (MUST come last)
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
