@@ -63,6 +63,12 @@ async function connectToMongoDB() {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Request logger middleware
+app.use((req, res, next) => {
+    console.log(`🌐 ${req.method} ${req.url} - ${new Date().toISOString()}`);
+    next();
+});
+
 // API Routes
 
 // Delete User
@@ -111,19 +117,67 @@ app.delete('/api/users/:id', async (req, res) => {
 
 // Route handlers for specific pages (MUST come before static middleware)
 app.get('/terms-and-conditions', (req, res) => {
+    console.log('📄 Serving terms-and-conditions.html');
     res.sendFile(path.join(__dirname, 'terms-and-conditions.html'));
 });
 
 app.get('/privacy-policy', (req, res) => {
+    console.log('📄 Serving privacy-policy.html');
     res.sendFile(path.join(__dirname, 'privacy-policy.html'));
 });
 
 app.get('/about-us', (req, res) => {
+    console.log('📄 Serving about-us.html');
     res.sendFile(path.join(__dirname, 'about-us.html'));
 });
 
 app.get('/delete', (req, res) => {
+    console.log('🗑️  Serving delete-user.html');
+    // Add headers to prevent Cloudflare caching
+    res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'CDN-Cache-Control': 'no-cache',
+        'Cloudflare-CDN-Cache-Control': 'no-cache'
+    });
     res.sendFile(path.join(__dirname, 'delete-user.html'));
+});
+
+app.get('/terms-and-conditions', (req, res) => {
+    console.log('📄 Serving terms-and-conditions.html');
+    res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    });
+    res.sendFile(path.join(__dirname, 'terms-and-conditions.html'));
+});
+
+app.get('/privacy-policy', (req, res) => {
+    console.log('📄 Serving privacy-policy.html');
+    res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    });
+    res.sendFile(path.join(__dirname, 'privacy-policy.html'));
+});
+
+app.get('/about-us', (req, res) => {
+    console.log('📄 Serving about-us.html');
+    res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+    });
+    res.sendFile(path.join(__dirname, 'about-us.html'));
+});
+
+// Test route to verify server is working
+app.get('/test', (req, res) => {
+    console.log('🧪 Test route hit');
+    res.json({ message: 'Server is working!', timestamp: new Date().toISOString() });
 });
 
 // Static file middleware (MUST come after specific routes)
