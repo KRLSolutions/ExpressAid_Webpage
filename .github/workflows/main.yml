@@ -47,6 +47,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME }}
           password: ${{ secrets.AZURE_VM_PASSWORD }}
           port: ${{ secrets.AZURE_VM_PORT }}
+          shell: powershell
           script: |
             # Set environment variables
             $env:MONGODB_URI='${{ secrets.MONGODB_URI }}'
