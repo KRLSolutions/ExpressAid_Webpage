@@ -26,8 +26,16 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir deployment
-          rsync -av --exclude='.git' --exclude='node_modules' ./ deployment/
+          shopt -s extglob
+          cp -r !(.git|node_modules|deployment|deployment.zip) deployment/
           zip -r deployment.zip deployment/
+
+      # Optional: upload artifact to check .zip contents (for debugging)
+      - name: Upload deployment artifact for debugging
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-debug
+          path: deployment.zip
 
       - name: Upload deployment package to VM
         uses: appleboy/scp-action@v0.1.7
@@ -70,10 +78,6 @@ jobs:
                 Get-ChildItem -Path 'C:\temp\extract\deployment' | Move-Item -Destination '.' -Force;
                 Remove-Item -Path 'C:\temp\extract' -Recurse -Force;
                 Remove-Item -Path 'deployment.zip' -Force;
-
-                Write-Host 'Extracted files:';
-                Get-ChildItem -Recurse | Out-String | Write-Host;
-
             } else {
                 Write-Host 'Deployment package not found';
                 exit 1;
@@ -100,9 +104,3 @@ jobs:
         run: |
           rm -rf deployment
           rm -f deployment.zip
-
-      - name: Upload deployment zip for debugging (optional)
-        uses: actions/upload-artifact@v4
-        with:
-          name: deployment-debug
-          path: deployment.zip
