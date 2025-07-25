@@ -41,7 +41,7 @@ jobs:
         password: ${{ secrets.AZURE_VM_PASSWORD }}
         port: ${{ secrets.AZURE_VM_PORT || 22 }}
         source: "deployment.zip"
-        target: "C:/temp/"
+        target: "./"
         
     - name: Deploy to Azure Windows VM
       uses: appleboy/ssh-action@v1.0.3
@@ -68,17 +68,17 @@ jobs:
             Get-ChildItem -Path '.' -Exclude '.env' | Remove-Item -Recurse -Force
             
             # Extract new deployment
-            if (Test-Path 'C:\temp\deployment.zip') {
+            if (Test-Path 'deployment.zip') {
               # Create temp directory for extraction
               New-Item -ItemType Directory -Path 'C:\temp\extract' -Force
-              Expand-Archive -Path 'C:\temp\deployment.zip' -DestinationPath 'C:\temp\extract' -Force
+              Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\temp\extract' -Force
               
               # Move contents from deployment folder to current directory
               Get-ChildItem -Path 'C:\temp\extract\deployment' | Move-Item -Destination '.' -Force
               
               # Clean up temp files
               Remove-Item -Path 'C:\temp\extract' -Recurse -Force
-              Remove-Item -Path 'C:\temp\deployment.zip' -Force
+              Remove-Item -Path 'deployment.zip' -Force
             } else {
               Write-Host 'Deployment package not found'
               exit 1
