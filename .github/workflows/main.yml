@@ -43,6 +43,16 @@ jobs:
         source: "deployment.zip"
         target: "./"
         
+    - name: Upload deployment script to VM
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.AZURE_VM_HOST }}
+        username: ${{ secrets.AZURE_VM_USERNAME }}
+        password: ${{ secrets.AZURE_VM_PASSWORD }}
+        port: ${{ secrets.AZURE_VM_PORT || 22 }}
+        source: "deploy.ps1"
+        target: "./"
+        
     - name: Deploy to Azure Windows VM
       uses: appleboy/ssh-action@v1.0.3
       with:
@@ -50,63 +60,12 @@ jobs:
         username: ${{ secrets.AZURE_VM_USERNAME }}
         password: ${{ secrets.AZURE_VM_PASSWORD }}
         port: ${{ secrets.AZURE_VM_PORT || 22 }}
+        envs: MONGODB_URI,DB_NAME,COLLECTION_NAME
         script: |
-          powershell -Command "& {
-            # Create deployment directory if it doesn't exist
-            if (!(Test-Path 'C:\www\expressaid')) {
-              New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force
-            }
-            
-            # Stop the current application if running
-            pm2 stop expressaid 2>$null
-            pm2 delete expressaid 2>$null
-            
-            # Navigate to deployment directory
-            Set-Location 'C:\www\expressaid'
-            
-            # Remove old files (keep .env)
-            Get-ChildItem -Path '.' -Exclude '.env' | Remove-Item -Recurse -Force
-            
-            # Extract new deployment
-            if (Test-Path 'deployment.zip') {
-              # Create temp directory for extraction
-              New-Item -ItemType Directory -Path 'C:\temp\extract' -Force
-              Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\temp\extract' -Force
-              
-              # Move contents from deployment folder to current directory
-              Get-ChildItem -Path 'C:\temp\extract\deployment' | Move-Item -Destination '.' -Force
-              
-              # Clean up temp files
-              Remove-Item -Path 'C:\temp\extract' -Recurse -Force
-              Remove-Item -Path 'deployment.zip' -Force
-            } else {
-              Write-Host 'Deployment package not found'
-              exit 1
-            }
-            
-            # Install dependencies
-            npm ci --production
-            
-                      # Create .env file if it doesn't exist
-          if (!(Test-Path '.env')) {
-            Write-Host 'Creating .env file...'
-            Add-Content -Path '.env' -Value "MONGODB_URI=${{ secrets.MONGODB_URI }}"
-            Add-Content -Path '.env' -Value "DB_NAME=${{ secrets.DB_NAME }}"
-            Add-Content -Path '.env' -Value "COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}"
-            Add-Content -Path '.env' -Value "PORT=3000"
-          }
-            
-            # Start the application with PM2
-            pm2 start server.js --name expressaid
-            
-            # Save PM2 configuration
-            pm2 save
-            
-            # Setup PM2 to start on boot (Windows)
-            pm2 startup
-            
-            Write-Host 'Deployment completed successfully!'
-          }"
+          $env:MONGODB_URI="${{ secrets.MONGODB_URI }}"
+          $env:DB_NAME="${{ secrets.DB_NAME }}"
+          $env:COLLECTION_NAME="${{ secrets.COLLECTION_NAME }}"
+          powershell -ExecutionPolicy Bypass -File deploy.ps1
           
     - name: Upload deployment package
       uses: actions/upload-artifact@v4
