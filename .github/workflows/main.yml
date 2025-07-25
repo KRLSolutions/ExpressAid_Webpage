@@ -1,0 +1,102 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Create deployment package
+      run: |
+        # Create a deployment directory
+        mkdir -p deployment
+        # Copy necessary files
+        cp -r *.js *.json *.html *.css assets deployment/
+        cp -r .github deployment/ 2>/dev/null || true
+        # Create a zip file for Windows deployment
+        zip -r deployment.zip deployment/
+        
+    - name: Deploy to Azure Windows VM
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.AZURE_VM_HOST }}
+        username: ${{ secrets.AZURE_VM_USERNAME }}
+        password: ${{ secrets.AZURE_VM_PASSWORD }}
+        port: ${{ secrets.AZURE_VM_PORT || 22 }}
+        script: |
+          # Create deployment directory if it doesn't exist
+          if (!(Test-Path "C:\www\expressaid")) {
+            New-Item -ItemType Directory -Path "C:\www\expressaid" -Force
+          }
+          
+          # Stop the current application if running
+          pm2 stop expressaid 2>$null
+          pm2 delete expressaid 2>$null
+          
+          # Navigate to deployment directory
+          Set-Location "C:\www\expressaid"
+          
+          # Remove old files (keep .env)
+          Get-ChildItem -Path "." -Exclude ".env" | Remove-Item -Recurse -Force
+          
+          # Extract new deployment (assuming tar is available or use 7zip)
+          if (Get-Command tar -ErrorAction SilentlyContinue) {
+            tar -xzf C:\temp\deployment.tar.gz
+          } else {
+            # Use PowerShell to extract if tar not available
+            Expand-Archive -Path "C:\temp\deployment.zip" -DestinationPath "." -Force
+          }
+          
+          # Install dependencies
+          npm ci --production
+          
+          # Create .env file if it doesn't exist
+          if (!(Test-Path ".env")) {
+            Write-Host "Creating .env file..."
+            @"
+          MONGODB_URI=${{ secrets.MONGODB_URI }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}
+          PORT=3000
+          "@ | Out-File -FilePath ".env" -Encoding UTF8
+          }
+          
+          # Start the application with PM2
+          pm2 start server.js --name expressaid
+          
+          # Save PM2 configuration
+          pm2 save
+          
+          # Setup PM2 to start on boot (Windows)
+          pm2 startup
+          
+          Write-Host "Deployment completed successfully!"
+          
+    - name: Upload deployment package
+      uses: actions/upload-artifact@v4
+      with:
+        name: deployment-package
+        path: deployment.zip
+        retention-days: 1
+        
+    - name: Cleanup
+      run: |
+        rm -rf deployment
+        rm -f deployment.zip 
