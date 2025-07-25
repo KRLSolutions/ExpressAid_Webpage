@@ -25,9 +25,9 @@ jobs:
 
       - name: Create deployment package
         run: |
-          mkdir -p deployment
-          cp -r *.js *.json *.html *.css assets deployment/
-          cp -r .github deployment/ 2>/dev/null || true
+          mkdir deployment
+          shopt -s extglob
+          cp -r !(.git|node_modules|deployment|deployment.zip) deployment/
           zip -r deployment.zip deployment/
 
       - name: Upload deployment package to VM
@@ -37,8 +37,10 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME }}
           password: ${{ secrets.AZURE_VM_PASSWORD }}
           port: ${{ secrets.AZURE_VM_PORT }}
-          source: "deployment.zip"
-          target: "C:/www/expressaid"
+          source: |
+            deployment.zip
+            deploy.ps1
+          target: C:\www\expressaid
 
       - name: Deploy to Azure Windows VM
         uses: appleboy/ssh-action@v1.0.3
@@ -48,44 +50,4 @@ jobs:
           password: ${{ secrets.AZURE_VM_PASSWORD }}
           port: ${{ secrets.AZURE_VM_PORT }}
           script: |
-            powershell -Command "
-            `$env:MONGODB_URI='${{ secrets.MONGODB_URI }}';
-            `$env:DB_NAME='${{ secrets.DB_NAME }}';
-            `$env:COLLECTION_NAME='${{ secrets.COLLECTION_NAME }}';
-            `$env:PORT='${{ secrets.PORT }}';
-
-            if (!(Test-Path 'C:\www\expressaid')) {
-                New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force;
-            }
-
-            Set-Location 'C:\www\expressaid';
-
-            pm2 stop expressaid 2>`$null;
-            pm2 delete expressaid 2>`$null;
-
-            if (Test-Path 'deployment.zip') {
-                Expand-Archive -Path 'deployment.zip' -DestinationPath 'temp' -Force;
-                Move-Item -Path 'temp\deployment\*' -Destination '.' -Force;
-                Remove-Item -Path 'temp' -Recurse -Force;
-                Remove-Item -Path 'deployment.zip' -Force;
-            } else {
-                Write-Host 'Deployment package not found';
-                exit 1;
-            }
-
-            npm ci --production;
-
-            if (!(Test-Path '.env')) {
-                Write-Host 'Creating .env file...';
-                Set-Content -Path '.env' -Value \"MONGODB_URI=`$env:MONGODB_URI`nDB_NAME=`$env:DB_NAME`nCOLLECTION_NAME=`$env:COLLECTION_NAME`nPORT=3000\";
-            }
-
-            pm2 start server.js --name expressaid;
-            pm2 save;
-            pm2 startup;
-            "
-          
-      - name: Cleanup local build artifacts
-        run: |
-          rm -rf deployment
-          rm -f deployment.zip
+            powershell -ExecutionPolicy Bypass -File C:\www\expressaid\deploy.ps1
