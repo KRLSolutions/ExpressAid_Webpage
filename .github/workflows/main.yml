@@ -87,16 +87,17 @@ jobs:
             # Install dependencies
             npm ci --production
             
-            # Create .env file if it doesn't exist
-            if (!(Test-Path '.env')) {
-              Write-Host 'Creating .env file...'
-              @'
+                      # Create .env file if it doesn't exist
+          if (!(Test-Path '.env')) {
+            Write-Host 'Creating .env file...'
+            $envContent = @"
           MONGODB_URI=${{ secrets.MONGODB_URI }}
           DB_NAME=${{ secrets.DB_NAME }}
           COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}
           PORT=3000
-          '@ | Out-File -FilePath '.env' -Encoding UTF8
-            }
+          "@
+            $envContent | Out-File -FilePath '.env' -Encoding UTF8
+          }
             
             # Start the application with PM2
             pm2 start server.js --name expressaid
