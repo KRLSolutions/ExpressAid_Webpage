@@ -25,12 +25,22 @@ jobs:
 
       - name: Create deployment package
         run: |
+          echo "Creating deployment directory..."
           mkdir -p deployment
+          echo "Copying files to deployment directory..."
           cp -r *.js *.json *.html *.css assets deployment/
           cp -r .github deployment/ 2>/dev/null || true
+          echo "Files in deployment directory:"
+          ls -la deployment/
+          echo "Creating zip file..."
           cd deployment
           zip -r ../deployment.zip .
           cd ..
+          echo "Zip file created:"
+          ls -la deployment.zip
+          echo "Zip file size: $(stat -c%s deployment.zip) bytes"
+          echo "Testing zip file integrity..."
+          unzip -t deployment.zip
 
       - name: Upload deployment package to VM
         uses: appleboy/scp-action@v0.1.7
@@ -41,6 +51,31 @@ jobs:
           port: ${{ secrets.AZURE_VM_PORT }}
           source: "deployment.zip"
           target: "./"
+
+      - name: Verify upload
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
+          password: ${{ secrets.AZURE_VM_PASSWORD }}
+          port: ${{ secrets.AZURE_VM_PORT }}
+          script: |
+            echo "Checking if deployment.zip was uploaded successfully..."
+            if (Test-Path "deployment.zip") {
+              $size = (Get-Item "deployment.zip").Length
+              echo "deployment.zip found, size: $size bytes"
+              echo "Testing zip file integrity..."
+              try {
+                Expand-Archive -Path "deployment.zip" -DestinationPath "test_extract" -Force
+                echo "Zip file is valid and can be extracted"
+                Remove-Item -Path "test_extract" -Recurse -Force
+              } catch {
+                echo "Zip file is corrupted or invalid"
+                echo "Error: $($_.Exception.Message)"
+              }
+            } else {
+              echo "deployment.zip not found in home directory"
+            }
 
       - name: Deploy to Azure Windows VM
         uses: appleboy/ssh-action@v1.0.3
@@ -68,23 +103,51 @@ jobs:
         
               pm2 stop expressaid 2>`$null;
               pm2 delete expressaid 2>`$null;
+              
+              # Check if deployment.zip exists in home directory and move it
+              if (Test-Path '~\deployment.zip') {
+                  Write-Host 'Found deployment.zip in home directory, moving to C:\www\expressaid';
+                  Move-Item -Path '~\deployment.zip' -Destination 'C:\www\expressaid\deployment.zip' -Force;
+              }
         
               if (Test-Path 'deployment.zip') {
+                  Write-Host 'Found deployment.zip, checking file size...';
+                  `$zipSize = (Get-Item 'deployment.zip').Length;
+                  Write-Host "Zip file size: `$zipSize bytes";
+                  
                   Write-Host 'Unzipping deployment.zip...';
                   
                   # Clear existing files except deployment.zip
+                  Write-Host 'Clearing existing files...';
                   Get-ChildItem -Path 'C:\www\expressaid' -Exclude 'deployment.zip' | Remove-Item -Recurse -Force;
                   
                   # Use Expand-Archive for reliable unzipping
                   try {
+                      Write-Host 'Attempting to unzip with Expand-Archive...';
                       Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\www\expressaid' -Force;
-                      Write-Host 'Successfully unzipped deployment.zip';
+                      Write-Host 'Successfully unzipped deployment.zip with Expand-Archive';
                   } catch {
-                      Write-Host 'Expand-Archive failed, trying alternative method...';
+                      Write-Host 'Expand-Archive failed, trying .NET method...';
+                      Write-Host "Error: `$($_.Exception.Message)";
                       # Fallback: Use .NET method
-                      Add-Type -AssemblyName System.IO.Compression.FileSystem;
-                      [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', 'C:\www\expressaid');
-                      Write-Host 'Successfully unzipped using .NET method';
+                      try {
+                          Add-Type -AssemblyName System.IO.Compression.FileSystem;
+                          [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', 'C:\www\expressaid');
+                          Write-Host 'Successfully unzipped using .NET method';
+                      } catch {
+                          Write-Host 'Both unzip methods failed!';
+                          Write-Host "Error: `$($_.Exception.Message)";
+                          Write-Host 'Trying manual extraction...';
+                          
+                          # Last resort: Use 7-Zip if available
+                          if (Get-Command '7z' -ErrorAction SilentlyContinue) {
+                              Write-Host 'Using 7-Zip to extract...';
+                              7z x 'deployment.zip' -o'C:\www\expressaid' -y;
+                          } else {
+                              Write-Host 'No unzip method available, exiting...';
+                              exit 1;
+                          }
+                      }
                   }
                   
                   # Remove the zip file
@@ -95,7 +158,15 @@ jobs:
                   Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
                   
               } else {
-                  Write-Host 'Deployment package not found';
+                  Write-Host 'Deployment package not found in C:\www\expressaid';
+                  Write-Host 'Checking other locations...';
+                  if (Test-Path '~\deployment.zip') {
+                      Write-Host 'Found in home directory';
+                  } elseif (Test-Path 'C:\deployment.zip') {
+                      Write-Host 'Found in C:\';
+                  } else {
+                      Write-Host 'Not found anywhere';
+                  }
                   exit 1;
               }
         
