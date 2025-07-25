@@ -52,6 +52,7 @@ jobs:
             `$env:MONGODB_URI='${{ secrets.MONGODB_URI }}';
             `$env:DB_NAME='${{ secrets.DB_NAME }}';
             `$env:COLLECTION_NAME='${{ secrets.COLLECTION_NAME }}';
+            `$env:PORT='${{ secrets.PORT }}';
 
             if (!(Test-Path 'C:\www\expressaid')) {
                 New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force;
