@@ -65,7 +65,7 @@ jobs:
 
             if (Test-Path 'deployment.zip') {
                 Expand-Archive -Path 'deployment.zip' -DestinationPath 'temp' -Force;
-                Move-Item -Path 'temp\deployment\*' -Destination '.' -Force;
+                Move-Item -Path 'temp\deployment\*' -Destination 'C:\www\expressaid' -Force;
                 Remove-Item -Path 'temp' -Recurse -Force;
                 Remove-Item -Path 'deployment.zip' -Force;
             } else {
