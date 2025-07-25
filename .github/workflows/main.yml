@@ -28,7 +28,9 @@ jobs:
           mkdir -p deployment
           cp -r *.js *.json *.html *.css assets deployment/
           cp -r .github deployment/ 2>/dev/null || true
-          zip -r deployment.zip deployment/
+          cd deployment
+          zip -r ../deployment.zip .
+          cd ..
 
       - name: Upload deployment package to VM
         uses: appleboy/scp-action@v0.1.7
@@ -59,47 +61,67 @@ jobs:
               }
         
               Set-Location 'C:\www\expressaid';
+              
+              Write-Host 'Current directory:' (Get-Location);
+              Write-Host 'Files in current directory:';
+              Get-ChildItem | ForEach-Object { Write-Host $_.Name };
         
               pm2 stop expressaid 2>`$null;
               pm2 delete expressaid 2>`$null;
         
               if (Test-Path 'deployment.zip') {
                   Write-Host 'Unzipping deployment.zip...';
-        
-                  # Use COM object to unzip for maximum compatibility
-                  `$shell = New-Object -ComObject shell.application;
-                  `$zip = `$shell.NameSpace('C:\www\expressaid\deployment.zip');
-                  `$destination = 'C:\www\expressaid\temp';
-                  if (!(Test-Path `$destination)) {
-                      New-Item -ItemType Directory -Path `$destination -Force;
+                  
+                  # Clear existing files except deployment.zip
+                  Get-ChildItem -Path 'C:\www\expressaid' -Exclude 'deployment.zip' | Remove-Item -Recurse -Force;
+                  
+                  # Use Expand-Archive for reliable unzipping
+                  try {
+                      Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\www\expressaid' -Force;
+                      Write-Host 'Successfully unzipped deployment.zip';
+                  } catch {
+                      Write-Host 'Expand-Archive failed, trying alternative method...';
+                      # Fallback: Use .NET method
+                      Add-Type -AssemblyName System.IO.Compression.FileSystem;
+                      [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', 'C:\www\expressaid');
+                      Write-Host 'Successfully unzipped using .NET method';
                   }
-                  `$shell.NameSpace(`$destination).CopyHere(`$zip.Items(), 16);
-                  Start-Sleep -Seconds 5;
-        
-                  # Move files from nested deployment/ if exists
-                  if (Test-Path 'temp\deployment') {
-                      Move-Item -Path 'temp\deployment\*' -Destination 'C:\www\expressaid' -Force;
-                  } else {
-                      Move-Item -Path 'temp\*' -Destination 'C:\www\expressaid' -Force;
-                  }
-        
-                  Remove-Item -Path 'temp' -Recurse -Force;
+                  
+                  # Remove the zip file
                   Remove-Item -Path 'deployment.zip' -Force;
+                  
+                  # List contents to verify
+                  Write-Host 'Contents after unzipping:';
+                  Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
+                  
               } else {
                   Write-Host 'Deployment package not found';
                   exit 1;
               }
         
-              npm ci --production;
+              Write-Host 'Installing dependencies...';
+              try {
+                  npm ci --production;
+                  Write-Host 'Dependencies installed successfully';
+              } catch {
+                  Write-Host 'npm ci failed, trying npm install...';
+                  npm install --production;
+              }
         
               if (!(Test-Path '.env')) {
                   Write-Host 'Creating .env file...';
                   Set-Content -Path '.env' -Value \"MONGODB_URI=`$env:MONGODB_URI`nDB_NAME=`$env:DB_NAME`nCOLLECTION_NAME=`$env:COLLECTION_NAME`nPORT=3000\";
               }
         
+              Write-Host 'Starting application with PM2...';
               pm2 start server.js --name expressaid;
               pm2 save;
               pm2 startup;
+              
+              Write-Host 'PM2 status:';
+              pm2 status;
+              
+              Write-Host 'Deployment completed successfully!';
               "
         
 
