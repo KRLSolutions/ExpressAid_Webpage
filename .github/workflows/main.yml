@@ -26,8 +26,8 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir -p deployment
-          cp -r *.js *.json *.html *.css assets deployment/
-          cp -r .github deployment/ 2>/dev/null || true
+          echo "Copying all project files excluding node_modules and .git..."
+          rsync -av --exclude='node_modules' --exclude='.git' ./ deployment/
           zip -r deployment.zip deployment/
 
       - name: Upload deployment package to VM
@@ -36,7 +36,7 @@ jobs:
           host: ${{ secrets.AZURE_VM_HOST }}
           username: ${{ secrets.AZURE_VM_USERNAME }}
           password: ${{ secrets.AZURE_VM_PASSWORD }}
-          port: ${{ secrets.AZURE_VM_PORT }} # Set default 22 in secrets if not set
+          port: ${{ secrets.AZURE_VM_PORT }}
           source: "deployment.zip"
           target: "./"
 
