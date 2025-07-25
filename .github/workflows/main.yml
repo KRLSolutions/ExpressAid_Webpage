@@ -90,13 +90,10 @@ jobs:
                       # Create .env file if it doesn't exist
           if (!(Test-Path '.env')) {
             Write-Host 'Creating .env file...'
-            $envContent = @"
-          MONGODB_URI=${{ secrets.MONGODB_URI }}
-          DB_NAME=${{ secrets.DB_NAME }}
-          COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}
-          PORT=3000
-          "@
-            $envContent | Out-File -FilePath '.env' -Encoding UTF8
+            Add-Content -Path '.env' -Value "MONGODB_URI=${{ secrets.MONGODB_URI }}"
+            Add-Content -Path '.env' -Value "DB_NAME=${{ secrets.DB_NAME }}"
+            Add-Content -Path '.env' -Value "COLLECTION_NAME=${{ secrets.COLLECTION_NAME }}"
+            Add-Content -Path '.env' -Value "PORT=3000"
           }
             
             # Start the application with PM2
