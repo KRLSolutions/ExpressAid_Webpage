@@ -25,17 +25,10 @@ jobs:
 
       - name: Create deployment package
         run: |
-          mkdir deployment
-          shopt -s extglob
-          cp -r !(.git|node_modules|deployment|deployment.zip) deployment/
+          mkdir -p deployment
+          cp -r *.js *.json *.html *.css assets deployment/
+          cp -r .github deployment/ 2>/dev/null || true
           zip -r deployment.zip deployment/
-
-      # Optional: upload artifact to check .zip contents (for debugging)
-      - name: Upload deployment artifact for debugging
-        uses: actions/upload-artifact@v4
-        with:
-          name: deployment-debug
-          path: deployment.zip
 
       - name: Upload deployment package to VM
         uses: appleboy/scp-action@v0.1.7
@@ -65,18 +58,15 @@ jobs:
                 New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force;
             }
 
+            Set-Location 'C:\www\expressaid';
+
             pm2 stop expressaid 2>`$null;
             pm2 delete expressaid 2>`$null;
 
-            Set-Location 'C:\www\expressaid';
-
-            Get-ChildItem -Path '.' -Exclude '.env' | Remove-Item -Recurse -Force;
-
             if (Test-Path 'deployment.zip') {
-                New-Item -ItemType Directory -Path 'C:\temp\extract' -Force;
-                Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\temp\extract' -Force;
-                Get-ChildItem -Path 'C:\temp\extract\deployment' | Move-Item -Destination '.' -Force;
-                Remove-Item -Path 'C:\temp\extract' -Recurse -Force;
+                Expand-Archive -Path 'deployment.zip' -DestinationPath 'temp' -Force;
+                Move-Item -Path 'temp\deployment\*' -Destination '.' -Force;
+                Remove-Item -Path 'temp' -Recurse -Force;
                 Remove-Item -Path 'deployment.zip' -Force;
             } else {
                 Write-Host 'Deployment package not found';
@@ -87,19 +77,14 @@ jobs:
 
             if (!(Test-Path '.env')) {
                 Write-Host 'Creating .env file...';
-                Add-Content -Path '.env' -Value 'MONGODB_URI=`$env:MONGODB_URI';
-                Add-Content -Path '.env' -Value 'DB_NAME=`$env:DB_NAME';
-                Add-Content -Path '.env' -Value 'COLLECTION_NAME=`$env:COLLECTION_NAME';
-                Add-Content -Path '.env' -Value 'PORT=3000';
+                Set-Content -Path '.env' -Value \"MONGODB_URI=`$env:MONGODB_URI`nDB_NAME=`$env:DB_NAME`nCOLLECTION_NAME=`$env:COLLECTION_NAME`nPORT=3000\";
             }
 
             pm2 start server.js --name expressaid;
             pm2 save;
             pm2 startup;
-
-            Write-Host 'Deployment completed successfully!';
             "
-
+          
       - name: Cleanup local build artifacts
         run: |
           rm -rf deployment
