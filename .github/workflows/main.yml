@@ -121,40 +121,62 @@ jobs:
                   Write-Host 'Clearing existing files...';
                   Get-ChildItem -Path 'C:\www\expressaid' -Exclude 'deployment.zip' | Remove-Item -Recurse -Force;
                   
+                  # Create a temporary directory for extraction
+                  `$tempDir = 'C:\www\expressaid\temp_extract';
+                  if (Test-Path `$tempDir) {
+                      Remove-Item -Path `$tempDir -Recurse -Force;
+                  }
+                  New-Item -ItemType Directory -Path `$tempDir -Force;
+                  
                   # Use Expand-Archive for reliable unzipping
                   try {
                       Write-Host 'Attempting to unzip with Expand-Archive...';
-                      Expand-Archive -Path 'deployment.zip' -DestinationPath 'C:\www\expressaid' -Force;
+                      Expand-Archive -Path 'deployment.zip' -DestinationPath `$tempDir -Force;
                       Write-Host 'Successfully unzipped deployment.zip with Expand-Archive';
+                      
+                      # Check what was extracted
+                      Write-Host 'Contents of temp directory:';
+                      Get-ChildItem -Path `$tempDir -Recurse | ForEach-Object { Write-Host $_.FullName };
+                      
+                      # Move files from temp to main directory
+                      Write-Host 'Moving files to main directory...';
+                      Get-ChildItem -Path `$tempDir | ForEach-Object {
+                          Write-Host "Moving: `$($_.Name)";
+                          Move-Item -Path `$_.FullName -Destination 'C:\www\expressaid' -Force;
+                      }
+                      
                   } catch {
                       Write-Host 'Expand-Archive failed, trying .NET method...';
                       Write-Host "Error: `$($_.Exception.Message)";
                       # Fallback: Use .NET method
                       try {
                           Add-Type -AssemblyName System.IO.Compression.FileSystem;
-                          [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', 'C:\www\expressaid');
+                          [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', `$tempDir);
                           Write-Host 'Successfully unzipped using .NET method';
+                          
+                          # Move files from temp to main directory
+                          Get-ChildItem -Path `$tempDir | ForEach-Object {
+                              Write-Host "Moving: `$($_.Name)";
+                              Move-Item -Path `$_.FullName -Destination 'C:\www\expressaid' -Force;
+                          }
+                          
                       } catch {
                           Write-Host 'Both unzip methods failed!';
                           Write-Host "Error: `$($_.Exception.Message)";
-                          Write-Host 'Trying manual extraction...';
-                          
-                          # Last resort: Use 7-Zip if available
-                          if (Get-Command '7z' -ErrorAction SilentlyContinue) {
-                              Write-Host 'Using 7-Zip to extract...';
-                              7z x 'deployment.zip' -o'C:\www\expressaid' -y;
-                          } else {
-                              Write-Host 'No unzip method available, exiting...';
-                              exit 1;
-                          }
+                          exit 1;
                       }
+                  }
+                  
+                  # Clean up temp directory
+                  if (Test-Path `$tempDir) {
+                      Remove-Item -Path `$tempDir -Recurse -Force;
                   }
                   
                   # Remove the zip file
                   Remove-Item -Path 'deployment.zip' -Force;
                   
                   # List contents to verify
-                  Write-Host 'Contents after unzipping:';
+                  Write-Host 'Final contents after unzipping:';
                   Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
                   
               } else {
@@ -178,16 +200,45 @@ jobs:
                   Write-Host 'npm ci failed, trying npm install...';
                   npm install --production;
               }
+              
+              # Verify PM2 is installed
+              Write-Host 'Checking PM2 installation...';
+              try {
+                  `$pm2Version = pm2 --version;
+                  Write-Host "PM2 version: `$pm2Version";
+              } catch {
+                  Write-Host 'PM2 not found, installing globally...';
+                  npm install -g pm2;
+              }
         
               if (!(Test-Path '.env')) {
                   Write-Host 'Creating .env file...';
                   Set-Content -Path '.env' -Value \"MONGODB_URI=`$env:MONGODB_URI`nDB_NAME=`$env:DB_NAME`nCOLLECTION_NAME=`$env:COLLECTION_NAME`nPORT=3000\";
               }
+              
+              # Verify server.js exists
+              if (!(Test-Path 'server.js')) {
+                  Write-Host 'ERROR: server.js not found!';
+                  Write-Host 'Available files:';
+                  Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
+                  exit 1;
+              }
         
               Write-Host 'Starting application with PM2...';
-              pm2 start server.js --name expressaid;
-              pm2 save;
-              pm2 startup;
+              try {
+                  pm2 stop expressaid 2>`$null;
+                  pm2 delete expressaid 2>`$null;
+                  pm2 start server.js --name expressaid;
+                  pm2 save;
+                  pm2 startup;
+                  Write-Host 'PM2 started successfully';
+              } catch {
+                  Write-Host 'PM2 start failed, trying alternative method...';
+                  Write-Host "Error: `$($_.Exception.Message)";
+                  # Try starting with full path
+                  pm2 start 'C:\www\expressaid\server.js' --name expressaid;
+                  pm2 save;
+              }
               
               Write-Host 'PM2 status:';
               pm2 status;
