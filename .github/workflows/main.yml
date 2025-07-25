@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.AZURE_VM_PASSWORD }}
           port: ${{ secrets.AZURE_VM_PORT }}
           source: "deployment.zip"
-          target: "./"
+          target: "C:/www/expressaid"
 
       - name: Deploy to Azure Windows VM
         uses: appleboy/ssh-action@v1.0.3
