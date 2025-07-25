@@ -91,11 +91,11 @@ jobs:
               `$env:COLLECTION_NAME='${{ secrets.COLLECTION_NAME }}';
               `$env:PORT='${{ secrets.PORT }}';
         
-              if (!(Test-Path 'C:\www\expressaid')) {
+              if (!(Test-Path 'C:\Users\expressaid')) {
                   New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force;
               }
         
-              Set-Location 'C:\www\expressaid';
+              Set-Location 'C:\Users\expressaid';
               
               Write-Host 'Current directory:' (Get-Location);
               Write-Host 'Files in current directory:';
@@ -119,10 +119,10 @@ jobs:
                   
                   # Clear existing files except deployment.zip
                   Write-Host 'Clearing existing files...';
-                  Get-ChildItem -Path 'C:\www\expressaid' -Exclude 'deployment.zip' | Remove-Item -Recurse -Force;
+                  Get-ChildItem -Path 'C:\Users\expressaid' -Exclude 'deployment.zip' | Remove-Item -Recurse -Force;
                   
                   # Create a temporary directory for extraction
-                  `$tempDir = 'C:\www\expressaid\temp_extract';
+                  `$tempDir = 'C:\Users\expressaid\temp_extract';
                   if (Test-Path `$tempDir) {
                       Remove-Item -Path `$tempDir -Recurse -Force;
                   }
@@ -142,7 +142,7 @@ jobs:
                       Write-Host 'Moving files to main directory...';
                       Get-ChildItem -Path `$tempDir | ForEach-Object {
                           Write-Host "Moving: `$($_.Name)";
-                          Move-Item -Path `$_.FullName -Destination 'C:\www\expressaid' -Force;
+                          Move-Item -Path `$_.FullName -Destination 'C:\Users\expressaid' -Force;
                       }
                       
                   } catch {
@@ -151,13 +151,13 @@ jobs:
                       # Fallback: Use .NET method
                       try {
                           Add-Type -AssemblyName System.IO.Compression.FileSystem;
-                          [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\www\expressaid\deployment.zip', `$tempDir);
+                          [System.IO.Compression.ZipFile]::ExtractToDirectory('C:\Users\expressaid\deployment.zip', `$tempDir);
                           Write-Host 'Successfully unzipped using .NET method';
                           
                           # Move files from temp to main directory
                           Get-ChildItem -Path `$tempDir | ForEach-Object {
                               Write-Host "Moving: `$($_.Name)";
-                              Move-Item -Path `$_.FullName -Destination 'C:\www\expressaid' -Force;
+                              Move-Item -Path `$_.FullName -Destination 'C:\Users\expressaid' -Force;
                           }
                           
                       } catch {
@@ -177,10 +177,10 @@ jobs:
                   
                   # List contents to verify
                   Write-Host 'Final contents after unzipping:';
-                  Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
+                  Get-ChildItem -Path 'C:\Users\expressaid' | ForEach-Object { Write-Host $_.Name };
                   
               } else {
-                  Write-Host 'Deployment package not found in C:\www\expressaid';
+                  Write-Host 'Deployment package not found in C:\Users\expressaid';
                   Write-Host 'Checking other locations...';
                   if (Test-Path '~\deployment.zip') {
                       Write-Host 'Found in home directory';
@@ -220,7 +220,7 @@ jobs:
               if (!(Test-Path 'server.js')) {
                   Write-Host 'ERROR: server.js not found!';
                   Write-Host 'Available files:';
-                  Get-ChildItem -Path 'C:\www\expressaid' | ForEach-Object { Write-Host $_.Name };
+                  Get-ChildItem -Path 'C:\Users\expressaid' | ForEach-Object { Write-Host $_.Name };
                   exit 1;
               }
         
@@ -236,7 +236,7 @@ jobs:
                   Write-Host 'PM2 start failed, trying alternative method...';
                   Write-Host "Error: `$($_.Exception.Message)";
                   # Try starting with full path
-                  pm2 start 'C:\www\expressaid\server.js' --name expressaid;
+                  pm2 start 'C:\Users\expressaid\server.js' --name expressaid;
                   pm2 save;
               }
               
