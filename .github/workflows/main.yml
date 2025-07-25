@@ -48,36 +48,60 @@ jobs:
             password: ${{ secrets.AZURE_VM_PASSWORD }}
             port: ${{ secrets.AZURE_VM_PORT }}
             script: |
-                cmd.exe /c ^
-                "powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-                \"$env:MONGODB_URI='${{ secrets.MONGODB_URI }}'; ^
-                $env:DB_NAME='${{ secrets.DB_NAME }}'; ^
-                $env:COLLECTION_NAME='${{ secrets.COLLECTION_NAME }}'; ^
-                $env:PORT='${{ secrets.PORT }}'; ^
-                
-                if (!(Test-Path 'C:\www\expressaid')) { New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force }; ^
-                Set-Location 'C:\www\expressaid'; ^
-                pm2 stop expressaid 2>$null; ^
-                pm2 delete expressaid 2>$null; ^
-
-                if (Test-Path 'deployment.zip') { ^
-                Expand-Archive -Path 'deployment.zip' -DestinationPath 'temp' -Force; ^
-                Move-Item -Path 'temp\\deployment\\*' -Destination 'C:\www\expressaid' -Force; ^
-                Remove-Item -Path 'temp' -Recurse -Force; ^
-                Remove-Item -Path 'deployment.zip' -Force; ^
-                } else { Write-Host 'Deployment package not found'; exit 1 }; ^
-
-                npm ci --production; ^
-
-                if (!(Test-Path '.env')) { ^
-                Write-Host 'Creating .env file...'; ^
-                Set-Content -Path '.env' -Value \\\"MONGODB_URI=$env:MONGODB_URI`nDB_NAME=$env:DB_NAME`nCOLLECTION_NAME=$env:COLLECTION_NAME`nPORT=3000\\\"; ^
-                }; ^
-
-                pm2 start server.js --name expressaid; ^
-                pm2 save; ^
-                pm2 startup ^
-                \""
+              powershell -Command "
+              `$env:MONGODB_URI='${{ secrets.MONGODB_URI }}';
+              `$env:DB_NAME='${{ secrets.DB_NAME }}';
+              `$env:COLLECTION_NAME='${{ secrets.COLLECTION_NAME }}';
+              `$env:PORT='${{ secrets.PORT }}';
+        
+              if (!(Test-Path 'C:\www\expressaid')) {
+                  New-Item -ItemType Directory -Path 'C:\www\expressaid' -Force;
+              }
+        
+              Set-Location 'C:\www\expressaid';
+        
+              pm2 stop expressaid 2>`$null;
+              pm2 delete expressaid 2>`$null;
+        
+              if (Test-Path 'deployment.zip') {
+                  Write-Host 'Unzipping deployment.zip...';
+        
+                  # Use COM object to unzip for maximum compatibility
+                  `$shell = New-Object -ComObject shell.application;
+                  `$zip = `$shell.NameSpace('C:\www\expressaid\deployment.zip');
+                  `$destination = 'C:\www\expressaid\temp';
+                  if (!(Test-Path `$destination)) {
+                      New-Item -ItemType Directory -Path `$destination -Force;
+                  }
+                  `$shell.NameSpace(`$destination).CopyHere(`$zip.Items(), 16);
+                  Start-Sleep -Seconds 5;
+        
+                  # Move files from nested deployment/ if exists
+                  if (Test-Path 'temp\deployment') {
+                      Move-Item -Path 'temp\deployment\*' -Destination 'C:\www\expressaid' -Force;
+                  } else {
+                      Move-Item -Path 'temp\*' -Destination 'C:\www\expressaid' -Force;
+                  }
+        
+                  Remove-Item -Path 'temp' -Recurse -Force;
+                  Remove-Item -Path 'deployment.zip' -Force;
+              } else {
+                  Write-Host 'Deployment package not found';
+                  exit 1;
+              }
+        
+              npm ci --production;
+        
+              if (!(Test-Path '.env')) {
+                  Write-Host 'Creating .env file...';
+                  Set-Content -Path '.env' -Value \"MONGODB_URI=`$env:MONGODB_URI`nDB_NAME=`$env:DB_NAME`nCOLLECTION_NAME=`$env:COLLECTION_NAME`nPORT=3000\";
+              }
+        
+              pm2 start server.js --name expressaid;
+              pm2 save;
+              pm2 startup;
+              "
+        
 
       - name: Cleanup local build artifacts
         run: |
