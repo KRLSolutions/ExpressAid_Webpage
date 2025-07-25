@@ -71,7 +71,54 @@ app.use((req, res, next) => {
 
 // API Routes
 
-// Delete User
+// Delete User by name and phoneNumber (new endpoint for delete form)
+// This MUST come before the /:id route to avoid conflicts
+app.delete('/api/users/delete', async (req, res) => {
+    try {
+        const { name, phoneNumber } = req.body;
+        
+        console.log('🔍 Delete request received:', { name, phoneNumber });
+        
+        // Validate required fields
+        if (!name || !phoneNumber) {
+            return res.status(400).json({ error: 'Name and phone number are required' });
+        }
+        
+        // First, let's search for the user to see what's in the database
+        const user = await db.collection(COLLECTION_NAME).findOne({ 
+            name: name,
+            phoneNumber: phoneNumber
+        });
+        
+        console.log('🔍 User found in database:', user);
+        
+        if (!user) {
+            // Let's also try to find any users with similar data to debug
+            const allUsers = await db.collection(COLLECTION_NAME).find({}).toArray();
+            console.log('🔍 All users in database:', allUsers.map(u => ({ name: u.name, phoneNumber: u.phoneNumber })));
+            
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        // Find and delete user by name and phoneNumber
+        const result = await db.collection(COLLECTION_NAME).deleteOne({ 
+            name: name,
+            phoneNumber: phoneNumber
+        });
+        
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        res.json({ message: 'User deleted successfully' });
+        
+    } catch (error) {
+        console.error('Delete user error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Delete User by ID (legacy endpoint)
 app.delete('/api/users/:id', async (req, res) => {
     try {
         const userId = req.params.id;

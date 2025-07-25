@@ -167,15 +167,19 @@
             }
             
             try {
+                const requestBody = {
+                    name: userName,
+                    phoneNumber: userPhone
+                };
+                
+                console.log('📤 Sending delete request with data:', requestBody);
+                
                 const response = await fetch('/api/users/delete', {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        name: userName,
-                        phone: userPhone
-                    })
+                    body: JSON.stringify(requestBody)
                 });
                 
                 const data = await response.json();
