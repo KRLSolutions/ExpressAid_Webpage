@@ -1,35 +1,41 @@
 {
-  "name": "expressaid-webpage",
+  "name": "expressaid-nextjs",
   "version": "1.0.0",
-  "description": "ExpressAid Healthcare Services Website",
-  "main": "server.js",
+  "description": "ExpressAid Healthcare Services Website - Next.js Version",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "pm2:start": "pm2 start server.js --name expressaid",
-    "pm2:stop": "pm2 stop expressaid",
-    "pm2:restart": "pm2 restart expressaid",
-    "pm2:delete": "pm2 delete expressaid",
-    "pm2:logs": "pm2 logs expressaid",
-    "pm2:status": "pm2 status"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "mongodb": "^6.17.0",
+    "dotenv": "^17.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0",
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
   },
   "keywords": [
     "healthcare",
     "expressaid",
-    "website"
+    "nextjs",
+    "react"
   ],
   "author": "ExpressAid Team",
   "license": "MIT",
-  "dependencies": {
-    "dotenv": "^17.2.0",
-    "express": "^4.18.2",
-    "mongodb": "^6.17.0",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }

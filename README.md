@@ -1,149 +1,211 @@
-# ExpressAid - On-Demand Nursing Care
+# ExpressAid - Next.js Version
 
-A modern, responsive website for ExpressAid, an on-demand nursing care service. Built with HTML, CSS, and JavaScript, featuring a beautiful UI with smooth animations and professional design.
+This is the Next.js conversion of the ExpressAid healthcare services website. The original Express.js application has been completely converted to use Next.js 14 with React, TypeScript, and Tailwind CSS.
 
-## 🚀 Quick Deploy to Azure Static Web Apps
+## 🚀 Features
 
-### Option 1: One-Click Deploy (Recommended)
-1. **Push your code to GitHub**
-2. **Click the button below to deploy directly to Azure:**
-
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.StaticWebApp)
-
-3. **Fill in the details:**
-   - Resource Group: Create new or use existing
-   - Name: `expressaid-webapp`
-   - Region: Choose closest to your users
-   - Source: GitHub
-   - Repository: Select your repository
-   - Branch: `main`
-   - Build Preset: Custom
-   - App location: `/`
-   - Skip app build: Yes
-
-### Option 2: Automated Script
-Run the deployment script:
-```powershell
-# PowerShell
-.\deploy.ps1
-
-# Or Command Prompt
-deploy.bat
-```
-
-### Option 3: Manual Azure CLI
-```bash
-# Login to Azure
-az login
-
-# Create resource group
-az group create --name expressaid-rg --location eastus
-
-# Deploy to Static Web App
-az staticwebapp create \
-  --name expressaid-webapp \
-  --resource-group expressaid-rg \
-  --source https://github.com/YOUR_USERNAME/YOUR_REPO \
-  --branch main \
-  --app-location "/" \
-  --skip-app-build true
-```
+- **Modern React Architecture**: Built with Next.js 14 and React 18
+- **TypeScript**: Full type safety throughout the application
+- **Tailwind CSS**: Modern, utility-first CSS framework
+- **Responsive Design**: Mobile-first responsive design
+- **Component-Based**: Modular, reusable components
+- **API Routes**: Server-side API endpoints for backend functionality
+- **SEO Optimized**: Built-in SEO features with Next.js
+- **Performance**: Optimized for speed and user experience
 
 ## 📁 Project Structure
 
 ```
 ExpressAid_Webpage/
-├── index.html          # Main webpage
-├── styles.css          # Custom styles
-├── assets/             # Images and media files
-│   ├── nurse-hero.jpg
-│   ├── nurse.webp
-│   └── ...
-├── staticwebapp.config.json  # Azure routing config
-├── deploy.ps1          # PowerShell deployment script
-├── deploy.bat          # Batch deployment script
-└── DEPLOYMENT.md       # Detailed deployment guide
+├── app/                          # Next.js app directory
+│   ├── layout.tsx               # Root layout component
+│   ├── page.tsx                 # Home page
+│   ├── globals.css              # Global styles
+│   ├── about-us/
+│   │   └── page.tsx            # About Us page
+│   ├── terms-and-conditions/
+│   │   └── page.tsx            # Terms & Conditions page
+│   ├── privacy-policy/
+│   │   └── page.tsx            # Privacy Policy page
+│   └── api/                     # API routes
+│       └── users/
+│           └── delete/
+│               └── route.ts     # Delete user API
+├── components/                   # React components
+│   ├── Navigation.tsx
+│   ├── HeroSection.tsx
+│   ├── StatsSection.tsx
+│   ├── FeaturesSection.tsx
+│   ├── HowItWorksSection.tsx
+│   ├── TestimonialsSection.tsx
+│   ├── ApplicationSection.tsx
+│   ├── FAQSection.tsx
+│   ├── CTASection.tsx
+│   ├── Footer.tsx
+│   └── ScrollToTop.tsx
+├── assets/                       # Static assets (images, icons)
+├── package.json                  # Dependencies and scripts
+├── next.config.js               # Next.js configuration
+├── tailwind.config.js           # Tailwind CSS configuration
+├── tsconfig.json                # TypeScript configuration
+└── README.md                    # This file
 ```
-
-## 🎨 Features
-
-- **Responsive Design**: Works perfectly on all devices
-- **Modern UI**: Clean, professional medical theme
-- **Smooth Animations**: CSS animations and transitions
-- **Contact Form**: EmailJS integration for contact functionality
-- **SEO Optimized**: Proper meta tags and structure
-- **Fast Loading**: Optimized images and code
 
 ## 🛠️ Technologies Used
 
-- **HTML5**: Semantic markup
-- **CSS3**: Modern styling with animations
-- **JavaScript**: Interactive functionality
+- **Next.js 14**: React framework with app router
+- **React 18**: Latest React with hooks and modern features
+- **TypeScript**: Type-safe JavaScript
 - **Tailwind CSS**: Utility-first CSS framework
+- **MongoDB**: Database for user management
 - **Font Awesome**: Icons
-- **EmailJS**: Contact form functionality
+- **EmailJS**: Email functionality
 
-## 🌐 Deployment Options
+## 🚀 Getting Started
 
-### Azure Static Web Apps (Recommended)
-- **Free tier available**
-- **Global CDN**
-- **Automatic HTTPS**
-- **Built-in security**
+### Prerequisites
 
-### Other Options
-- **Netlify**: Drag and drop deployment
-- **Vercel**: Git-based deployment
-- **GitHub Pages**: Free hosting for public repos
-- **Firebase Hosting**: Google's hosting solution
+- Node.js 18+ 
+- npm or yarn
+- MongoDB database (for backend functionality)
 
-## 📱 Features
+### Installation
 
-- **Hero Section**: Eye-catching landing area
-- **Features**: Service highlights
-- **How It Works**: Process explanation
-- **Testimonials**: Customer reviews
-- **Nurse Application**: Recruitment section
-- **Contact Form**: Lead generation
-- **Mobile Responsive**: Perfect on all devices
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd ExpressAid_Webpage
+   ```
 
-## 🔧 Customization
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### Colors
-The primary color scheme uses blue tones. To change:
-1. Edit `styles.css`
-2. Update CSS custom properties
-3. Modify Tailwind classes in `index.html`
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory:
+   ```env
+   MONGODB_URI=your_mongodb_connection_string
+   DB_NAME=your_database_name
+   COLLECTION_NAME=your_collection_name
+   ```
 
-### Content
-- Update text in `index.html`
-- Replace images in `assets/` folder
-- Modify contact form settings
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-### Styling
-- Custom CSS in `styles.css`
-- Tailwind utilities in HTML
-- Responsive breakpoints included
+5. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 🚀 Performance
+## 📦 Available Scripts
 
-- **Optimized Images**: WebP and compressed formats
-- **Minified CSS**: Production-ready styles
-- **Lazy Loading**: Images load on demand
-- **CDN**: Global content delivery
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-## 📞 Support
+## 🔄 Conversion Summary
 
-For deployment issues:
-1. Check the `DEPLOYMENT.md` file
-2. Verify Azure CLI installation
-3. Ensure GitHub repository is public
-4. Check Azure subscription status
+### What Was Converted
+
+1. **Express.js Server → Next.js API Routes**
+   - Server-side logic moved to `/app/api/` routes
+   - MongoDB integration maintained
+   - User deletion functionality preserved
+
+2. **Static HTML → React Components**
+   - All HTML pages converted to React components
+   - Modular component architecture
+   - Reusable components for better maintainability
+
+3. **CSS → Tailwind CSS**
+   - Custom CSS converted to Tailwind utility classes
+   - Responsive design maintained
+   - Animations and hover effects preserved
+
+4. **Routing → Next.js App Router**
+   - Express routes converted to Next.js pages
+   - Dynamic routing capabilities
+   - SEO optimization built-in
+
+### Key Improvements
+
+- **Performance**: Next.js provides automatic code splitting and optimization
+- **SEO**: Built-in SEO features with metadata API
+- **Type Safety**: Full TypeScript support
+- **Developer Experience**: Hot reloading, better debugging
+- **Scalability**: Component-based architecture for easier maintenance
+
+## 🎨 Design Features
+
+- **Responsive Design**: Mobile-first approach
+- **Modern UI**: Clean, professional healthcare design
+- **Animations**: Smooth scroll animations and hover effects
+- **Accessibility**: WCAG compliant components
+- **Performance**: Optimized images and lazy loading
+
+## 🔧 Configuration
+
+### Next.js Configuration
+The `next.config.js` file includes:
+- Image optimization settings
+- Environment variable configuration
+- Experimental features for app router
+
+### Tailwind Configuration
+The `tailwind.config.js` includes:
+- Custom color palette
+- Custom animations
+- Responsive breakpoints
+- Font configuration
+
+## 📱 Pages
+
+1. **Home Page** (`/`) - Main landing page with all sections
+2. **About Us** (`/about-us`) - Company information and mission
+3. **Terms & Conditions** (`/terms-and-conditions`) - Legal terms
+4. **Privacy Policy** (`/privacy-policy`) - Privacy information
+
+## 🔌 API Endpoints
+
+- `DELETE /api/users/delete` - Delete user by name and phone number
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+### Other Platforms
+- **Netlify**: Compatible with Next.js
+- **AWS Amplify**: Full support for Next.js
+- **Docker**: Containerized deployment
+
+## 🔒 Environment Variables
+
+Required environment variables:
+- `MONGODB_URI`: MongoDB connection string
+- `DB_NAME`: Database name
+- `COLLECTION_NAME`: Collection name for users
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## 📄 License
 
-This project is for ExpressAid. All rights reserved.
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support, email support@expressaid.com or create an issue in the repository.
 
 ---
 
-**Deploy your ExpressAid website in minutes with Azure Static Web Apps!** 🚀
+**Note**: This is a complete conversion from Express.js to Next.js. All functionality from the original application has been preserved while modernizing the technology stack and improving performance, maintainability, and developer experience.
