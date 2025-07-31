@@ -40,7 +40,7 @@ export default function HomePage() {
       <HowItWorksSection />
       <TestimonialsSection />
       <ApplicationSection />
-      <DeleteSection />
+      {/* <DeleteSection /> */}
       <FAQSection />
       <CTASection />
       <Footer />
