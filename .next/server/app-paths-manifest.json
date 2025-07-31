@@ -1,6 +1,6 @@
 {
   "/page": "app/page.js",
-  "/terms-and-conditions/page": "app/terms-and-conditions/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js",
   "/about-us/page": "app/about-us/page.js",
-  "/privacy-policy/page": "app/privacy-policy/page.js"
+  "/terms-and-conditions/page": "app/terms-and-conditions/page.js"
 }
