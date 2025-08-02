@@ -45,7 +45,8 @@ export default function FeedbackDisplay() {
   const handleDelete = (id: string) => {
     // Check if admin mode is enabled via URL parameter
     const urlParams = new URLSearchParams(window.location.search)
-    const isAdmin = urlParams.get('admin') === 'krls'
+    const adminSecret = process.env.NEXT_PUBLIC_ADMIN_SECRET 
+    const isAdmin = urlParams.get('admin') === adminSecret
     
     if (isAdmin) {
       if (confirm('Are you sure you want to delete this feedback?')) {
