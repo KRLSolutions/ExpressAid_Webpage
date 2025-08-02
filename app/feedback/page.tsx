@@ -14,6 +14,8 @@ export default function FeedbackPage() {
     description: '',
     priority: 'medium' as const
   })
+  const [selectedImages, setSelectedImages] = useState<File[]>([])
+  const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
@@ -25,14 +27,46 @@ export default function FeedbackPage() {
     }))
   }
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    const validFiles = files.filter(file => file.type.startsWith('image/'))
+    
+    if (validFiles.length + selectedImages.length > 3) {
+      alert('Maximum 3 images allowed')
+      return
+    }
+
+    setSelectedImages(prev => [...prev, ...validFiles])
+
+    // Create preview URLs
+    validFiles.forEach(file => {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setImagePreviewUrls(prev => [...prev, e.target?.result as string])
+      }
+      reader.readAsDataURL(file)
+    })
+  }
+
+  const removeImage = (index: number) => {
+    setSelectedImages(prev => prev.filter((_, i) => i !== index))
+    setImagePreviewUrls(prev => prev.filter((_, i) => i !== index))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus('idle')
 
     try {
-      // Save to localStorage
-      saveFeedback(formData)
+      // Convert images to data URLs for storage
+      const imageUrls = imagePreviewUrls
+      
+      // Save to localStorage with images
+      saveFeedback({
+        ...formData,
+        images: imageUrls
+      })
       
       // Also send to API (for future server-side storage)
       const response = await fetch('/api/feedback', {
@@ -40,7 +74,10 @@ export default function FeedbackPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          images: imageUrls
+        }),
       })
 
       if (response.ok) {
@@ -52,6 +89,8 @@ export default function FeedbackPage() {
           description: '',
           priority: 'medium'
         })
+        setSelectedImages([])
+        setImagePreviewUrls([])
         
         // Trigger a storage event to update the display
         window.dispatchEvent(new Event('storage'))
@@ -183,6 +222,45 @@ export default function FeedbackPage() {
                 />
               </div>
 
+              {/* Image Upload Section */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Attach Images (Optional)
+                </label>
+                <div className="space-y-3">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                  <p className="text-xs text-gray-500">Maximum 3 images. Supported formats: JPG, PNG, GIF</p>
+                  
+                  {/* Image Previews */}
+                  {imagePreviewUrls.length > 0 && (
+                    <div className="grid grid-cols-3 gap-2">
+                      {imagePreviewUrls.map((url, index) => (
+                        <div key={index} className="relative">
+                          <img
+                            src={url}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-20 object-cover rounded border"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeImage(index)}
+                            className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div className="flex justify-end">
                 <button
                   type="submit"
@@ -210,43 +288,7 @@ export default function FeedbackPage() {
             <FeedbackDisplay />
           </div>
         </div>
-
-        {/* Info Cards */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <FaBug className="text-red-500 text-3xl mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Bug Reports</h3>
-            <p className="text-gray-600">Help us identify and fix issues to improve your experience.</p>
-          </div>
-
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <FaLightbulb className="text-yellow-500 text-3xl mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Feature Requests</h3>
-            <p className="text-gray-600">Suggest new features that would make ExpressAid even better.</p>
-          </div>
-
-          <div className="text-center p-6 bg-white rounded-lg shadow-md">
-            <FaExclamationTriangle className="text-blue-500 text-3xl mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">General Feedback</h3>
-            <p className="text-gray-600">Share your thoughts and suggestions for improvement.</p>
-          </div>
-        </div>
       </div>
-
-      {/* Back to Home Button - Lower Part */}
-      <div className="text-center py-8">
-        <a 
-          href="/" 
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors bg-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Back to Home
-        </a>
-      </div>
-
-      <Footer />
     </div>
   )
 } 

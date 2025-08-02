@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, type, subject, description, priority } = body
+    const { name, type, subject, description, priority, images } = body
 
     // Validate required fields
     if (!name || !type || !subject || !description) {
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
       subject,
       description,
       priority,
+      images: images || [],
       timestamp: new Date().toISOString(),
       status: 'new'
     }

@@ -8,6 +8,11 @@ export default function FeedbackDisplay() {
   const [feedback, setFeedback] = useState<Feedback[]>([])
   const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null)
   const [filter, setFilter] = useState<'all' | 'new' | 'in-progress' | 'resolved'>('all')
+  const [imageModal, setImageModal] = useState<{ isOpen: boolean; imageUrl: string; imageIndex: number }>({
+    isOpen: false,
+    imageUrl: '',
+    imageIndex: 0
+  })
 
   useEffect(() => {
     loadFeedback()
@@ -205,16 +210,39 @@ export default function FeedbackDisplay() {
             </button>
           </div>
           
-          <div className="space-y-3">
-            <div>
-              <label className="text-xs font-medium text-gray-500">Subject</label>
-              <p className="text-sm text-gray-900">{selectedFeedback.subject}</p>
-            </div>
-            
-            <div>
-              <label className="text-xs font-medium text-gray-500">Description</label>
-              <p className="text-sm text-gray-900 whitespace-pre-wrap">{selectedFeedback.description}</p>
-            </div>
+                      <div className="space-y-3">
+              <div>
+                <label className="text-xs font-medium text-gray-500">Subject</label>
+                <p className="text-sm text-gray-900">{selectedFeedback.subject}</p>
+              </div>
+              
+              <div>
+                <label className="text-xs font-medium text-gray-500">Description</label>
+                <p className="text-sm text-gray-900 whitespace-pre-wrap">{selectedFeedback.description}</p>
+              </div>
+
+              {/* Images Section */}
+              {selectedFeedback.images && selectedFeedback.images.length > 0 && (
+                <div>
+                  <label className="text-xs font-medium text-gray-500">Attached Images</label>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    {selectedFeedback.images.map((imageUrl, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={imageUrl}
+                          alt={`Feedback image ${index + 1}`}
+                          className="w-full h-24 object-cover rounded border cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => setImageModal({
+                            isOpen: true,
+                            imageUrl,
+                            imageIndex: index
+                          })}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -256,6 +284,25 @@ export default function FeedbackDisplay() {
                 Delete
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {imageModal.isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl max-h-full">
+            <button
+              onClick={() => setImageModal({ isOpen: false, imageUrl: '', imageIndex: 0 })}
+              className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300 z-10"
+            >
+              ×
+            </button>
+            <img
+              src={imageModal.imageUrl}
+              alt={`Feedback Image ${imageModal.imageIndex + 1}`}
+              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+            />
           </div>
         </div>
       )}

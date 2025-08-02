@@ -7,6 +7,7 @@ export interface Feedback {
   priority: 'low' | 'medium' | 'high' | 'critical'
   timestamp: string
   status: 'new' | 'in-progress' | 'resolved'
+  images?: string[] // Array of image URLs/data URLs
 }
 
 export const saveFeedback = (feedback: Omit<Feedback, 'id' | 'timestamp' | 'status'>): Feedback => {

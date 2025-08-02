@@ -589,6 +589,12 @@ video {
 .inset-0 {
   inset: 0px;
 }
+.-right-1 {
+  right: -0.25rem;
+}
+.-top-1 {
+  top: -0.25rem;
+}
 .bottom-6 {
   bottom: 1.5rem;
 }
@@ -612,6 +618,9 @@ video {
 }
 .top-1\/2 {
   top: 50%;
+}
+.-top-10 {
+  top: -2.5rem;
 }
 .z-0 {
   z-index: 0;
@@ -731,6 +740,12 @@ video {
 .h-16 {
   height: 4rem;
 }
+.h-20 {
+  height: 5rem;
+}
+.h-24 {
+  height: 6rem;
+}
 .h-4 {
   height: 1rem;
 }
@@ -748,6 +763,12 @@ video {
 }
 .h-full {
   height: 100%;
+}
+.max-h-\[90vh\] {
+  max-height: 90vh;
+}
+.max-h-full {
+  max-height: 100%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -843,6 +864,9 @@ video {
 }
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -1073,6 +1097,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
 }
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
@@ -1091,6 +1119,9 @@ video {
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
 }
 .bg-\[url\(\'\/about\.jpg\'\)\] {
   background-image: url('/about.jpg');
@@ -1117,6 +1148,14 @@ video {
 }
 .bg-center {
   background-position: center;
+}
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-4 {
   padding: 1rem;
@@ -1174,6 +1213,30 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+.py-32 {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 .pb-3 {
   padding-bottom: 0.75rem;
@@ -2386,6 +2449,11 @@ input:focus, select:focus, textarea:focus {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-red-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
@@ -2424,6 +2492,15 @@ input:focus, select:focus, textarea:focus {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-gray-300:hover {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+
+.hover\:opacity-80:hover {
+  opacity: 0.8;
 }
 
 .hover\:shadow-lg:hover {
