@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { FaBug, FaTimes, FaComments, FaLightbulb, FaExclamationTriangle } from 'react-icons/fa'
-import { saveFeedback } from '@/utils/feedbackStorage'
+
 
 interface FeedbackSidebarProps {
   isOpen: boolean
@@ -35,10 +35,7 @@ export default function FeedbackSidebar({ isOpen, onClose }: FeedbackSidebarProp
     setSubmitStatus('idle')
 
     try {
-      // Save to localStorage
-      saveFeedback(formData)
-      
-      // Also send to API (for future server-side storage)
+      // Send to API for database storage
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
@@ -57,9 +54,6 @@ export default function FeedbackSidebar({ isOpen, onClose }: FeedbackSidebarProp
           description: '',
           priority: 'medium'
         })
-        
-        // Trigger a storage event to update any displays
-        window.dispatchEvent(new Event('storage'))
         
         // Auto-close after 2 seconds on success
         setTimeout(() => {

@@ -1,5 +1,6 @@
 {
-  "/page": "app/page.js",
   "/feedback/page": "app/feedback/page.js",
+  "/delete/page": "app/delete/page.js",
+  "/page": "app/page.js",
   "/api/feedback/route": "app/api/feedback/route.js"
 }

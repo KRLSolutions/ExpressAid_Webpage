@@ -1,8 +1,19 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Feedback, getFeedback, updateFeedbackStatus, deleteFeedback } from '@/utils/feedbackStorage'
 import { FaBug, FaLightbulb, FaExclamationTriangle, FaComments, FaCheck, FaClock, FaTrash, FaEye } from 'react-icons/fa'
+
+interface Feedback {
+  id: string
+  name: string
+  type: 'bug' | 'feature' | 'improvement' | 'general'
+  subject: string
+  description: string
+  priority: 'low' | 'medium' | 'high' | 'critical'
+  timestamp: string
+  status: 'new' | 'in-progress' | 'resolved'
+  images?: string[]
+}
 
 export default function FeedbackDisplay() {
   const [feedback, setFeedback] = useState<Feedback[]>([])
@@ -16,38 +27,54 @@ export default function FeedbackDisplay() {
 
   useEffect(() => {
     loadFeedback()
-    // Listen for storage changes (when new feedback is added)
-    const handleStorageChange = () => loadFeedback()
-    // Listen for custom feedback update events
-    const handleFeedbackUpdate = () => loadFeedback()
+    // Set up polling to refresh feedback every 30 seconds
+    const interval = setInterval(loadFeedback, 30000)
     
-    window.addEventListener('storage', handleStorageChange)
-    window.addEventListener('feedbackUpdated', handleFeedbackUpdate)
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('feedbackUpdated', handleFeedbackUpdate)
-    }
+    return () => clearInterval(interval)
   }, [])
 
-  const loadFeedback = () => {
-    const storedFeedback = getFeedback()
-    setFeedback(storedFeedback)
-  }
-
-  const handleStatusUpdate = (id: string, status: Feedback['status']) => {
-    updateFeedbackStatus(id, status)
-    loadFeedback()
-    // Force re-render by updating the selected feedback if it's the one being updated
-    if (selectedFeedback && selectedFeedback.id === id) {
-      const updatedFeedback = feedback.find(f => f.id === id)
-      if (updatedFeedback) {
-        setSelectedFeedback({ ...updatedFeedback, status })
+  const loadFeedback = async () => {
+    try {
+      const response = await fetch('/api/feedback')
+      if (response.ok) {
+        const data = await response.json()
+        setFeedback(data)
+      } else {
+        console.error('Failed to load feedback')
       }
+    } catch (error) {
+      console.error('Error loading feedback:', error)
     }
   }
 
-  const handleDelete = (id: string) => {
+  const handleStatusUpdate = async (id: string, status: Feedback['status']) => {
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, status })
+      })
+      
+      if (response.ok) {
+        loadFeedback()
+        // Force re-render by updating the selected feedback if it's the one being updated
+        if (selectedFeedback && selectedFeedback.id === id) {
+          const updatedFeedback = feedback.find(f => f.id === id)
+          if (updatedFeedback) {
+            setSelectedFeedback({ ...updatedFeedback, status })
+          }
+        }
+      } else {
+        console.error('Failed to update feedback status')
+      }
+    } catch (error) {
+      console.error('Error updating feedback status:', error)
+    }
+  }
+
+  const handleDelete = async (id: string) => {
     // Check if admin mode is enabled via URL parameter
     const urlParams = new URLSearchParams(window.location.search)
     const adminSecret = process.env.NEXT_PUBLIC_ADMIN_SECRET 
@@ -55,10 +82,21 @@ export default function FeedbackDisplay() {
     
     if (isAdmin) {
       if (confirm('Are you sure you want to delete this feedback?')) {
-        deleteFeedback(id)
-        loadFeedback()
-        if (selectedFeedback?.id === id) {
-          setSelectedFeedback(null)
+        try {
+          const response = await fetch(`/api/feedback?id=${id}`, {
+            method: 'DELETE'
+          })
+          
+          if (response.ok) {
+            loadFeedback()
+            if (selectedFeedback?.id === id) {
+              setSelectedFeedback(null)
+            }
+          } else {
+            console.error('Failed to delete feedback')
+          }
+        } catch (error) {
+          console.error('Error deleting feedback:', error)
         }
       }
     } else {

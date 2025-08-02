@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Footer from '@/components/Footer'
 import FeedbackDisplay from '@/components/FeedbackDisplay'
-import { saveFeedback } from '@/utils/feedbackStorage'
+
 import { FaBug, FaLightbulb, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa'
 
 export default function FeedbackPage() {
@@ -62,13 +62,7 @@ export default function FeedbackPage() {
       // Convert images to data URLs for storage
       const imageUrls = imagePreviewUrls
       
-      // Save to localStorage with images
-      saveFeedback({
-        ...formData,
-        images: imageUrls
-      })
-      
-      // Also send to API (for future server-side storage)
+      // Send to API for database storage
       const response = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
@@ -92,8 +86,10 @@ export default function FeedbackPage() {
         setSelectedImages([])
         setImagePreviewUrls([])
         
-        // Trigger a storage event to update the display
-        window.dispatchEvent(new Event('storage'))
+        // Refresh the feedback display
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       } else {
         setSubmitStatus('error')
       }
