@@ -1,9 +1,34 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 export default function TestimonialsSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const fadeElements = sectionRef.current?.querySelectorAll('.fade-in')
+    fadeElements?.forEach((el) => observer.observe(el))
+
+    return () => {
+      fadeElements?.forEach((el) => observer.unobserve(el))
+    }
+  }, [])
+
   const testimonials = [
     {
       name: 'Amulya K.',
@@ -26,7 +51,7 @@ export default function TestimonialsSection() {
   ]
 
   return (
-    <section id="testimonials" className="testimonials-section py-20 bg-white">
+    <section ref={sectionRef} id="testimonials" className="testimonials-section py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Patients Say</h2>
