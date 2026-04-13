@@ -1,3 +1,13 @@
 {
-  "/page": "app/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about-us/page": "app/about-us/page.js",
+  "/api/application/route": "app/api/application/route.js",
+  "/api/feedback/route": "app/api/feedback/route.js",
+  "/api/test-db/route": "app/api/test-db/route.js",
+  "/delete/page": "app/delete/page.js",
+  "/feedback/page": "app/feedback/page.js",
+  "/page": "app/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js",
+  "/terms-and-conditions/page": "app/terms-and-conditions/page.js",
+  "/api/users/delete/route": "app/api/users/delete/route.js"
 }

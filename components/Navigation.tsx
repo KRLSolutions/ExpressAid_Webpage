@@ -32,10 +32,10 @@ export default function Navigation() {
             </div>
           </div>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Features</a>
+            <a href="#services" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Services</a>
             <a href="#how-it-works" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">How It Works</a>
-            <a href="#testimonials" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Testimonials</a>
-            <a href="#apply" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">For Nurses</a>
+            <a href="#pricing" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Pricing</a>
+            <a href="#locations" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Locations</a>
             <Link href="/terms-and-conditions" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Terms & Conditions</Link>
             <Link href="/privacy-policy" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Privacy Policy</Link>
             <Link href="/about-us" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">About Us</Link>
@@ -55,10 +55,10 @@ export default function Navigation() {
       {/* Mobile menu */}
       <div id="mobile-menu" className={`mobile-menu md:hidden bg-white shadow-lg ${isMobileMenuOpen ? 'show' : ''}`}>
         <div className="px-2 pt-2 pb-3 sm:px-3">
-          <a href="#features" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Features</a>
+          <a href="#services" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Services</a>
           <a href="#how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>How It Works</a>
-          <a href="#testimonials" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Testimonials</a>
-          <a href="#apply" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>For Nurses</a>
+          <a href="#pricing" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Pricing</a>
+          <a href="#locations" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Locations</a>
           <Link href="/terms-and-conditions" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Terms & Conditions</Link>
           <Link href="/privacy-policy" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Privacy Policy</Link>
           <Link href="/about-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>About Us</Link>
