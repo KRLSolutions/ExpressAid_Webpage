@@ -16,52 +16,57 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <Image 
-                src="/logo.png" 
-                alt="ExpressAid Logo" 
-                width={60} 
-                height={40}
-                className="w-15 h-10"
-              />
-              <span className="text-xl font-bold text-blue-500">ExpressAid</span>
-            </div>
+    <nav className="sticky top-0 z-50 border-b border-indigo-100/60 bg-white/85 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between rounded-2xl border border-indigo-100 bg-white px-3 py-2 shadow-[0_8px_30px_rgba(76,70,229,0.08)] md:px-5">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="ExpressAid Logo"
+              width={48}
+              height={32}
+              className="h-8 w-12 object-contain"
+            />
+            <span className="text-xl font-black tracking-tight text-blue-600">ExpressAid</span>
           </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Services</a>
-            <a href="#how-it-works" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">How It Works</a>
-            <a href="#pricing" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Pricing</a>
-            <a href="#locations" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Locations</a>
-            <Link href="/terms-and-conditions" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Terms & Conditions</Link>
-            <Link href="/privacy-policy" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">Privacy Policy</Link>
-            <Link href="/about-us" className="nav-link text-gray-600 hover:text-blue-500 transition duration-300">About Us</Link>
+
+          <div className="hidden items-center gap-7 md:flex">
+            <a href="#services" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Services</a>
+            <a href="#how-it-works" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">How It Works</a>
+            <a href="#pricing" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Pricing</a>
+            <a href="#locations" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Locations</a>
+            <Link href="/terms-and-conditions" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Terms</Link>
+            <Link href="/privacy-policy" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Privacy</Link>
+            <Link href="/about-us" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">About</Link>
           </div>
-          <div className="md:hidden flex items-center">
-            <button 
-              id="mobile-menu-button" 
-              className="text-gray-500 hover:text-gray-900 focus:outline-none"
+
+          <div className="md:hidden">
+            <button
+              id="mobile-menu-button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 transition hover:bg-slate-50"
               onClick={toggleMobileMenu}
+              aria-label="Toggle menu"
             >
               <i className="fas fa-bars text-xl"></i>
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Mobile menu */}
-      <div id="mobile-menu" className={`mobile-menu md:hidden bg-white shadow-lg ${isMobileMenuOpen ? 'show' : ''}`}>
-        <div className="px-2 pt-2 pb-3 sm:px-3">
-          <a href="#services" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Services</a>
-          <a href="#how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>How It Works</a>
-          <a href="#pricing" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Pricing</a>
-          <a href="#locations" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Locations</a>
-          <Link href="/terms-and-conditions" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Terms & Conditions</Link>
-          <Link href="/privacy-policy" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>Privacy Policy</Link>
-          <Link href="/about-us" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50" onClick={closeMobileMenu}>About Us</Link>
+
+      <div
+        id="mobile-menu"
+        className={`mx-4 overflow-hidden rounded-2xl border border-indigo-100 bg-white shadow-lg transition-all duration-300 sm:mx-6 lg:hidden ${
+          isMobileMenuOpen ? 'max-h-[420px] p-3 opacity-100' : 'max-h-0 p-0 opacity-0'
+        }`}
+      >
+        <div className="space-y-1">
+          <a href="#services" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Services</a>
+          <a href="#how-it-works" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>How It Works</a>
+          <a href="#pricing" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Pricing</a>
+          <a href="#locations" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Locations</a>
+          <Link href="/terms-and-conditions" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Terms & Conditions</Link>
+          <Link href="/privacy-policy" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Privacy Policy</Link>
+          <Link href="/about-us" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>About Us</Link>
         </div>
       </div>
     </nav>
