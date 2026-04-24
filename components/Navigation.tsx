@@ -38,6 +38,7 @@ export default function Navigation() {
             <Link href="/terms-and-conditions" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Terms</Link>
             <Link href="/privacy-policy" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Privacy</Link>
             <Link href="/about-us" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">About</Link>
+            <Link href="/support" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Support</Link>
           </div>
 
           <div className="md:hidden">
@@ -67,6 +68,7 @@ export default function Navigation() {
           <Link href="/terms-and-conditions" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Terms & Conditions</Link>
           <Link href="/privacy-policy" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Privacy Policy</Link>
           <Link href="/about-us" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>About Us</Link>
+          <Link href="/support" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Support</Link>
         </div>
       </div>
     </nav>

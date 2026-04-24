@@ -19,7 +19,7 @@ export default function Footer() {
               <li><a href="#how-it-works" className="text-gray-400 hover:text-white transition duration-300">How It Works</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition duration-300">Services</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition duration-300">Pricing</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white transition duration-300">FAQ</a></li>
+              <li><Link href="/support" className="text-gray-400 hover:text-white transition duration-300">FAQ &amp; Support</Link></li>
             </ul>
           </div>
           
