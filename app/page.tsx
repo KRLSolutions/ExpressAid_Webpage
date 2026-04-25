@@ -141,6 +141,24 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_55px_rgba(15,23,42,0.08)] md:p-6">
+            <div className="mb-5 flex items-end justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-teal-600">App Preview</p>
+                <h2 className="mt-1 text-2xl font-black text-slate-900 md:text-3xl">How ExpressAid works in one glance</h2>
+              </div>
+            </div>
+            <Image
+              src="/Mockup%20Design.png"
+              alt="ExpressAid app mockup flow"
+              width={1600}
+              height={500}
+              className="h-auto w-full rounded-2xl object-cover"
+            />
+          </div>
+        </section>
+
         <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-0 overflow-hidden rounded-[2rem] border border-slate-200 md:grid-cols-4">
             {[
