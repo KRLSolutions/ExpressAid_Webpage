@@ -25,6 +25,7 @@ export default function HomePage() {
   const [scrollY, setScrollY] = useState(0)
   const playStoreLink = '#'
   const appStoreLink = '#'
+  const phoneOffset = Math.min(scrollY * 0.09, 45)
 
   useEffect(() => {
     const onScroll = () => {
@@ -54,14 +55,12 @@ export default function HomePage() {
     return () => observer.disconnect()
   }, [])
 
-  const phoneOffset = Math.min(scrollY * 0.09, 45)
-
   return (
     <div className="bg-[#f4f5fb] font-sans text-gray-800 antialiased">
       <Navigation />
 
       <main className="pb-24">
-        <section className="px-4 pb-6 pt-8 sm:px-6 lg:px-8">
+        <section className="px-4 pb-4 pt-8 sm:px-6 lg:px-8">
           <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.25rem] bg-[#5953eb] text-white shadow-[0_35px_90px_rgba(59,44,199,0.35)]">
             <div className="pointer-events-none absolute inset-0 opacity-30">
               <div className="absolute -left-32 top-16 h-[1px] w-[160%] rotate-[8deg] bg-white/35" />
@@ -75,9 +74,9 @@ export default function HomePage() {
                   <p className="mb-4 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold">
                     <FaBolt className="mr-2 text-cyan-200" /> Available today in your area
                   </p>
-                  <h1 className="max-w-lg text-4xl font-black leading-[1.04] sm:text-5xl lg:text-[3.8rem]">
+                  <h2 className="max-w-lg text-4xl font-black leading-[1.04] sm:text-5xl lg:text-[3.2rem]">
                     Doctor &amp; Nurse care made simple
-                  </h1>
+                  </h2>
                   <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">
                     Get trusted healthcare at home fast. Book in the app,
                     track arrival, and get transparent pricing.
@@ -116,11 +115,9 @@ export default function HomePage() {
                         width={260}
                         height={510}
                         className="h-full w-full scale-[1.08] object-cover object-center"
-                        priority
                       />
                     </div>
                   </div>
-
                 </div>
 
                 <div className="fade-in rounded-2xl bg-[#a8f18f]/20 p-4 lg:pl-5" data-reveal>
@@ -210,7 +207,7 @@ export default function HomePage() {
               <h2 className="text-2xl font-black text-slate-900">Fast response promise</h2>
               <p className="mt-4 flex items-center text-slate-700">
                 <FaClock className="mr-2 text-indigo-600" />
-                Fast response within 20-30 minutes
+                Fast response within 10-15 minutes
               </p>
               <p className="mt-3 text-sm text-slate-500">Response time may vary by area and demand.</p>
             </div>
@@ -314,6 +311,19 @@ export default function HomePage() {
             <p className="relative z-10 mt-5 text-sm text-white/80">
               For emergencies, please visit nearest hospital.
             </p>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[2rem] border border-teal-100 bg-white p-3 shadow-[0_20px_60px_rgba(16,136,166,0.15)]">
+            <Image
+              src="/Featured%20Graphic.png"
+              alt="ExpressAid featured app graphic"
+              width={1024}
+              height={500}
+              className="h-auto w-full rounded-[1.4rem] object-cover"
+              priority
+            />
           </div>
         </section>
       </main>
