@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
+import Image from 'next/image'
 import {
   FaApple,
   FaBolt,
@@ -108,30 +109,15 @@ export default function HomePage() {
                 >
                   <div className="h-[510px] w-[260px] rounded-[2.7rem] border-[6px] border-black bg-black p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
                     <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-black" />
-                    <div className="h-full rounded-[2.15rem] bg-[#f7f8ff] p-3 text-[#1f2937]">
-                      <div className="rounded-2xl bg-white p-3 shadow-sm">
-                        <p className="text-xs text-slate-500">Welcome back</p>
-                        <p className="text-sm font-semibold">Keshav B.</p>
-                      </div>
-                      <div className="mt-3 grid grid-cols-2 gap-2">
-                        <div className="rounded-xl bg-[#a8f18f] p-3">
-                          <p className="text-[10px] text-slate-600">Doctor Consult</p>
-                          <p className="text-lg font-bold">₹300+</p>
-                        </div>
-                        <div className="rounded-xl bg-[#c8cbff] p-3">
-                          <p className="text-[10px] text-slate-600">Nurse Visit</p>
-                          <p className="text-lg font-bold">₹500+</p>
-                        </div>
-                      </div>
-                      <div className="mt-3 rounded-xl bg-white p-3 shadow-sm">
-                        <p className="text-xs text-slate-500">Live request</p>
-                        <p className="text-sm font-semibold">Nurse arriving in 24 min</p>
-                      </div>
-                      <div className="mt-3 grid grid-cols-3 gap-2">
-                        <div className="rounded-lg bg-white p-2 text-center text-xs font-medium shadow-sm">Book</div>
-                        <div className="rounded-lg bg-white p-2 text-center text-xs font-medium shadow-sm">Track</div>
-                        <div className="rounded-lg bg-white p-2 text-center text-xs font-medium shadow-sm">Support</div>
-                      </div>
+                    <div className="h-full overflow-hidden rounded-[2.15rem] bg-[#f7f8ff]">
+                      <Image
+                        src="/Screenshot1.png"
+                        alt="ExpressAid app screenshot"
+                        width={260}
+                        height={510}
+                        className="h-full w-full scale-[1.08] object-cover object-center"
+                        priority
+                      />
                     </div>
                   </div>
 
