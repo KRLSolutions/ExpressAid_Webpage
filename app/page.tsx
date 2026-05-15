@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
+import AppScrollStory from '@/components/AppScrollStory'
 import Image from 'next/image'
 import {
   FaApple,
@@ -141,23 +142,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_20px_55px_rgba(15,23,42,0.08)] md:p-6">
-            <div className="mb-5 flex items-end justify-between gap-3">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-teal-600">App Preview</p>
-                <h2 className="mt-1 text-2xl font-black text-slate-900 md:text-3xl">How ExpressAid works in one glance</h2>
-              </div>
-            </div>
-            <Image
-              src="/Mockup%20Design.png"
-              alt="ExpressAid app mockup flow"
-              width={1600}
-              height={500}
-              className="h-auto w-full rounded-2xl object-cover"
-            />
-          </div>
-        </section>
+        <AppScrollStory appStoreLink={appStoreLink} playStoreLink={playStoreLink} />
 
         <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-0 overflow-hidden rounded-[2rem] border border-slate-200 md:grid-cols-4">
@@ -197,25 +182,6 @@ export default function HomePage() {
                 <p className="mt-4 text-sm opacity-85">{card.desc}</p>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section id="how-it-works" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="rounded-[2rem] bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] md:p-10">
-            <h2 className="text-3xl font-black text-slate-900">How it works</h2>
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {[
-                { emoji: '📲', title: 'Book in app', text: 'Select service and confirm your location.' },
-                { emoji: '👩‍⚕️', title: 'Nurse arrives', text: 'Verified professional reaches your home.' },
-                { emoji: '🧑‍⚕️', title: 'Doctor support', text: 'Consultation arranged when needed.' }
-              ].map((item) => (
-                <div key={item.title} className="fade-in rounded-2xl border border-slate-100 bg-slate-50 p-6" data-reveal>
-                  <span className="text-2xl">{item.emoji}</span>
-                  <h3 className="mt-3 text-lg font-bold text-slate-900">{item.title}</h3>
-                  <p className="mt-2 text-slate-600">{item.text}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
