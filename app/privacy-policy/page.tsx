@@ -1,26 +1,19 @@
 'use client'
 
 import React from 'react'
-import Navigation from '@/app/Navigation'
+import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import LegalPageHeader from '@/components/LegalPageHeader'
 import Link from 'next/link'
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="font-sans antialiased text-gray-800">
+    <div className="bg-[#f4f5fb] font-sans text-gray-800 antialiased">
       <Navigation />
       
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Privacy Policy</h1>
-            <p className="text-gray-600">
-              <strong>Effective Date:</strong> August 4, 2025
-            </p>
-            <p className="text-gray-600">
-              <strong>Last Updated:</strong> April 28, 2026
-            </p>
-          </div>
+      <section className="bg-[#f4f5fb] py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <LegalPageHeader title="Privacy Policy" />
 
           <div className="prose prose-lg max-w-none text-gray-800">
             <p>
@@ -51,7 +44,7 @@ export default function PrivacyPolicyPage() {
             <p>This policy applies to:</p>
             <ul className="list-disc pl-6">
               <li>Patients and caregivers using ExpressAid</li>
-              <li>Nurses and healthcare professionals onboarded on the platform</li>
+              <li>Healthcare professionals onboarded on the platform</li>
               <li>Visitors to our website and app</li>
             </ul>
 
@@ -270,14 +263,11 @@ export default function PrivacyPolicyPage() {
           
           {/* Back to Home Button */}
           <div className="text-center mt-12">
-            <Link 
-              href="/" 
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+            <Link
+              href="/"
+              className="inline-flex items-center rounded-xl bg-[#5953eb] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4a44d4]"
             >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Home
+              Back to home
             </Link>
           </div>
         </div>

@@ -6,8 +6,6 @@ import Footer from '@/components/Footer'
 import Link from 'next/link'
 import {
   FaEnvelope,
-  FaPhone,
-  FaWhatsapp,
   FaChevronDown,
   FaChevronUp,
   FaCheckCircle,
@@ -16,9 +14,9 @@ import {
 
 const faqs = [
   {
-    question: 'How do I book a nurse or doctor?',
+    question: 'How do I book home healthcare?',
     answer:
-      'Download the ExpressAid app, select the service you need (Nurse Visit or Doctor Consultation), confirm your location, and submit the request. A verified professional will be assigned and on the way within minutes.'
+      'Download the ExpressAid app, select the service you need, confirm your location, and submit the request. A verified healthcare professional will be assigned based on availability in your area.'
   },
   {
     question: 'How quickly will a professional arrive?',
@@ -31,14 +29,14 @@ const faqs = [
       'We currently serve Whitefield, Marathahalli, ITPL, and nearby areas in Bangalore. We are actively expanding — check the app for the latest coverage map.'
   },
   {
-    question: 'How are nurses and doctors verified?',
+    question: 'How are professionals verified?',
     answer:
-      'Every professional on our platform is licensed, background-checked, and has undergone identity verification before being onboarded. We continuously monitor quality through patient feedback.'
+      'Every healthcare professional on our platform is qualified, background-checked, and identity-verified before onboarding. We monitor quality through user feedback.'
   },
   {
     question: 'What is the pricing for services?',
     answer:
-      'Nurse visits start from ₹500 and doctor consultations start from ₹300. The exact price is shown before you confirm your booking — no hidden charges.'
+      'Pricing is shown transparently in the app before you confirm your booking — no hidden charges. Rates vary by service type and area.'
   },
   {
     question: 'Can I cancel or reschedule a booking?',
@@ -118,51 +116,19 @@ export default function SupportPage() {
         {/* Contact Cards */}
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <h2 className="mb-6 text-2xl font-black text-slate-900">Contact us</h2>
-          <div className="grid gap-5 sm:grid-cols-3">
-            <a
-              href="mailto:sumeet.mathpati@gmail.com"
-              className="flex items-start gap-4 rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.07)] transition hover:shadow-[0_12px_40px_rgba(89,83,235,0.15)]"
-            >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-100">
-                <FaEnvelope className="text-indigo-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">Email</p>
-                <p className="mt-1 text-sm text-indigo-600">sumeet.mathpati@gmail.com</p>
-                <p className="mt-1 text-xs text-slate-500">Response within 24 hours</p>
-              </div>
-            </a>
-
-            <a
-              href="tel:+918884411444"
-              className="flex items-start gap-4 rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.07)] transition hover:shadow-[0_12px_40px_rgba(89,83,235,0.15)]"
-            >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-100">
-                <FaPhone className="text-emerald-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">Phone</p>
-                <p className="mt-1 text-sm text-emerald-600">+91 88844 11444</p>
-                <p className="mt-1 text-xs text-slate-500">Mon – Sat, 8 AM – 8 PM</p>
-              </div>
-            </a>
-
-            <a
-              href="https://wa.me/918884411444"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-4 rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.07)] transition hover:shadow-[0_12px_40px_rgba(89,83,235,0.15)]"
-            >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-100">
-                <FaWhatsapp className="text-green-600 text-xl" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">WhatsApp</p>
-                <p className="mt-1 text-sm text-green-600">+91 88844 11444</p>
-                <p className="mt-1 text-xs text-slate-500">Quick responses during business hours</p>
-              </div>
-            </a>
-          </div>
+          <a
+            href="mailto:support@expressaid.in"
+            className="flex max-w-md items-start gap-4 rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(15,23,42,0.07)] transition hover:shadow-[0_12px_40px_rgba(89,83,235,0.15)]"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-100">
+              <FaEnvelope className="text-indigo-600" />
+            </div>
+            <div>
+              <p className="font-semibold text-slate-900">Email</p>
+              <p className="mt-1 text-sm text-indigo-600">support@expressaid.in</p>
+              <p className="mt-1 text-xs text-slate-500">Response within 24 hours</p>
+            </div>
+          </a>
         </section>
 
         {/* FAQ */}

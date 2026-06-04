@@ -2,21 +2,18 @@
 
 import React from 'react'
 import Footer from '@/components/Footer'
-import Navigation from '@/app/Navigation'
+import Navigation from '@/components/Navigation'
+import LegalPageHeader from '@/components/LegalPageHeader'
 import Link from 'next/link'
 
 export default function TermsAndConditionsPage() {
   return (
-    <div className="font-sans antialiased text-gray-800">
+    <div className="bg-[#f4f5fb] font-sans text-gray-800 antialiased">
       <Navigation />
       
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">ExpressAid Terms and Conditions</h1>
-            <p className="text-gray-600">Effective Date: August 4, 2025</p>
-            <p className="text-gray-600">Last Updated: [Add Current Date]</p>
-          </div>
+      <section className="bg-[#f4f5fb] py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <LegalPageHeader title="ExpressAid Terms and Conditions" />
 
           <div className="prose prose-lg max-w-none text-gray-800">
             <p>
@@ -32,7 +29,7 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">1. Platform Nature</h2>
             <p>
               ExpressAid is a technology platform that connects users with
-              independent healthcare professionals (nurses and doctors).
+              independent qualified healthcare professionals for on-demand home healthcare services.
             </p>
             <ul className="list-disc pl-6">
               <li>We do not provide medical services directly.</li>
@@ -43,8 +40,8 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">2. Definitions</h2>
             <ul className="list-disc pl-6">
               <li><strong>User</strong>: Any individual using the platform for booking services.</li>
-              <li><strong>Provider</strong>: Independent nurse or doctor listed on the platform.</li>
-              <li><strong>Services</strong>: Home healthcare, consultations, and related support.</li>
+              <li><strong>Provider</strong>: Independent healthcare professional listed on the platform.</li>
+              <li><strong>Services</strong>: Home healthcare visits, vitals monitoring, nursing procedures, consultations, and related support.</li>
               <li><strong>Platform</strong>: Mobile app, website, and related systems.</li>
             </ul>
 
@@ -58,10 +55,10 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">4. Scope of Services</h2>
             <p>ExpressAid enables:</p>
             <ul className="list-disc pl-6">
-              <li>On-demand nurse visits at home.</li>
-              <li>Doctor consultations (video/audio).</li>
-              <li>Booking, scheduling, and payments.</li>
-              <li>Basic health support services.</li>
+              <li>On-demand home healthcare visits.</li>
+              <li>Vitals monitoring, injections, IV therapy, wound care, and nursing procedures at home.</li>
+              <li>Doctor consultations where available (video/audio).</li>
+              <li>Booking, scheduling, and payments through the app.</li>
             </ul>
             <p>
               <strong>Important:</strong> Services are non-emergency only. In case of
@@ -214,14 +211,11 @@ export default function TermsAndConditionsPage() {
           
           {/* Back to Home Button */}
           <div className="text-center mt-12">
-            <Link 
-              href="/" 
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium"
+            <Link
+              href="/"
+              className="inline-flex items-center rounded-xl bg-[#5953eb] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4a44d4]"
             >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Home
+              Back to home
             </Link>
           </div>
         </div>

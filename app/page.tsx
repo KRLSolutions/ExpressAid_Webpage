@@ -9,7 +9,6 @@ import AppScreen from '@/components/AppScreen'
 import Image from 'next/image'
 import {
   FaApple,
-  FaBolt,
   FaCheckCircle,
   FaClock,
   FaGooglePlay,
@@ -74,24 +73,24 @@ export default function HomePage() {
               <div className="grid gap-8 md:grid-cols-2 md:items-center lg:grid-cols-[1.1fr_0.95fr_0.9fr]">
                 <div className="fade-in md:order-1" data-reveal>
                   <p className="mb-4 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold">
-                    <FaBolt className="mr-2 text-cyan-200" /> Available today in your area
+                    <FaMapMarkerAlt className="mr-2 text-cyan-200" /> Whitefield &amp; Marathahalli · expanding in Bengaluru
                   </p>
                   <h2 className="max-w-lg text-4xl font-black leading-[1.04] sm:text-5xl lg:text-[3.2rem]">
-                    Doctor &amp; Nurse care made simple
+                    Healthcare at Home in Minutes
                   </h2>
                   <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">
-                    Get trusted healthcare at home fast. Book in the app,
-                    track arrival, and get transparent pricing.
+                    Book qualified healthcare professionals for home visits, vitals monitoring,
+                    injections, wound care, and more — all from your phone.
                   </p>
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <a
                       href={appStoreLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#101828] transition hover:bg-slate-100"
                     >
-                      <FaApple className="mr-2 text-lg" /> Download on the App Store
+                      <FaApple className="mr-2 text-lg" /> Download App
                     </a>
                     <a
                       href={playStoreLink}
@@ -100,6 +99,12 @@ export default function HomePage() {
                       className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-5 py-3 text-base font-semibold text-white transition hover:bg-white/20"
                     >
                       <FaGooglePlay className="mr-2 text-lg" /> Get it on Google Play
+                    </a>
+                    <a
+                      href="/support"
+                      className="inline-flex items-center justify-center rounded-2xl border border-[#a8f18f]/50 bg-[#a8f18f]/20 px-5 py-3 text-base font-semibold text-white transition hover:bg-[#a8f18f]/30"
+                    >
+                      <FaUserNurse className="mr-2 text-lg" /> Become a Healthcare Professional
                     </a>
                   </div>
                 </div>
@@ -119,17 +124,17 @@ export default function HomePage() {
                 <div className="fade-in rounded-2xl bg-[#a8f18f]/20 p-4 md:order-3 md:col-span-2 lg:col-span-1 lg:pl-5" data-reveal>
                   <div className="grid grid-cols-2 gap-4 border-b border-white/25 pb-5 text-white/95">
                     <div>
-                      <p className="text-xs uppercase text-white/70">Active users</p>
-                      <p className="text-3xl font-black">5000+</p>
+                      <p className="text-xs uppercase text-white/70">Care model</p>
+                      <p className="text-lg font-black leading-tight">At your doorstep</p>
                     </div>
                     <div>
-                      <p className="text-xs uppercase text-white/70">Downloads</p>
-                      <p className="text-3xl font-black">100K</p>
+                      <p className="text-xs uppercase text-white/70">For</p>
+                      <p className="text-lg font-black leading-tight">Families &amp; elders</p>
                     </div>
                   </div>
                   <p className="mt-5 text-white/85">
-                    Serving Bangalore families with verified doctors and nurses,
-                    transparent pricing, and app-based live updates.
+                    Qualified, verified professionals. Convenient app booking and transparent
+                    pricing—without unnecessary hospital visits.
                   </p>
                 </div>
               </div>
@@ -140,35 +145,46 @@ export default function HomePage() {
         <AppScrollStory appStoreLink={appStoreLink} playStoreLink={playStoreLink} />
 
         <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="fade-in mb-8 max-w-2xl" data-reveal>
+            <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Services</p>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">Home healthcare, when you need it</h2>
+            <p className="mt-3 text-slate-600">
+              Vitals, injections, wound care, elderly support, and more—booked through the app.
+            </p>
+          </div>
           <div className="grid gap-0 overflow-hidden rounded-[2rem] border border-slate-200 md:grid-cols-4">
-            {[
-              {
-                title: 'Doctor Consultation',
-                desc: 'Fever, cold, general illness at home.',
-                icon: <FaUserMd className="text-2xl text-indigo-600" />,
-                classes: 'bg-white text-slate-900'
-              },
-              {
-                title: 'Nurse Visit',
-                desc: 'Injection, IV fluids, BP and sugar checks.',
-                icon: <FaUserNurse className="text-2xl text-emerald-700" />,
-                classes: 'bg-[#b8f39f] text-slate-900'
-              },
-              {
-                title: 'Home Care',
-                desc: 'Elderly and post-hospital support at home.',
-                icon: <FaShieldAlt className="text-2xl text-indigo-600" />,
-                classes: 'bg-white text-slate-900'
-              },
-              {
-                title: 'Multiple Areas',
-                desc: 'Whitefield, Marathahalli, ITPL and nearby.',
-                icon: <FaMapMarkerAlt className="text-2xl text-white" />,
-                classes: 'bg-[#5953eb] text-white'
-              }
-            ].map((card) => (
+            {(
+              [
+                {
+                  title: 'Not Feeling Well',
+                  desc: 'Home visits when you need care without a hospital trip.',
+                  icon: <FaUserMd className="text-2xl text-indigo-600" />,
+                  classes: 'bg-white text-slate-900'
+                },
+                {
+                  title: 'Vitals & Injections',
+                  desc: 'BP, sugar, temperature, O₂, injections, and IV fluids at home.',
+                  icon: <FaUserNurse className="text-2xl text-emerald-700" />,
+                  classes: 'bg-[#b8f39f] text-slate-900'
+                },
+                {
+                  title: 'Wound & Elderly Care',
+                  desc: 'Dressing, catheter care, nursing procedures, and elder support.',
+                  icon: <FaShieldAlt className="text-2xl text-indigo-600" />,
+                  classes: 'bg-white text-slate-900'
+                },
+                {
+                  title: 'Now in Bengaluru',
+                  desc: 'Whitefield & Marathahalli first—expanding across the city.',
+                  icon: <FaMapMarkerAlt className="text-2xl text-white" />,
+                  classes: 'bg-[#5953eb] text-white',
+                  anchorId: 'locations' as const
+                }
+              ] as const
+            ).map((card) => (
               <article
                 key={card.title}
+                id={'anchorId' in card ? card.anchorId : undefined}
                 className={`fade-in p-7 md:min-h-[250px] ${card.classes}`}
                 data-reveal
               >
@@ -183,21 +199,24 @@ export default function HomePage() {
         <section id="pricing" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="fade-in rounded-3xl bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" data-reveal>
-              <h2 className="text-2xl font-black text-slate-900">Fast response promise</h2>
+              <h2 className="text-2xl font-black text-slate-900">Fast nurse dispatch</h2>
               <p className="mt-4 flex items-center text-slate-700">
                 <FaClock className="mr-2 text-indigo-600" />
-                Fast response within 10-15 minutes
+                Quick connection with nearby professionals in service areas
               </p>
-              <p className="mt-3 text-sm text-slate-500">Response time may vary by area and demand.</p>
+              <p className="mt-3 text-sm text-slate-500">Response times may vary by location and demand.</p>
             </div>
             <div className="fade-in rounded-3xl bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" data-reveal>
               <h2 className="text-2xl font-black text-slate-900">Transparent pricing</h2>
+              <p className="mt-4 text-slate-700">
+                See costs in the app before you confirm—no surprises at checkout.
+              </p>
               <ul className="mt-4 space-y-3 text-slate-700">
                 <li className="flex items-center">
-                  <FaRupeeSign className="mr-2 text-emerald-600" /> Nurse visit: Starting from ₹500+
+                  <FaRupeeSign className="mr-2 shrink-0 text-emerald-600" /> Home visits from transparent app rates
                 </li>
                 <li className="flex items-center">
-                  <FaRupeeSign className="mr-2 text-emerald-600" /> Doctor consult: Starting from ₹300+
+                  <FaCheckCircle className="mr-2 shrink-0 text-emerald-600" /> Pay only for the service you book
                 </li>
               </ul>
             </div>
@@ -209,7 +228,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-wide text-emerald-300">User reviews</p>
-                <h2 className="mt-2 text-3xl font-black">Families trust ExpressAid</h2>
+                <h2 className="mt-2 text-3xl font-black">Trusted for home healthcare</h2>
               </div>
               <div className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2">
                 {[...Array(5)].map((_, i) => (
@@ -223,15 +242,15 @@ export default function HomePage() {
               {[
                 {
                   name: 'Priya R.',
-                  text: 'Booked in app and nurse reached quickly. Everything felt safe and professional.'
+                  text: 'Booked a home visit in the app—professional arrived quickly and everything felt safe.'
                 },
                 {
                   name: 'Nithin K.',
-                  text: 'Clear pricing, no confusion, and regular updates in the app. Great experience.'
+                  text: 'Transparent pricing and clear updates. Exactly what we needed for care at home.'
                 },
                 {
                   name: 'Shreya M.',
-                  text: 'Very useful for parents at home. Doctor consult was coordinated smoothly.'
+                  text: 'Perfect for elderly parents—vitals and nursing support without a hospital run.'
                 }
               ].map((review) => (
                 <article key={review.name} className="fade-in rounded-2xl border border-white/10 bg-white/5 p-6" data-reveal>
@@ -245,14 +264,22 @@ export default function HomePage() {
         </section>
 
         <section id="trust" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="fade-in mb-8 max-w-3xl" data-reveal>
+            <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Why ExpressAid</p>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">Healthcare that comes to you</h2>
+            <p className="mt-4 text-slate-600 leading-relaxed">
+              Our mission is to make healthcare more accessible by bringing qualified professionals to
+              your home—reducing unnecessary hospital visits and helping families get timely care.
+            </p>
+          </div>
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              'Verified nurses & doctors',
-              'Background-checked professionals',
-              'Safe home care process',
-              'Serving Bangalore areas',
-              'Secure app-based requests',
-              'Emergency disclaimer included'
+              'Fast dispatch in selected areas',
+              'Home healthcare without hospital visits',
+              'Qualified & verified professionals',
+              'Convenient booking through the app',
+              'Transparent pricing',
+              'Support for elderly, families & professionals'
             ].map((item) => (
               <div key={item} className="fade-in flex items-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm" data-reveal>
                 <FaCheckCircle className="mr-2 text-emerald-600" />
@@ -265,9 +292,10 @@ export default function HomePage() {
         <section id="download" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-[#5953eb] to-[#3f5cff] p-8 text-white shadow-[0_25px_70px_rgba(37,99,235,0.4)] md:p-10">
             <div className="pointer-events-none absolute -right-16 -top-8 h-40 w-40 rounded-full bg-[#a8f18f]/35 blur-2xl" />
-            <h2 className="relative z-10 text-3xl font-black">Get care at home quickly</h2>
+            <h2 className="relative z-10 text-3xl font-black">Healthcare at Home in Minutes</h2>
             <p className="relative z-10 mt-3 max-w-2xl text-white/90">
-              Download the app, choose service, and get trusted healthcare support at home.
+              Download ExpressAid and experience a faster, more convenient way to access healthcare
+              at home—starting in Whitefield and Marathahalli.
             </p>
             <div className="relative z-10 mt-6 flex flex-col gap-3 sm:flex-row">
               <a
@@ -313,7 +341,7 @@ export default function HomePage() {
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-indigo-100 bg-white/95 p-3 shadow-[0_-10px_30px_rgba(30,41,59,0.1)] backdrop-blur sm:hidden">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="text-sm font-semibold text-slate-900 sm:text-base">
-            Download the app and book healthcare at home
+            Healthcare at home in minutes — download ExpressAid
           </p>
           <div className="flex w-full gap-2 sm:w-auto">
             <a

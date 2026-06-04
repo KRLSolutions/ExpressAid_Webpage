@@ -60,40 +60,56 @@ function getDesktopServerSnapshot() {
 
 const BEATS: Beat[] = [
   {
-    kicker: 'The app',
-    title: 'Care you can steer from your sofa',
-    body: 'ExpressAid brings booking, live updates, and clear pricing into one calm home screen — built for busy families in Bangalore.',
-    bullets: ['Book nurse or doctor visits', 'See who is coming and when', 'No surprise charges at checkout'],
+    kicker: 'ExpressAid',
+    title: 'Healthcare at Home in Minutes',
+    body: 'Connect with qualified healthcare professionals for on-demand home care—whether you need a vitals check, injection, IV therapy, wound care, or nursing support.',
+    bullets: [
+      'Fast dispatch in selected service areas',
+      'Verified healthcare professionals',
+      'Transparent pricing in the app'
+    ],
     textSide: 'left',
     image: { src: '/track_your_health.png', objectPosition: '50% 50%' }
   },
   {
-    kicker: 'Social proof',
-    title: 'Loved by users — rated 4.8/5',
-    body: 'Families use ExpressAid when they need speed and trust: verified professionals, polite communication, and updates that actually match reality.',
-    bullets: ['“Nurse reached quickly — felt safe.” — Priya R.', '“Pricing was clear in the app.” — Nithin K.'],
+    kicker: 'Why ExpressAid',
+    title: 'Home healthcare without the hospital visit',
+    body: 'Book trusted care at your doorstep—built for elderly parents, families, and busy professionals who need help quickly.',
+    bullets: ['“Reached quickly — felt safe.” — Priya R.', '“Clear pricing in the app.” — Nithin K.'],
     textSide: 'right',
     image: { src: '/Top_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'How it works',
-    title: 'Book → track → care at your door',
-    body: 'Pick the service in the app, follow arrival on the map, then get nurse or doctor support at home when it matters.',
-    bullets: ['Choose service & slot', 'Live status until arrival', 'Doctor consult when needed'],
+    title: 'Care at home in five steps',
+    body: 'Open the app, pick what you need, and get connected with a nearby professional—care comes to you.',
+    bullets: [
+      'Open ExpressAid',
+      'Select your service',
+      'Enter your location',
+      'Get matched with a professional nearby',
+      'Receive care at home'
+    ],
     textSide: 'left',
     image: { src: '/Services.png', objectPosition: '50% 50%' }
   },
   {
-    kicker: 'Coverage',
-    title: 'Doctor, nurse, and home care in one flow',
-    body: 'From fever checks to injections and elderly support — ExpressAid routes the right professional across Whitefield, Marathahalli, ITPL and nearby.',
+    kicker: 'Services',
+    title: 'The care you need, on demand',
+    body: 'From feeling unwell to vitals, injections, IV therapy, wound care, and elderly support—arranged through one app.',
+    bullets: [
+      'Not feeling well & vitals checks',
+      'Injections & IV fluids',
+      'Wound care & nursing procedures',
+      'Elderly care at home'
+    ],
     textSide: 'right',
     image: { src: '/Services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Get started',
-    title: 'Download and book in minutes',
-    body: 'Grab the app, confirm your location, and book care whenever you need it.',
+    title: 'Download ExpressAid',
+    body: 'Starting with Whitefield and Marathahalli—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
     textSide: 'left',
     image: { src: '/Checkout.png', objectPosition: '50% 50%' }
   }
@@ -143,8 +159,11 @@ function AppScrollStoryMobile({
           How it works
         </p>
         <h2 className="mt-2 text-center text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
-          Healthcare at home, step by step
+          Healthcare at Home in Minutes
         </h2>
+        <p className="mx-auto mt-3 max-w-md text-center text-sm text-slate-600 sm:text-base">
+          On-demand home healthcare—booked from your phone.
+        </p>
 
         <div className="mt-10 space-y-14">
           {BEATS.map((beat, i) => (
@@ -167,7 +186,7 @@ function AppScrollStoryMobile({
                     ))}
                   </ul>
                 ))}
-              {beat.kicker === 'Social proof' && (
+              {beat.kicker === 'Why ExpressAid' && (
                 <div className="mt-4 flex items-center justify-center gap-1 text-amber-500">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <FaStar key={s} className="text-sm" />
@@ -263,7 +282,7 @@ function BeatCopy({
               ))}
             </ul>
           ))}
-        {beat.kicker === 'Social proof' && (
+        {beat.kicker === 'Why ExpressAid' && (
           <div className={`mt-3 flex items-center justify-center gap-1 text-amber-500 sm:mt-4 ${isRight ? 'lg:justify-end' : ''}`}>
             {[1, 2, 3, 4, 5].map((s) => (
               <FaStar key={s} className="text-xs sm:text-sm" />

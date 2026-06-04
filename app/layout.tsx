@@ -2,13 +2,14 @@ import React from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ExpressAid | On-Demand Nursing Care',
-  description: 'Book certified nurses instantly for in-home care, post-surgery assistance, elderly care, and more with our easy-to-use app.',
-  keywords: ['healthcare', 'nursing', 'home care', 'medical services', 'ExpressAid'],
+  title: `${SITE_NAME} | ${SITE_TAGLINE}`,
+  description: SITE_DESCRIPTION,
+  keywords: ['healthcare', 'home healthcare', 'nurse visit', 'doctor consultation', 'ExpressAid', 'Bangalore'],
   authors: [{ name: 'ExpressAid Team' }],
   icons: {
     icon: '/logo.png',
