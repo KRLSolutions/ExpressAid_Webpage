@@ -9,6 +9,8 @@ import { FaApple, FaGooglePlay, FaQuoteLeft, FaStar } from 'react-icons/fa'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const DESKTOP_MQ = '(min-width: 1024px)'
+
 type Beat = {
   kicker: string
   title: string
@@ -31,6 +33,22 @@ function getReducedMotionSnapshot() {
 }
 
 function getReducedMotionServerSnapshot() {
+  return false
+}
+
+function subscribeDesktop(onStoreChange: () => void) {
+  if (typeof window === 'undefined') return () => {}
+  const mq = window.matchMedia(DESKTOP_MQ)
+  mq.addEventListener('change', onStoreChange)
+  return () => mq.removeEventListener('change', onStoreChange)
+}
+
+function getDesktopSnapshot() {
+  if (typeof window === 'undefined') return false
+  return window.matchMedia(DESKTOP_MQ).matches
+}
+
+function getDesktopServerSnapshot() {
   return false
 }
 
@@ -85,24 +103,87 @@ function phoneRotateYForSide(textSide: 'left' | 'right') {
 }
 
 function AppScrollStoryStatic({ appStoreLink, playStoreLink }: AppScrollStoryProps) {
+  return <AppScrollStoryMobile appStoreLink={appStoreLink} playStoreLink={playStoreLink} />
+}
+
+/** Normal scroll on phone/tablet — no pin, no scrub timeline */
+function AppScrollStoryMobile({
+  appStoreLink,
+  playStoreLink,
+  hideOnDesktop = true
+}: AppScrollStoryProps & { hideOnDesktop?: boolean }) {
   return (
-    <section id="how-it-works" className="bg-[#f4f5fb] px-4 py-16 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-3xl space-y-12">
-        <h2 className="text-center text-3xl font-black tracking-tight text-slate-900">How ExpressAid works</h2>
-        {BEATS.map((b, i) => (
-          <article key={b.title} className="border-b border-slate-200/80 pb-12 last:border-0">
-            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
-              Step {i + 1} · {b.kicker}
-            </p>
-            <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-900">{b.title}</h3>
-            <p className="mt-3 text-slate-600">{b.body}</p>
-          </article>
-        ))}
-        <div className="flex flex-wrap justify-center gap-3">
-          <a href={appStoreLink} className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
+    <section
+      id="how-it-works"
+      className={`bg-[#f4f5fb] px-4 py-12 sm:px-6 sm:py-14 ${hideOnDesktop ? 'lg:hidden' : ''}`}
+    >
+      <div className="mx-auto max-w-lg">
+        <p className="text-center text-[11px] font-bold uppercase tracking-[0.2em] text-indigo-600">
+          How it works
+        </p>
+        <h2 className="mt-2 text-center text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+          Healthcare at home, step by step
+        </h2>
+
+        <div className="mt-10 space-y-14">
+          {BEATS.map((beat, i) => (
+            <article key={beat.title} className="text-center">
+              <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-600">
+                {beat.kicker}
+              </span>
+              <h3 className="mt-3 text-xl font-black leading-tight text-slate-900 sm:text-2xl">{beat.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">{beat.body}</p>
+              {beat.bullets && (
+                <ul className="mx-auto mt-4 max-w-sm space-y-2 text-left text-sm text-slate-700">
+                  {beat.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {beat.kicker === 'Social proof' && (
+                <div className="mt-4 flex items-center justify-center gap-1 text-amber-500">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <FaStar key={s} className="text-sm" />
+                  ))}
+                  <span className="ml-2 text-sm font-semibold text-slate-600">4.8 average</span>
+                </div>
+              )}
+              <div className="relative mx-auto mt-6 w-[min(180px,46vw)] max-w-[200px]">
+                <div className="relative aspect-[260/520] w-full">
+                  <div className="absolute inset-0 rounded-[2.4rem] border-[5px] border-black/90 bg-black p-1.5 shadow-[0_24px_48px_-12px_rgba(15,23,42,0.35)]">
+                    <div className="absolute left-1/2 top-2 z-10 h-4 w-24 -translate-x-1/2 rounded-full bg-black" />
+                    <div className="relative h-full overflow-hidden rounded-[1.9rem] bg-[#0f1020]">
+                      <Image
+                        src={beat.image.src}
+                        alt={beat.title}
+                        fill
+                        sizes="200px"
+                        className="object-cover"
+                        style={{ objectPosition: beat.image.objectPosition }}
+                        priority={i === 0}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-3 pb-4">
+          <a
+            href={appStoreLink}
+            className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white"
+          >
             <FaApple className="mr-2" /> App Store
           </a>
-          <a href={playStoreLink} className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900">
+          <a
+            href={playStoreLink}
+            className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900"
+          >
             <FaGooglePlay className="mr-2" /> Google Play
           </a>
           <Link href="#reviews" className="inline-flex items-center rounded-full bg-[#5953eb] px-5 py-3 text-sm font-semibold text-white">
@@ -134,56 +215,66 @@ function BeatCopy({
   return (
     <div
       ref={copyRef}
-      className={`absolute inset-0 flex flex-col justify-center px-2 py-6 sm:px-4 lg:px-8 ${
-        isRight ? 'items-end text-right' : 'items-start text-left'
+      className={`absolute inset-x-0 top-0 flex max-h-[48%] flex-col justify-start overflow-hidden px-4 pb-2 pt-2 sm:max-h-[52%] sm:px-5 sm:pt-4 md:max-h-[55%] md:px-6 lg:inset-0 lg:max-h-none lg:justify-center lg:px-8 ${
+        isRight
+          ? 'items-center text-center lg:items-end lg:pl-[52%] lg:text-right'
+          : 'items-center text-center lg:items-start lg:pr-[52%] lg:text-left'
       }`}
       style={{ opacity: index === 0 ? 1 : 0 }}
     >
-      <div className={`max-w-[min(100%,22rem)] lg:max-w-md ${isRight ? 'ml-auto' : ''}`}>
-        <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-indigo-600">
+      <div className={`w-full max-w-md lg:max-w-md ${isRight ? 'lg:ml-auto' : ''}`}>
+        <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-600 sm:text-[11px]">
           {beat.kicker}
         </span>
-        <h3 className="mt-4 text-2xl font-black leading-[1.1] tracking-tight text-slate-900 sm:text-3xl lg:text-[2rem]">
+        <h3 className="mt-2 text-xl font-black leading-[1.12] tracking-tight text-slate-900 sm:mt-3 sm:text-2xl md:text-[1.65rem] lg:mt-4 lg:text-[2rem]">
           {beat.title}
         </h3>
-        <p className="mt-4 text-base leading-relaxed text-slate-600/95 sm:text-lg">{beat.body}</p>
+        <p className="mt-2 text-sm leading-relaxed text-slate-600/95 sm:mt-3 sm:text-base lg:text-lg">{beat.body}</p>
         {beat.bullets && (
-          <ul className={`mt-5 space-y-2.5 text-sm text-slate-700 sm:text-[15px] ${isRight ? 'text-right' : ''}`}>
+          <ul
+            className={`mt-3 space-y-1.5 text-xs text-slate-700 sm:mt-4 sm:space-y-2 sm:text-sm lg:text-[15px] ${
+              isRight ? 'lg:text-right' : ''
+            } text-left`}
+          >
             {beat.bullets.map((b) => (
-              <li key={b} className={`flex gap-2.5 ${isRight ? 'flex-row-reverse' : ''}`}>
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
+              <li key={b} className={`flex gap-2 ${isRight ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
                 <span>{b}</span>
               </li>
             ))}
           </ul>
         )}
         {beat.kicker === 'Social proof' && (
-          <div className={`mt-5 flex items-center gap-1 text-amber-500 ${isRight ? 'justify-end' : ''}`}>
+          <div className={`mt-3 flex items-center justify-center gap-1 text-amber-500 sm:mt-4 ${isRight ? 'lg:justify-end' : ''}`}>
             {[1, 2, 3, 4, 5].map((s) => (
-              <FaStar key={s} className="text-sm" />
+              <FaStar key={s} className="text-xs sm:text-sm" />
             ))}
-            <span className="ml-2 text-sm font-semibold text-slate-600">4.8 average</span>
+            <span className="ml-2 text-xs font-semibold text-slate-600 sm:text-sm">4.8 average</span>
           </div>
         )}
         {isLast && (
-          <div className={`pointer-events-auto mt-8 flex flex-wrap gap-3 ${isRight ? 'justify-end' : ''}`}>
+          <div
+            className={`pointer-events-auto mt-4 flex flex-wrap justify-center gap-2 sm:mt-6 sm:gap-3 lg:mt-8 ${
+              isRight ? 'lg:justify-end' : ''
+            }`}
+          >
             <a
               href={appStoreLink}
-              className="inline-flex items-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-black"
+              className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-black sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <FaApple className="mr-2" /> App Store
+              <FaApple className="mr-1.5 sm:mr-2" /> App Store
             </a>
             <a
               href={playStoreLink}
-              className="inline-flex items-center rounded-full border border-slate-300/80 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-800 backdrop-blur-sm transition hover:bg-white"
+              className="inline-flex items-center rounded-full border border-slate-300/80 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-800 backdrop-blur-sm transition hover:bg-white sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <FaGooglePlay className="mr-2" /> Google Play
+              <FaGooglePlay className="mr-1.5 sm:mr-2" /> Google Play
             </a>
             <Link
               href="#reviews"
-              className="inline-flex items-center rounded-full bg-[#5953eb] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4a44d4]"
+              className="inline-flex items-center rounded-full bg-[#5953eb] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#4a44d4] sm:px-5 sm:py-2.5 sm:text-sm"
             >
-              <FaQuoteLeft className="mr-2 text-xs opacity-80" />
+              <FaQuoteLeft className="mr-1.5 text-[10px] opacity-80 sm:mr-2 sm:text-xs" />
               Reviews
             </Link>
           </div>
@@ -196,8 +287,7 @@ function BeatCopy({
 function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryProps) {
   const rootRef = useRef<HTMLElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
-  const leftColRef = useRef<HTMLDivElement>(null)
-  const rightColRef = useRef<HTMLDivElement>(null)
+  const copyAreaRef = useRef<HTMLDivElement>(null)
   const phoneRef = useRef<HTMLDivElement>(null)
   const imgRefs = useRef<(HTMLDivElement | null)[]>([])
   const copyRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -205,30 +295,44 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
   useLayoutEffect(() => {
     const root = rootRef.current
     const stage = stageRef.current
-    const leftCol = leftColRef.current
-    const rightCol = rightColRef.current
+    const copyArea = copyAreaRef.current
     const phone = phoneRef.current
-    if (!root || !stage || !leftCol || !rightCol || !phone || typeof window === 'undefined') return
+    if (!root || !stage || !copyArea || !phone || typeof window === 'undefined') return
 
     const imgs = imgRefs.current.filter(Boolean) as HTMLDivElement[]
     const copies = copyRefs.current.filter(Boolean) as HTMLDivElement[]
     if (imgs.length !== BEATS.length || copies.length !== BEATS.length) return
 
-    const narrow = () => window.matchMedia('(max-width: 1023px)').matches
-    const phoneScale = () => (narrow() ? 0.82 : 0.9)
+    const isDesktop = () => window.matchMedia(DESKTOP_MQ).matches
+    const isPhone = () => window.matchMedia('(max-width: 639px)').matches
+
+    const phoneScale = () => {
+      if (isPhone()) return 0.72
+      if (!isDesktop()) return 0.78
+      return 0.9
+    }
+
+    const phoneBottomInset = () => {
+      if (isDesktop()) return 0
+      return isPhone() ? 92 : 28
+    }
 
     const columnCenters = () => {
       const stageRect = stage.getBoundingClientRect()
-      const leftRect = leftCol.getBoundingClientRect()
-      const rightRect = rightCol.getBoundingClientRect()
+      if (!isDesktop()) {
+        const center = stageRect.width / 2
+        return { left: center, right: center }
+      }
+      const areaRect = copyArea.getBoundingClientRect()
       return {
-        left: leftRect.left + leftRect.width / 2 - stageRect.left,
-        right: rightRect.left + rightRect.width / 2 - stageRect.left
+        left: areaRect.left + areaRect.width * 0.25 - stageRect.left,
+        right: areaRect.left + areaRect.width * 0.75 - stageRect.left
       }
     }
 
     const phoneLeftForBeat = (textSide: 'left' | 'right') => {
       const c = columnCenters()
+      if (!isDesktop()) return c.left
       return textSide === 'left' ? c.right : c.left
     }
 
@@ -238,14 +342,29 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
         left: phoneLeftForBeat(b.textSide),
         xPercent: -50,
         y: 0,
-        rotateY: phoneRotateYForSide(b.textSide),
-        rotateZ: b.textSide === 'left' ? -2 : 2,
+        rotateY: isDesktop() ? phoneRotateYForSide(b.textSide) : 0,
+        rotateZ: isDesktop() ? (b.textSide === 'left' ? -2 : 2) : 0,
         scale: phoneScale()
       }
     }
 
-    gsap.set(stage, { perspective: 1200 })
-    gsap.set(phone, { ...beatPose(0), top: '50%', yPercent: -50, position: 'absolute' })
+    const applyPhoneLayout = () => {
+      if (!isDesktop()) {
+        gsap.set(phone, {
+          top: 'auto',
+          bottom: phoneBottomInset(),
+          yPercent: 0,
+          left: '50%',
+          xPercent: -50
+        })
+      } else {
+        gsap.set(phone, { top: '50%', bottom: 'auto', yPercent: -50 })
+      }
+    }
+
+    gsap.set(stage, { perspective: isDesktop() ? 1200 : 800 })
+    gsap.set(phone, { position: 'absolute', ...beatPose(0) })
+    applyPhoneLayout()
     gsap.set(imgs, { opacity: 0 })
     gsap.set(imgs[0], { opacity: 1 })
     gsap.set(copies, { autoAlpha: 0, pointerEvents: 'none' })
@@ -257,7 +376,7 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
         scrollTrigger: {
           trigger: root,
           start: 'top 76px',
-          end: () => `+=${window.innerHeight * (narrow() ? 4.2 : 4.8)}`,
+          end: () => `+=${window.innerHeight * (isDesktop() ? 4.8 : 4.4)}`,
           pin: true,
           scrub: 0.6,
           anticipatePin: 1,
@@ -289,33 +408,57 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
 
         const fromLeft = phoneLeftForBeat(beat.textSide)
         const toLeft = phoneLeftForBeat(next.textSide)
+        const crosses = isDesktop() && Math.abs(toLeft - fromLeft) > 8
 
-        tl.to(
-          phone,
-          {
-            left: (fromLeft + toLeft) / 2,
-            y: -10,
-            scale: phoneScale() * 1.02,
-            rotateY: 0,
-            rotateZ: 0,
-            duration: 0.07,
-            ease: 'power2.out'
-          },
-          moveStart
-        )
-        tl.to(
-          phone,
-          {
-            left: toLeft,
-            y: 0,
-            scale: phoneScale(),
-            rotateY: phoneRotateYForSide(next.textSide),
-            rotateZ: next.textSide === 'left' ? -2 : 2,
-            duration: moveEnd - moveStart,
-            ease: 'power2.inOut'
-          },
-          moveStart + 0.07
-        )
+        if (crosses) {
+          tl.to(
+            phone,
+            {
+              left: (fromLeft + toLeft) / 2,
+              y: -10,
+              scale: phoneScale() * 1.02,
+              rotateY: 0,
+              rotateZ: 0,
+              duration: 0.07,
+              ease: 'power2.out'
+            },
+            moveStart
+          )
+          tl.to(
+            phone,
+            {
+              left: toLeft,
+              y: 0,
+              scale: phoneScale(),
+              rotateY: phoneRotateYForSide(next.textSide),
+              rotateZ: next.textSide === 'left' ? -2 : 2,
+              duration: moveEnd - moveStart,
+              ease: 'power2.inOut'
+            },
+            moveStart + 0.07
+          )
+        } else if (!isDesktop()) {
+          tl.to(
+            phone,
+            {
+              scale: phoneScale() * 0.96,
+              duration: 0.05,
+              ease: 'power2.out'
+            },
+            moveStart
+          )
+          tl.to(
+            phone,
+            {
+              scale: phoneScale(),
+              duration: 0.06,
+              ease: 'power2.in'
+            },
+            moveStart + 0.05
+          )
+        } else {
+          tl.to(phone, { ...beatPose(i + 1), duration: 0.1, ease: 'power2.inOut' }, moveStart)
+        }
 
         tl.to(imgs[i], { opacity: 0, duration: 0.06 }, moveStart + 0.02)
         tl.to(imgs[i + 1], { opacity: 1, duration: 0.08 }, moveStart + 0.06)
@@ -324,7 +467,11 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
       }
     }, root)
 
-    const onResize = () => ScrollTrigger.refresh()
+    const onResize = () => {
+      applyPhoneLayout()
+      gsap.set(stage, { perspective: isDesktop() ? 1200 : 800 })
+      ScrollTrigger.refresh()
+    }
     window.addEventListener('resize', onResize)
     return () => {
       window.removeEventListener('resize', onResize)
@@ -332,14 +479,11 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
     }
   }, [appStoreLink, playStoreLink])
 
-  const leftBeats = BEATS.filter((b) => b.textSide === 'left')
-  const rightBeats = BEATS.filter((b) => b.textSide === 'right')
-
   return (
     <section
       ref={rootRef}
       id="how-it-works"
-      className="relative overflow-x-clip bg-[#f4f5fb] px-4 sm:px-6 lg:px-8"
+      className="relative hidden overflow-x-clip bg-[#f4f5fb] px-3 sm:px-6 lg:block lg:px-8"
       aria-label="ExpressAid app story"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
@@ -349,64 +493,40 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
 
       <div
         ref={stageRef}
-        className="relative mx-auto min-h-[calc(100dvh-5.25rem)] max-w-6xl sm:min-h-[calc(100svh-5rem)]"
+        className="relative mx-auto min-h-[calc(100dvh-4.5rem)] max-w-6xl sm:min-h-[calc(100dvh-5rem)] lg:min-h-[calc(100svh-5rem)]"
       >
-        <div className="grid min-h-[min(520px,78vh)] grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-24">
-          <div
-            ref={leftColRef}
-            className="relative min-h-[min(340px,52vh)] lg:min-h-[min(440px,68vh)]"
-          >
-            {leftBeats.map((beat) => {
-              const i = BEATS.indexOf(beat)
-              return (
-                <BeatCopy
-                  key={beat.title}
-                  beat={beat}
-                  index={i}
-                  copyRef={(el) => {
-                    copyRefs.current[i] = el
-                  }}
-                  appStoreLink={appStoreLink}
-                  playStoreLink={playStoreLink}
-                  isLast={i === BEATS.length - 1}
-                />
-              )
-            })}
-          </div>
-
-          <div ref={rightColRef} className="relative min-h-[min(340px,52vh)] lg:min-h-[min(440px,68vh)]">
-            {rightBeats.map((beat) => {
-              const i = BEATS.indexOf(beat)
-              return (
-                <BeatCopy
-                  key={beat.title}
-                  beat={beat}
-                  index={i}
-                  copyRef={(el) => {
-                    copyRefs.current[i] = el
-                  }}
-                  appStoreLink={appStoreLink}
-                  playStoreLink={playStoreLink}
-                  isLast={i === BEATS.length - 1}
-                />
-              )
-            })}
-          </div>
+        <div
+          ref={copyAreaRef}
+          className="relative z-10 min-h-[calc(100dvh-4.5rem)] pb-[min(240px,34vh)] pt-2 sm:pb-[min(260px,36vh)] sm:pt-4 md:pb-[min(280px,38vh)] lg:min-h-[min(520px,78vh)] lg:pb-0 lg:pt-0"
+        >
+          {BEATS.map((beat, i) => (
+            <BeatCopy
+              key={beat.title}
+              beat={beat}
+              index={i}
+              copyRef={(el) => {
+                copyRefs.current[i] = el
+              }}
+              appStoreLink={appStoreLink}
+              playStoreLink={playStoreLink}
+              isLast={i === BEATS.length - 1}
+            />
+          ))}
         </div>
 
         <div
           ref={phoneRef}
-          className="pointer-events-none absolute top-1/2 z-20 w-[min(200px,42vw)] max-w-[220px] will-change-[left,transform] lg:w-[220px]"
-          style={{ transformStyle: 'preserve-3d' }}
+          className="pointer-events-none absolute left-1/2 z-20 w-[min(150px,40vw)] max-w-[168px] -translate-x-1/2 will-change-[left,transform] sm:w-[min(168px,32vw)] sm:max-w-[188px] md:w-[min(180px,28vw)] md:max-w-[200px] lg:w-[220px] lg:max-w-[220px]"
+          style={{ transformStyle: 'preserve-3d', bottom: 92, top: 'auto' }}
         >
           <div
-            className="absolute left-1/2 top-1/2 h-[70%] w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5953eb]/15 blur-[48px]"
+            className="absolute left-1/2 top-1/2 h-[70%] w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5953eb]/15 blur-[48px] lg:top-1/2"
             aria-hidden
           />
           <div className="relative aspect-[260/520] w-full">
-            <div className="absolute inset-0 rounded-[2.7rem] border-[5px] border-black/90 bg-black p-1.5 shadow-[0_32px_64px_-12px_rgba(15,23,42,0.45)]">
-              <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-black" />
-              <div className="relative h-full overflow-hidden rounded-[2.15rem] bg-[#0f1020]">
+            <div className="absolute inset-0 rounded-[2.4rem] border-[5px] border-black/90 bg-black p-1.5 shadow-[0_32px_64px_-12px_rgba(15,23,42,0.45)] sm:rounded-[2.7rem]">
+              <div className="absolute left-1/2 top-2 z-20 h-4 w-24 -translate-x-1/2 rounded-full bg-black sm:h-5 sm:w-28" />
+              <div className="relative h-full overflow-hidden rounded-[1.9rem] bg-[#0f1020] sm:rounded-[2.15rem]">
                 {BEATS.map((beat, i) => (
                   <div
                     key={`${beat.title}-img`}
@@ -420,7 +540,7 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
                       src={beat.image.src}
                       alt={beat.title}
                       fill
-                      sizes="210px"
+                      sizes="(max-width: 1023px) 168px, 220px"
                       className="object-cover"
                       style={{ objectPosition: beat.image.objectPosition }}
                       priority={i === 0}
@@ -442,6 +562,14 @@ export default function AppScrollStory(props: AppScrollStoryProps) {
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   )
-  if (reduced) return <AppScrollStoryStatic {...props} />
-  return <AppScrollStoryAnimated {...props} />
+  const isDesktop = useSyncExternalStore(subscribeDesktop, getDesktopSnapshot, getDesktopServerSnapshot)
+
+  const useMobileLayout = !isDesktop || reduced
+
+  return (
+    <>
+      {useMobileLayout ? <AppScrollStoryMobile {...props} hideOnDesktop={!reduced} /> : null}
+      {isDesktop && !reduced ? <AppScrollStoryAnimated {...props} /> : null}
+    </>
+  )
 }

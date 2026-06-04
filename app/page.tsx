@@ -70,8 +70,8 @@ export default function HomePage() {
             </div>
 
             <div className="relative z-10 px-6 py-8 md:px-10">
-              <div className="grid gap-8 lg:grid-cols-[1.1fr_0.95fr_0.9fr] lg:items-center">
-                <div className="fade-in" data-reveal>
+              <div className="grid gap-8 md:grid-cols-2 md:items-center lg:grid-cols-[1.1fr_0.95fr_0.9fr]">
+                <div className="fade-in md:order-1" data-reveal>
                   <p className="mb-4 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold">
                     <FaBolt className="mr-2 text-cyan-200" /> Available today in your area
                   </p>
@@ -104,10 +104,10 @@ export default function HomePage() {
                 </div>
 
                 <div
-                  className="relative mx-auto w-fit transition-transform duration-150"
+                  className="relative mx-auto w-fit transition-transform duration-150 md:order-2 md:mx-0 md:justify-self-center"
                   style={{ transform: `translateY(${phoneOffset}px)` }}
                 >
-                  <div className="h-[510px] w-[260px] rounded-[2.7rem] border-[6px] border-black bg-black p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+                  <div className="h-[min(400px,58vh)] w-[min(200px,48vw)] max-w-[260px] rounded-[2.7rem] border-[6px] border-black bg-black p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:h-[460px] sm:w-[235px] lg:h-[510px] lg:w-[260px]">
                     <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-black" />
                     <div className="h-full overflow-hidden rounded-[2.15rem] bg-[#f7f8ff]">
                       <Image
@@ -121,7 +121,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="fade-in rounded-2xl bg-[#a8f18f]/20 p-4 lg:pl-5" data-reveal>
+                <div className="fade-in rounded-2xl bg-[#a8f18f]/20 p-4 md:order-3 md:col-span-2 lg:col-span-1 lg:pl-5" data-reveal>
                   <div className="grid grid-cols-2 gap-4 border-b border-white/25 pb-5 text-white/95">
                     <div>
                       <p className="text-xs uppercase text-white/70">Active users</p>
