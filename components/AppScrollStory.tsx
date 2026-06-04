@@ -3,6 +3,12 @@
 import React, { useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import AppScreen, {
+  APP_SCREEN_HEIGHT,
+  APP_SCREEN_WIDTH,
+  appScreenFloatWrapClass,
+  appScreenShellClass
+} from '@/components/AppScreen'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaApple, FaGooglePlay, FaQuoteLeft, FaStar } from 'react-icons/fa'
@@ -59,7 +65,7 @@ const BEATS: Beat[] = [
     body: 'ExpressAid brings booking, live updates, and clear pricing into one calm home screen — built for busy families in Bangalore.',
     bullets: ['Book nurse or doctor visits', 'See who is coming and when', 'No surprise charges at checkout'],
     textSide: 'left',
-    image: { src: '/Screenshot1.png', objectPosition: '50% 12%' }
+    image: { src: '/track_your_health.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Social proof',
@@ -67,7 +73,7 @@ const BEATS: Beat[] = [
     body: 'Families use ExpressAid when they need speed and trust: verified professionals, polite communication, and updates that actually match reality.',
     bullets: ['“Nurse reached quickly — felt safe.” — Priya R.', '“Pricing was clear in the app.” — Nithin K.'],
     textSide: 'right',
-    image: { src: '/Screenshot1.png', objectPosition: '50% 55%' }
+    image: { src: '/Top_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'How it works',
@@ -75,21 +81,21 @@ const BEATS: Beat[] = [
     body: 'Pick the service in the app, follow arrival on the map, then get nurse or doctor support at home when it matters.',
     bullets: ['Choose service & slot', 'Live status until arrival', 'Doctor consult when needed'],
     textSide: 'left',
-    image: { src: '/Featured%20Graphic.png', objectPosition: '50% 50%' }
+    image: { src: '/Services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Coverage',
     title: 'Doctor, nurse, and home care in one flow',
     body: 'From fever checks to injections and elderly support — ExpressAid routes the right professional across Whitefield, Marathahalli, ITPL and nearby.',
     textSide: 'right',
-    image: { src: '/Screenshot1.png', objectPosition: '50% 82%' }
+    image: { src: '/Services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Get started',
     title: 'Download and book in minutes',
     body: 'Grab the app, confirm your location, and book care whenever you need it.',
     textSide: 'left',
-    image: { src: '/Screenshot1.png', objectPosition: '50% 25%' }
+    image: { src: '/Checkout.png', objectPosition: '50% 50%' }
   }
 ]
 
@@ -100,6 +106,21 @@ type AppScrollStoryProps = {
 
 function phoneRotateYForSide(textSide: 'left' | 'right') {
   return textSide === 'left' ? -12 : 12
+}
+
+function QuoteMessages({ bullets, centered }: { bullets: string[]; centered?: boolean }) {
+  return (
+    <ul className={`mx-auto mt-4 max-w-sm space-y-3 ${centered ? '' : 'lg:max-w-md'}`}>
+      {bullets.map((b) => (
+        <li
+          key={b}
+          className="rounded-2xl bg-white px-4 py-3.5 text-left text-sm leading-relaxed text-slate-700 shadow-[0_18px_44px_-10px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.06] sm:text-[15px]"
+        >
+          {b}
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 function AppScrollStoryStatic({ appStoreLink, playStoreLink }: AppScrollStoryProps) {
@@ -133,16 +154,19 @@ function AppScrollStoryMobile({
               </span>
               <h3 className="mt-3 text-xl font-black leading-tight text-slate-900 sm:text-2xl">{beat.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">{beat.body}</p>
-              {beat.bullets && (
-                <ul className="mx-auto mt-4 max-w-sm space-y-2 text-left text-sm text-slate-700">
-                  {beat.bullets.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {beat.bullets &&
+                (beat.kicker === 'Social proof' ? (
+                  <QuoteMessages bullets={beat.bullets} centered />
+                ) : (
+                  <ul className="mx-auto mt-4 max-w-sm space-y-2 text-left text-sm text-slate-700">
+                    {beat.bullets.map((b) => (
+                      <li key={b} className="flex gap-2">
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ))}
               {beat.kicker === 'Social proof' && (
                 <div className="mt-4 flex items-center justify-center gap-1 text-amber-500">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -151,23 +175,15 @@ function AppScrollStoryMobile({
                   <span className="ml-2 text-sm font-semibold text-slate-600">4.8 average</span>
                 </div>
               )}
-              <div className="relative mx-auto mt-6 w-[min(180px,46vw)] max-w-[200px]">
-                <div className="relative aspect-[260/520] w-full">
-                  <div className="absolute inset-0 rounded-[2.4rem] border-[5px] border-black/90 bg-black p-1.5 shadow-[0_24px_48px_-12px_rgba(15,23,42,0.35)]">
-                    <div className="absolute left-1/2 top-2 z-10 h-4 w-24 -translate-x-1/2 rounded-full bg-black" />
-                    <div className="relative h-full overflow-hidden rounded-[1.9rem] bg-[#0f1020]">
-                      <Image
-                        src={beat.image.src}
-                        alt={beat.title}
-                        fill
-                        sizes="200px"
-                        className="object-cover"
-                        style={{ objectPosition: beat.image.objectPosition }}
-                        priority={i === 0}
-                      />
-                    </div>
-                  </div>
-                </div>
+              <div className="relative mx-auto mt-6 w-[min(280px,78vw)] max-w-[300px]">
+                <AppScreen
+                  src={beat.image.src}
+                  alt={beat.title}
+                  objectPosition={beat.image.objectPosition}
+                  priority={i === 0}
+                  sizes="(max-width: 640px) 220px, 260px"
+                  floatDelay={`${i * 0.35}s`}
+                />
               </div>
             </article>
           ))}
@@ -230,20 +246,23 @@ function BeatCopy({
           {beat.title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-slate-600/95 sm:mt-3 sm:text-base lg:text-lg">{beat.body}</p>
-        {beat.bullets && (
-          <ul
-            className={`mt-3 space-y-1.5 text-xs text-slate-700 sm:mt-4 sm:space-y-2 sm:text-sm lg:text-[15px] ${
-              isRight ? 'lg:text-right' : ''
-            } text-left`}
-          >
-            {beat.bullets.map((b) => (
-              <li key={b} className={`flex gap-2 ${isRight ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
-                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+        {beat.bullets &&
+          (beat.kicker === 'Social proof' ? (
+            <QuoteMessages bullets={beat.bullets} />
+          ) : (
+            <ul
+              className={`mt-3 space-y-1.5 text-xs text-slate-700 sm:mt-4 sm:space-y-2 sm:text-sm lg:text-[15px] ${
+                isRight ? 'lg:text-right' : ''
+              } text-left`}
+            >
+              {beat.bullets.map((b) => (
+                <li key={b} className={`flex gap-2 ${isRight ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#5953eb]" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          ))}
         {beat.kicker === 'Social proof' && (
           <div className={`mt-3 flex items-center justify-center gap-1 text-amber-500 sm:mt-4 ${isRight ? 'lg:justify-end' : ''}`}>
             {[1, 2, 3, 4, 5].map((s) => (
@@ -516,39 +535,38 @@ function AppScrollStoryAnimated({ appStoreLink, playStoreLink }: AppScrollStoryP
 
         <div
           ref={phoneRef}
-          className="pointer-events-none absolute left-1/2 z-20 w-[min(150px,40vw)] max-w-[168px] -translate-x-1/2 will-change-[left,transform] sm:w-[min(168px,32vw)] sm:max-w-[188px] md:w-[min(180px,28vw)] md:max-w-[200px] lg:w-[220px] lg:max-w-[220px]"
+          className="pointer-events-none absolute left-1/2 z-20 w-[min(200px,52vw)] max-w-[220px] -translate-x-1/2 will-change-[left,transform] sm:w-[min(220px,48vw)] sm:max-w-[240px] md:w-[min(240px,44vw)] md:max-w-[260px] lg:w-[260px] lg:max-w-[280px]"
           style={{ transformStyle: 'preserve-3d', bottom: 92, top: 'auto' }}
         >
           <div
             className="absolute left-1/2 top-1/2 h-[70%] w-[140%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5953eb]/15 blur-[48px] lg:top-1/2"
             aria-hidden
           />
-          <div className="relative aspect-[260/520] w-full">
-            <div className="absolute inset-0 rounded-[2.4rem] border-[5px] border-black/90 bg-black p-1.5 shadow-[0_32px_64px_-12px_rgba(15,23,42,0.45)] sm:rounded-[2.7rem]">
-              <div className="absolute left-1/2 top-2 z-20 h-4 w-24 -translate-x-1/2 rounded-full bg-black sm:h-5 sm:w-28" />
-              <div className="relative h-full overflow-hidden rounded-[1.9rem] bg-[#0f1020] sm:rounded-[2.15rem]">
-                {BEATS.map((beat, i) => (
-                  <div
-                    key={`${beat.title}-img`}
-                    ref={(el) => {
-                      imgRefs.current[i] = el
-                    }}
-                    className="absolute inset-0"
-                    style={{ opacity: i === 0 ? 1 : 0 }}
-                  >
-                    <Image
-                      src={beat.image.src}
-                      alt={beat.title}
-                      fill
-                      sizes="(max-width: 1023px) 168px, 220px"
-                      className="object-cover"
-                      style={{ objectPosition: beat.image.objectPosition }}
-                      priority={i === 0}
-                    />
-                  </div>
-                ))}
+          <div className={`${appScreenFloatWrapClass} relative w-full`}>
+            <div className="app-screen-float relative w-full">
+            {BEATS.map((beat, i) => (
+              <div
+                key={`${beat.title}-img`}
+                ref={(el) => {
+                  imgRefs.current[i] = el
+                }}
+                className={`w-full ${appScreenShellClass} ${i === 0 ? 'relative' : 'absolute inset-x-0 top-0'}`}
+                style={{ opacity: i === 0 ? 1 : 0 }}
+              >
+                <Image
+                  src={beat.image.src}
+                  alt={beat.title}
+                  width={APP_SCREEN_WIDTH}
+                  height={APP_SCREEN_HEIGHT}
+                  sizes="(max-width: 1023px) 240px, 280px"
+                  className="block h-auto w-full max-w-full"
+                  style={{ objectPosition: beat.image.objectPosition }}
+                  priority={i === 0}
+                />
               </div>
+            ))}
             </div>
+            <div className="app-screen-float-shadow" aria-hidden />
           </div>
         </div>
       </div>

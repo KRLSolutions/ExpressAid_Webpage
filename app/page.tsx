@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import AppScrollStory from '@/components/AppScrollStory'
+import AppScreen from '@/components/AppScreen'
 import Image from 'next/image'
 import {
   FaApple,
@@ -104,21 +105,15 @@ export default function HomePage() {
                 </div>
 
                 <div
-                  className="relative mx-auto w-fit transition-transform duration-150 md:order-2 md:mx-0 md:justify-self-center"
+                  className="relative mx-auto w-[min(260px,72vw)] max-w-[300px] transition-transform duration-150 md:order-2 md:mx-0 md:justify-self-center lg:max-w-[320px]"
                   style={{ transform: `translateY(${phoneOffset}px)` }}
                 >
-                  <div className="h-[min(400px,58vh)] w-[min(200px,48vw)] max-w-[260px] rounded-[2.7rem] border-[6px] border-black bg-black p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:h-[460px] sm:w-[235px] lg:h-[510px] lg:w-[260px]">
-                    <div className="absolute left-1/2 top-2 z-20 h-5 w-28 -translate-x-1/2 rounded-full bg-black" />
-                    <div className="h-full overflow-hidden rounded-[2.15rem] bg-[#f7f8ff]">
-                      <Image
-                        src="/Screenshot1.png"
-                        alt="ExpressAid app screenshot"
-                        width={260}
-                        height={510}
-                        className="h-full w-full scale-[1.08] object-cover object-center"
-                      />
-                    </div>
-                  </div>
+                  <AppScreen
+                    src="/track_your_health.png"
+                    alt="ExpressAid track your health screen"
+                    priority
+                    sizes="(max-width: 1024px) 220px, 300px"
+                  />
                 </div>
 
                 <div className="fade-in rounded-2xl bg-[#a8f18f]/20 p-4 md:order-3 md:col-span-2 lg:col-span-1 lg:pl-5" data-reveal>
@@ -299,13 +294,13 @@ export default function HomePage() {
         </section>
 
         <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-[2rem] border border-teal-100 bg-white p-3 shadow-[0_20px_60px_rgba(16,136,166,0.15)]">
+          <div className="mx-auto max-w-md overflow-hidden rounded-[1.35rem] bg-white shadow-[0_24px_60px_-16px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.08] sm:max-w-lg">
             <Image
-              src="/Featured%20Graphic.png"
-              alt="ExpressAid featured app graphic"
+              src="/Services.png"
+              alt="ExpressAid services screen"
               width={1024}
-              height={500}
-              className="h-auto w-full rounded-[1.4rem] object-cover"
+              height={2048}
+              className="h-auto w-full object-cover object-top"
               priority
             />
           </div>
