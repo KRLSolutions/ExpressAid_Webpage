@@ -293,14 +293,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-md overflow-hidden rounded-[1.35rem] bg-white shadow-[0_24px_60px_-16px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.08] sm:max-w-lg">
+        <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="w-full overflow-hidden rounded-[1.35rem] bg-white shadow-[0_24px_60px_-16px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.08] sm:rounded-[1.5rem]">
             <Image
-              src="/Services.png"
-              alt="ExpressAid services screen"
-              width={1024}
-              height={2048}
-              className="h-auto w-full object-cover object-top"
+              src="/Mockup%20Design.png"
+              alt="ExpressAid app mockup"
+              width={2400}
+              height={1200}
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="h-auto w-full object-contain"
               priority
             />
           </div>
