@@ -22,7 +22,7 @@ export default function HeroSection() {
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <a 
-                href="https://apps.apple.com/app/idAPP_ID" 
+                href="https://apps.apple.com/in/app/express-aid/id6763533209" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-primary bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md font-semibold inline-block"
@@ -36,7 +36,7 @@ export default function HeroSection() {
                 </div>
               </a>
               <a 
-                href="https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME" 
+                href="https://play.google.com/store/apps/details?id=com.expressaid.app&pcampaignid=web_share" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-primary bg-black text-white-600 hover:bg-gray-800 px-6 py-3 rounded-md font-semibold inline-block"

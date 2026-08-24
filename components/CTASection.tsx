@@ -11,7 +11,7 @@ export default function CTASection() {
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">Download the ExpressAid app today and get your first visit at 20% off</p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <a 
-              href="https://apps.apple.com/app/idAPP_ID" 
+              href="https://apps.apple.com/in/app/express-aid/id6763533209" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn-primary bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-md font-semibold transition duration-300"
@@ -25,7 +25,7 @@ export default function CTASection() {
               </div>
             </a>
             <a 
-              href="https://play.google.com/store/apps/details?id=YOUR_PACKAGE_NAME" 
+              href="https://play.google.com/store/apps/details?id=com.expressaid.app&pcampaignid=web_share" 
               target="_blank" 
               rel="noopener noreferrer"
               className="btn-primary bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-md font-semibold transition duration-300"

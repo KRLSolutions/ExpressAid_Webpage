@@ -69,7 +69,7 @@ const BEATS: Beat[] = [
       'Transparent pricing in the app'
     ],
     textSide: 'left',
-    image: { src: '/track_your_health.png', objectPosition: '50% 50%' }
+    image: { src: '/marketing/01_care_at_home.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Why ExpressAid',
@@ -77,7 +77,7 @@ const BEATS: Beat[] = [
     body: 'Book trusted care at your doorstep—built for elderly parents, families, and busy professionals who need help quickly.',
     bullets: ['“Reached quickly — felt safe.” — Priya R.', '“Clear pricing in the app.” — Nithin K.'],
     textSide: 'right',
-    image: { src: '/Top_services.png', objectPosition: '50% 50%' }
+    image: { src: '/marketing/07_top_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'How it works',
@@ -91,7 +91,7 @@ const BEATS: Beat[] = [
       'Receive care at home'
     ],
     textSide: 'left',
-    image: { src: '/Services.png', objectPosition: '50% 50%' }
+    image: { src: '/marketing/02_book_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Services',
@@ -104,14 +104,14 @@ const BEATS: Beat[] = [
       'Elderly care at home'
     ],
     textSide: 'right',
-    image: { src: '/Services.png', objectPosition: '50% 50%' }
+    image: { src: '/marketing/08_care_catalog.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Get started',
     title: 'Download ExpressAid',
     body: 'Starting with Whitefield and Marathahalli—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
     textSide: 'left',
-    image: { src: '/Checkout.png', objectPosition: '50% 50%' }
+    image: { src: '/marketing/04_easy_checkout.png', objectPosition: '50% 50%' }
   }
 ]
 

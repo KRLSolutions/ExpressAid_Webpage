@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import AppScrollStory from '@/components/AppScrollStory'
 import AppScreen from '@/components/AppScreen'
 import Image from 'next/image'
+import { APP_STORE_URL, PLAY_STORE_URL } from '@/lib/site'
 import {
   FaApple,
   FaCheckCircle,
@@ -24,8 +25,8 @@ import {
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const playStoreLink = '#'
-  const appStoreLink = '#'
+  const playStoreLink = PLAY_STORE_URL
+  const appStoreLink = APP_STORE_URL
   const phoneOffset = Math.min(scrollY * 0.09, 45)
 
   useEffect(() => {
@@ -114,8 +115,8 @@ export default function HomePage() {
                   style={{ transform: `translateY(${phoneOffset}px)` }}
                 >
                   <AppScreen
-                    src="/track_your_health.png"
-                    alt="ExpressAid track your health screen"
+                    src="/marketing/01_care_at_home.png"
+                    alt="ExpressAid care at home screen"
                     priority
                     sizes="(max-width: 1024px) 220px, 300px"
                   />
@@ -324,8 +325,8 @@ export default function HomePage() {
         <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="w-full overflow-hidden rounded-[1.35rem] bg-white shadow-[0_24px_60px_-16px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.08] sm:rounded-[1.5rem]">
             <Image
-              src="/Mockup%20Design.png"
-              alt="ExpressAid app mockup"
+              src="/marketing/feature_graphic_v2.png"
+              alt="ExpressAid app feature graphic"
               width={2400}
               height={1200}
               sizes="(max-width: 1280px) 100vw, 1280px"
