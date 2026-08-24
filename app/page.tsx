@@ -73,7 +73,7 @@ export default function HomePage() {
               <div className="grid gap-8 md:grid-cols-2 md:items-center lg:grid-cols-[1.1fr_0.95fr_0.9fr]">
                 <div className="fade-in md:order-1" data-reveal>
                   <p className="mb-4 inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-semibold">
-                    <FaMapMarkerAlt className="mr-2 text-cyan-200" /> Whitefield &amp; Marathahalli · expanding in Bengaluru
+                    <FaMapMarkerAlt className="mr-2 text-cyan-200" /> Now in Whitefield · expanding across Bengaluru
                   </p>
                   <h2 className="max-w-lg text-4xl font-black leading-[1.04] sm:text-5xl lg:text-[3.2rem]">
                     Healthcare at Home in Minutes
@@ -174,8 +174,8 @@ export default function HomePage() {
                   classes: 'bg-white text-slate-900'
                 },
                 {
-                  title: 'Now in Bengaluru',
-                  desc: 'Whitefield & Marathahalli first—expanding across the city.',
+                  title: 'Now in Whitefield',
+                  desc: 'Home healthcare in Whitefield—expanding across Bengaluru soon.',
                   icon: <FaMapMarkerAlt className="text-2xl text-white" />,
                   classes: 'bg-[#5953eb] text-white',
                   anchorId: 'locations' as const
@@ -295,7 +295,7 @@ export default function HomePage() {
             <h2 className="relative z-10 text-3xl font-black">Healthcare at Home in Minutes</h2>
             <p className="relative z-10 mt-3 max-w-2xl text-white/90">
               Download ExpressAid and experience a faster, more convenient way to access healthcare
-              at home—starting in Whitefield and Marathahalli.
+              at home—starting in Whitefield.
             </p>
             <div className="relative z-10 mt-6 flex flex-col gap-3 sm:flex-row">
               <a

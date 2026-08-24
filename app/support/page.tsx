@@ -31,7 +31,7 @@ const faqs = [
   {
     question: 'What areas do you currently serve?',
     answer:
-      'We currently serve Whitefield, Marathahalli, ITPL, and nearby areas in Bengaluru. Check the app for the latest coverage map as we expand across the city.'
+      'We currently serve Whitefield and nearby areas in Bengaluru. Check the app for the latest coverage map as we expand across the city.'
   },
   {
     question: 'What services can I book?',

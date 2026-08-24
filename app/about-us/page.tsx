@@ -43,7 +43,7 @@ export default function AboutUsPage() {
 
             <h2 className="mt-8 text-2xl font-semibold text-slate-900">Where we operate</h2>
             <p>
-              We are starting with <strong>Whitefield and Marathahalli</strong>, with plans to expand
+              We are starting with <strong>Whitefield</strong>, with plans to expand
               across Bengaluru. Check the app for the latest service areas.
             </p>
 

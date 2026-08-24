@@ -42,22 +42,6 @@ function getReducedMotionServerSnapshot() {
   return false
 }
 
-function subscribeDesktop(onStoreChange: () => void) {
-  if (typeof window === 'undefined') return () => {}
-  const mq = window.matchMedia(DESKTOP_MQ)
-  mq.addEventListener('change', onStoreChange)
-  return () => mq.removeEventListener('change', onStoreChange)
-}
-
-function getDesktopSnapshot() {
-  if (typeof window === 'undefined') return false
-  return window.matchMedia(DESKTOP_MQ).matches
-}
-
-function getDesktopServerSnapshot() {
-  return false
-}
-
 const BEATS: Beat[] = [
   {
     kicker: 'ExpressAid',
@@ -109,7 +93,7 @@ const BEATS: Beat[] = [
   {
     kicker: 'Get started',
     title: 'Download ExpressAid',
-    body: 'Starting with Whitefield and Marathahalli—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
+    body: 'Starting in Whitefield—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
     textSide: 'left',
     image: { src: '/marketing/04_easy_checkout.png', objectPosition: '50% 50%' }
   }
@@ -149,6 +133,8 @@ function AppScrollStoryMobile({
   playStoreLink,
   hideOnDesktop = true
 }: AppScrollStoryProps & { hideOnDesktop?: boolean }) {
+  const mobileBeats = BEATS.slice(1)
+
   return (
     <section
       id="how-it-works"
@@ -159,14 +145,14 @@ function AppScrollStoryMobile({
           How it works
         </p>
         <h2 className="mt-2 text-center text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
-          Healthcare at Home in Minutes
+          From booking to care at home
         </h2>
         <p className="mx-auto mt-3 max-w-md text-center text-sm text-slate-600 sm:text-base">
-          On-demand home healthcare—booked from your phone.
+          See how ExpressAid connects you with verified professionals in Whitefield.
         </p>
 
         <div className="mt-10 space-y-14">
-          {BEATS.map((beat, i) => (
+          {mobileBeats.map((beat, i) => (
             <article key={beat.title} className="text-center">
               <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-600">
                 {beat.kicker}
@@ -255,7 +241,7 @@ function BeatCopy({
           ? 'items-center text-center lg:items-end lg:pl-[52%] lg:text-right'
           : 'items-center text-center lg:items-start lg:pr-[52%] lg:text-left'
       }`}
-      style={{ opacity: index === 0 ? 1 : 0 }}
+      style={{ opacity: index === 0 ? 1 : 0, visibility: index === 0 ? 'visible' : 'hidden' }}
     >
       <div className={`w-full max-w-md lg:max-w-md ${isRight ? 'lg:ml-auto' : ''}`}>
         <span className="inline-block rounded-full bg-indigo-500/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-indigo-600 sm:text-[11px]">
@@ -599,14 +585,15 @@ export default function AppScrollStory(props: AppScrollStoryProps) {
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot
   )
-  const isDesktop = useSyncExternalStore(subscribeDesktop, getDesktopSnapshot, getDesktopServerSnapshot)
 
-  const useMobileLayout = !isDesktop || reduced
+  if (reduced) {
+    return <AppScrollStoryMobile {...props} hideOnDesktop={false} />
+  }
 
   return (
     <>
-      {useMobileLayout ? <AppScrollStoryMobile {...props} hideOnDesktop={!reduced} /> : null}
-      {isDesktop && !reduced ? <AppScrollStoryAnimated {...props} /> : null}
+      <AppScrollStoryMobile {...props} hideOnDesktop />
+      <AppScrollStoryAnimated {...props} />
     </>
   )
 }
