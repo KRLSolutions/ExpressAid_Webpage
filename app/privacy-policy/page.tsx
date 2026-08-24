@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
                 <strong>With healthcare professionals</strong> (nurses/doctors) to provide requested services
               </li>
               <li>
-                <strong>With payment partners</strong> to process transactions securely
+                <strong>Through secure in-app payment processing</strong> to complete bookings
               </li>
               <li>
                 <strong>With service providers</strong> (cloud hosting, analytics) under strict confidentiality

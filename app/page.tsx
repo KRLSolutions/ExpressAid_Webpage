@@ -6,7 +6,6 @@ import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import AppScrollStory from '@/components/AppScrollStory'
 import AppScreen from '@/components/AppScreen'
-import Image from 'next/image'
 import { APP_STORE_URL, PLAY_STORE_URL } from '@/lib/site'
 import {
   FaApple,
@@ -200,7 +199,7 @@ export default function HomePage() {
         <section id="pricing" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="fade-in rounded-3xl bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" data-reveal>
-              <h2 className="text-2xl font-black text-slate-900">Fast nurse dispatch</h2>
+              <h2 className="text-2xl font-black text-slate-900">Fast professional dispatch</h2>
               <p className="mt-4 flex items-center text-slate-700">
                 <FaClock className="mr-2 text-indigo-600" />
                 Quick connection with nearby professionals in service areas
@@ -319,20 +318,6 @@ export default function HomePage() {
             <p className="relative z-10 mt-5 text-sm text-white/80">
               For emergencies, please visit nearest hospital.
             </p>
-          </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="w-full overflow-hidden rounded-[1.35rem] bg-white shadow-[0_24px_60px_-16px_rgba(15,23,42,0.28)] ring-1 ring-slate-900/[0.08] sm:rounded-[1.5rem]">
-            <Image
-              src="/marketing/feature_graphic_v2.png"
-              alt="ExpressAid app feature graphic"
-              width={2400}
-              height={1200}
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              className="h-auto w-full object-contain"
-              priority
-            />
           </div>
         </section>
       </main>

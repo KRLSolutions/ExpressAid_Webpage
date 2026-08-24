@@ -14,39 +14,54 @@ import {
 
 const faqs = [
   {
+    question: 'What is ExpressAid?',
+    answer:
+      'ExpressAid is a mobile app that connects you with verified healthcare professionals for on-demand home visits in Bengaluru — including vitals checks, injections, wound care, elderly support, and more.'
+  },
+  {
     question: 'How do I book home healthcare?',
     answer:
-      'Download the ExpressAid app, select the service you need, confirm your location, and submit the request. A verified healthcare professional will be assigned based on availability in your area.'
+      'Download the ExpressAid app, browse available services, confirm your location, and submit a booking. You will be notified when a verified professional accepts your request.'
   },
   {
     question: 'How quickly will a professional arrive?',
     answer:
-      'We aim to have a professional at your doorstep within 20–30 minutes. Response times may vary slightly depending on your area and demand at the time of booking.'
+      'We aim for arrival within 20–30 minutes in active service areas. Response times may vary based on location, traffic, and demand at the time of booking.'
   },
   {
     question: 'What areas do you currently serve?',
     answer:
-      'We currently serve Whitefield, Marathahalli, ITPL, and nearby areas in Bangalore. We are actively expanding — check the app for the latest coverage map.'
+      'We currently serve Whitefield, Marathahalli, ITPL, and nearby areas in Bengaluru. Check the app for the latest coverage map as we expand across the city.'
+  },
+  {
+    question: 'What services can I book?',
+    answer:
+      'Book home visits for vitals monitoring (BP, sugar, temperature, O₂), injections and IV fluids, wound dressing, nursing procedures, elderly care, and general illness support — all from the in-app service catalog.'
   },
   {
     question: 'How are professionals verified?',
     answer:
-      'Every healthcare professional on our platform is qualified, background-checked, and identity-verified before onboarding. We monitor quality through user feedback.'
+      'Every healthcare professional is qualified, identity-verified, and background-checked before joining ExpressAid. We monitor quality through user feedback and visit ratings.'
   },
   {
-    question: 'What is the pricing for services?',
+    question: 'How does payment work?',
     answer:
-      'Pricing is shown transparently in the app before you confirm your booking — no hidden charges. Rates vary by service type and area.'
+      'All pricing is shown transparently in the app before you confirm your booking. Pay securely in-app using UPI, debit or credit cards, or digital wallets — no hidden charges.'
+  },
+  {
+    question: 'Can I track my booking?',
+    answer:
+      'Yes. Once your booking is accepted, you can follow live status updates in the app from dispatch through completion.'
   },
   {
     question: 'Can I cancel or reschedule a booking?',
     answer:
-      'Yes. You can cancel or reschedule a booking through the app before the professional is dispatched. Please cancel as early as possible so the professional can be reassigned.'
+      'Yes. Cancel or reschedule through the app before the professional is dispatched. Please cancel as early as possible so the professional can be reassigned.'
   },
   {
     question: 'Is ExpressAid suitable for emergencies?',
     answer:
-      'ExpressAid is designed for non-emergency, home-care situations. For medical emergencies, please call 108 or visit the nearest hospital immediately.'
+      'No. ExpressAid is designed for non-emergency, home-care situations. For medical emergencies, please call 108 or visit the nearest hospital immediately.'
   },
   {
     question: 'How do I delete my account?',
