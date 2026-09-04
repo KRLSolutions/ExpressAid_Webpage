@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
 import AppScrollStory from '@/components/AppScrollStory'
 import AppScreen from '@/components/AppScreen'
+import { trackAppStoreClick, trackPlayStoreClick } from '@/lib/firebase'
 import { APP_STORE_URL, PLAY_STORE_URL } from '@/lib/site'
 import {
   FaApple,
@@ -88,6 +89,7 @@ export default function HomePage() {
                       href={appStoreLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackAppStoreClick('hero')}
                       className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#101828] transition hover:bg-slate-100"
                     >
                       <FaApple className="mr-2 text-lg" /> Download App
@@ -96,6 +98,7 @@ export default function HomePage() {
                       href={playStoreLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackPlayStoreClick('hero')}
                       className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-5 py-3 text-base font-semibold text-white transition hover:bg-white/20"
                     >
                       <FaGooglePlay className="mr-2 text-lg" /> Get it on Google Play
@@ -302,6 +305,7 @@ export default function HomePage() {
                 href={appStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackAppStoreClick('download_section')}
                 className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 font-semibold text-[#111827] transition hover:bg-slate-100"
               >
                 <FaApple className="mr-2" /> Download on the App Store
@@ -310,6 +314,7 @@ export default function HomePage() {
                 href={playStoreLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackPlayStoreClick('download_section')}
                 className="inline-flex items-center justify-center rounded-2xl border border-white/40 bg-white/10 px-6 py-3 font-semibold text-white transition hover:bg-white/20"
               >
                 <FaGooglePlay className="mr-2" /> Get it on Google Play
@@ -334,6 +339,7 @@ export default function HomePage() {
               href={playStoreLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackPlayStoreClick('mobile_sticky')}
               className="inline-flex flex-1 items-center justify-center rounded-xl bg-[#121826] px-4 py-2 text-sm font-semibold text-white transition hover:bg-black sm:px-6 sm:py-3"
             >
               <FaGooglePlay className="mr-2" /> Google Play
@@ -342,6 +348,7 @@ export default function HomePage() {
               href={appStoreLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackAppStoreClick('mobile_sticky')}
               className="inline-flex flex-1 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 sm:px-6 sm:py-3"
             >
               <FaApple className="mr-2" /> App Store

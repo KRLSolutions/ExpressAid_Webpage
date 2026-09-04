@@ -12,6 +12,7 @@ import AppScreen, {
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaApple, FaGooglePlay, FaQuoteLeft, FaStar } from 'react-icons/fa'
+import { trackAppStoreClick, trackPlayStoreClick } from '@/lib/firebase'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -197,12 +198,14 @@ function AppScrollStoryMobile({
         <div className="mt-12 flex flex-wrap justify-center gap-3 pb-4">
           <a
             href={appStoreLink}
+            onClick={() => trackAppStoreClick('scroll_story_mobile')}
             className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white"
           >
             <FaApple className="mr-2" /> App Store
           </a>
           <a
             href={playStoreLink}
+            onClick={() => trackPlayStoreClick('scroll_story_mobile')}
             className="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900"
           >
             <FaGooglePlay className="mr-2" /> Google Play
@@ -284,12 +287,14 @@ function BeatCopy({
           >
             <a
               href={appStoreLink}
+              onClick={() => trackAppStoreClick('scroll_story_desktop')}
               className="inline-flex items-center rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-black sm:px-5 sm:py-2.5 sm:text-sm"
             >
               <FaApple className="mr-1.5 sm:mr-2" /> App Store
             </a>
             <a
               href={playStoreLink}
+              onClick={() => trackPlayStoreClick('scroll_story_desktop')}
               className="inline-flex items-center rounded-full border border-slate-300/80 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-800 backdrop-blur-sm transition hover:bg-white sm:px-5 sm:py-2.5 sm:text-sm"
             >
               <FaGooglePlay className="mr-1.5 sm:mr-2" /> Google Play

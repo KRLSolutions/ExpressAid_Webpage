@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import FirebaseAnalytics from '@/components/FirebaseAnalytics'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -48,6 +49,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} font-sans antialiased text-gray-800`}>
+        <Suspense fallback={null}>
+          <FirebaseAnalytics />
+        </Suspense>
         {children}
       </body>
     </html>
