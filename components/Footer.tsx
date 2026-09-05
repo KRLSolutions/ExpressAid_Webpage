@@ -20,7 +20,7 @@ export default function Footer() {
               on-demand visits, vitals, injections, wound care, and more—booked from your phone.
             </p>
             <p className="mt-3 text-xs text-slate-500">
-              Now in Whitefield · expanding across Bengaluru
+              Now in Bellandur · expanding across Bengaluru
             </p>
           </div>
 

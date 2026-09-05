@@ -94,7 +94,7 @@ const BEATS: Beat[] = [
   {
     kicker: 'Get started',
     title: 'Download ExpressAid',
-    body: 'Starting in Whitefield—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
+    body: 'Starting in Bellandur—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
     textSide: 'left',
     image: { src: '/marketing/04_easy_checkout.png', objectPosition: '50% 50%' }
   }
@@ -149,7 +149,7 @@ function AppScrollStoryMobile({
           From booking to care at home
         </h2>
         <p className="mx-auto mt-3 max-w-md text-center text-sm text-slate-600 sm:text-base">
-          See how ExpressAid connects you with verified professionals in Whitefield.
+          See how ExpressAid connects you with verified professionals in Bellandur.
         </p>
 
         <div className="mt-10 space-y-14">
