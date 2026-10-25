@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: `${SITE_NAME} | ${SITE_TAGLINE}`,
   description: SITE_DESCRIPTION,
-  keywords: ['healthcare', 'home healthcare', 'nurse visit', 'doctor consultation', 'ExpressAid', 'Bangalore'],
+  keywords: ['doctor home visit', 'doctor at home', 'home consultation', 'ExpressAid', 'Bellandur', 'Bengaluru'],
   authors: [{ name: 'ExpressAid Team' }],
   icons: {
     icon: '/logo.png',

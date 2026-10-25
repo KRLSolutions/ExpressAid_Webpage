@@ -46,11 +46,11 @@ function getReducedMotionServerSnapshot() {
 const BEATS: Beat[] = [
   {
     kicker: 'ExpressAid',
-    title: 'Healthcare at Home in Minutes',
-    body: 'Connect with qualified healthcare professionals for on-demand home care—whether you need a vitals check, injection, IV therapy, wound care, or nursing support.',
+    title: 'A Doctor at Home in Minutes',
+    body: 'Book a verified doctor who comes to the patient’s location for a home consultation—fever, follow-ups, and general care.',
     bullets: [
-      'Fast dispatch in selected service areas',
-      'Verified healthcare professionals',
+      'Fast doctor dispatch in selected service areas',
+      'Verified doctors',
       'Transparent pricing in the app'
     ],
     textSide: 'left',
@@ -58,35 +58,35 @@ const BEATS: Beat[] = [
   },
   {
     kicker: 'Why ExpressAid',
-    title: 'Home healthcare without the hospital visit',
-    body: 'Book trusted care at your doorstep—built for elderly parents, families, and busy professionals who need help quickly.',
+    title: 'A doctor visit without the hospital trip',
+    body: 'Book a doctor at the patient’s doorstep—built for elderly parents, families, and anyone who needs a consultation quickly.',
     bullets: ['“Reached quickly — felt safe.” — Priya R.', '“Clear pricing in the app.” — Nithin K.'],
     textSide: 'right',
     image: { src: '/marketing/07_top_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'How it works',
-    title: 'Care at home in five steps',
-    body: 'Open the app, pick what you need, and get connected with a nearby professional—care comes to you.',
+    title: 'A doctor at home in five steps',
+    body: 'Open the app, request a visit, and a nearby doctor comes to the patient’s location.',
     bullets: [
       'Open ExpressAid',
-      'Select your service',
-      'Enter your location',
-      'Get matched with a professional nearby',
-      'Receive care at home'
+      'Choose a doctor home visit',
+      'Enter the patient’s location',
+      'Get matched with a nearby doctor',
+      'The doctor arrives for the consultation'
     ],
     textSide: 'left',
     image: { src: '/marketing/02_book_services.png', objectPosition: '50% 50%' }
   },
   {
     kicker: 'Services',
-    title: 'The care you need, on demand',
-    body: 'From feeling unwell to vitals, injections, IV therapy, wound care, and elderly support—arranged through one app.',
+    title: 'Doctor consultations, on demand',
+    body: 'From feeling unwell to follow-up reviews for elders and families—a doctor comes to you through one app.',
     bullets: [
-      'Not feeling well & vitals checks',
-      'Injections & IV fluids',
-      'Wound care & nursing procedures',
-      'Elderly care at home'
+      'Fever, cold, and general illness',
+      'Home consultation at the patient’s location',
+      'Follow-up visits',
+      'Care for elders and families'
     ],
     textSide: 'right',
     image: { src: '/marketing/08_care_catalog.png', objectPosition: '50% 50%' }
@@ -94,7 +94,7 @@ const BEATS: Beat[] = [
   {
     kicker: 'Get started',
     title: 'Download ExpressAid',
-    body: 'Starting in Bellandur—with plans to expand across Bengaluru. Experience a faster way to access healthcare at home.',
+    body: 'Starting in Bellandur—with plans to expand across Bengaluru. Book a doctor who comes to you.',
     textSide: 'left',
     image: { src: '/marketing/04_easy_checkout.png', objectPosition: '50% 50%' }
   }
@@ -146,10 +146,10 @@ function AppScrollStoryMobile({
           How it works
         </p>
         <h2 className="mt-2 text-center text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
-          From booking to care at home
+          From booking to a doctor at home
         </h2>
         <p className="mx-auto mt-3 max-w-md text-center text-sm text-slate-600 sm:text-base">
-          See how ExpressAid connects you with verified professionals in Bellandur.
+          See how ExpressAid sends a verified doctor to the patient in Bellandur.
         </p>
 
         <div className="mt-10 space-y-14">

@@ -18,8 +18,7 @@ import {
   FaRupeeSign,
   FaShieldAlt,
   FaStar,
-  FaUserMd,
-  FaUserNurse
+  FaUserMd
 } from 'react-icons/fa'
 
 export default function HomePage() {
@@ -77,11 +76,11 @@ export default function HomePage() {
                     <FaMapMarkerAlt className="mr-2 text-cyan-200" /> Now in Bellandur · expanding across Bengaluru
                   </p>
                   <h2 className="max-w-lg text-4xl font-black leading-[1.04] sm:text-5xl lg:text-[3.2rem]">
-                    Healthcare at Home in Minutes
+                    A Doctor at Home in Minutes
                   </h2>
                   <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">
-                    Book qualified healthcare professionals for home visits, vitals monitoring,
-                    injections, wound care, and more — all from your phone.
+                    Book a verified doctor who comes to the patient&apos;s location for a home
+                    consultation — fever, follow-ups, and general care, arranged from your phone.
                   </p>
 
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -104,10 +103,10 @@ export default function HomePage() {
                       <FaGooglePlay className="mr-2 text-lg" /> Get it on Google Play
                     </a>
                     <a
-                      href="/support"
+                      href="/careers"
                       className="inline-flex items-center justify-center rounded-2xl border border-[#a8f18f]/50 bg-[#a8f18f]/20 px-5 py-3 text-base font-semibold text-white transition hover:bg-[#a8f18f]/30"
                     >
-                      <FaUserNurse className="mr-2 text-lg" /> Become a Healthcare Professional
+                      <FaUserMd className="mr-2 text-lg" /> Join as a Doctor
                     </a>
                   </div>
                 </div>
@@ -128,7 +127,7 @@ export default function HomePage() {
                   <div className="grid grid-cols-2 gap-4 border-b border-white/25 pb-5 text-white/95">
                     <div>
                       <p className="text-xs uppercase text-white/70">Care model</p>
-                      <p className="text-lg font-black leading-tight">At your doorstep</p>
+                      <p className="text-lg font-black leading-tight">Doctor visits you</p>
                     </div>
                     <div>
                       <p className="text-xs uppercase text-white/70">For</p>
@@ -136,8 +135,8 @@ export default function HomePage() {
                     </div>
                   </div>
                   <p className="mt-5 text-white/85">
-                    Qualified, verified professionals. Convenient app booking and transparent
-                    pricing—without unnecessary hospital visits.
+                    Verified doctors come to the patient. Convenient app booking and transparent
+                    pricing—without an unnecessary hospital trip.
                   </p>
                 </div>
               </div>
@@ -150,35 +149,35 @@ export default function HomePage() {
         <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="fade-in mb-8 max-w-2xl" data-reveal>
             <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Services</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-900">Home healthcare, when you need it</h2>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">A doctor visit, when you need it</h2>
             <p className="mt-3 text-slate-600">
-              Vitals, injections, wound care, elderly support, and more—booked through the app.
+              Book a doctor who travels to the patient&apos;s home for a consultation.
             </p>
           </div>
           <div className="grid gap-0 overflow-hidden rounded-[2rem] border border-slate-200 md:grid-cols-4">
             {(
               [
                 {
-                  title: 'Not Feeling Well',
-                  desc: 'Home visits when you need care without a hospital trip.',
+                  title: 'Doctor Home Visit',
+                  desc: 'A verified doctor comes to the patient’s location.',
                   icon: <FaUserMd className="text-2xl text-indigo-600" />,
                   classes: 'bg-white text-slate-900'
                 },
                 {
-                  title: 'Vitals & Injections',
-                  desc: 'BP, sugar, temperature, O₂, injections, and IV fluids at home.',
-                  icon: <FaUserNurse className="text-2xl text-emerald-700" />,
+                  title: 'Fever & Illness',
+                  desc: 'Home consultation for fever, cold, and general illness.',
+                  icon: <FaUserMd className="text-2xl text-emerald-700" />,
                   classes: 'bg-[#b8f39f] text-slate-900'
                 },
                 {
-                  title: 'Wound & Elderly Care',
-                  desc: 'Dressing, catheter care, nursing procedures, and elder support.',
+                  title: 'Follow-up Care',
+                  desc: 'Reviews and ongoing consultations for families and elders at home.',
                   icon: <FaShieldAlt className="text-2xl text-indigo-600" />,
                   classes: 'bg-white text-slate-900'
                 },
                 {
                   title: 'Now in Bellandur',
-                  desc: 'Home healthcare in Bellandur—expanding across Bengaluru soon.',
+                  desc: 'Doctor home visits in Bellandur—expanding across Bengaluru soon.',
                   icon: <FaMapMarkerAlt className="text-2xl text-white" />,
                   classes: 'bg-[#5953eb] text-white',
                   anchorId: 'locations' as const
@@ -202,10 +201,10 @@ export default function HomePage() {
         <section id="pricing" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="fade-in rounded-3xl bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" data-reveal>
-              <h2 className="text-2xl font-black text-slate-900">Fast professional dispatch</h2>
+              <h2 className="text-2xl font-black text-slate-900">Fast doctor dispatch</h2>
               <p className="mt-4 flex items-center text-slate-700">
                 <FaClock className="mr-2 text-indigo-600" />
-                Quick connection with nearby professionals in service areas
+                Quick connection with a nearby doctor in service areas
               </p>
               <p className="mt-3 text-sm text-slate-500">Response times may vary by location and demand.</p>
             </div>
@@ -231,7 +230,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="text-sm uppercase tracking-wide text-emerald-300">User reviews</p>
-                <h2 className="mt-2 text-3xl font-black">Trusted for home healthcare</h2>
+                <h2 className="mt-2 text-3xl font-black">Trusted for doctor home visits</h2>
               </div>
               <div className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2">
                 {[...Array(5)].map((_, i) => (
@@ -245,7 +244,7 @@ export default function HomePage() {
               {[
                 {
                   name: 'Priya R.',
-                  text: 'Booked a home visit in the app—professional arrived quickly and everything felt safe.'
+                  text: 'Booked a doctor visit in the app—the doctor reached us quickly and everything felt safe.'
                 },
                 {
                   name: 'Nithin K.',
@@ -253,7 +252,7 @@ export default function HomePage() {
                 },
                 {
                   name: 'Shreya M.',
-                  text: 'Perfect for elderly parents—vitals and nursing support without a hospital run.'
+                  text: 'Perfect for elderly parents—a doctor came home, so we skipped the hospital trip.'
                 }
               ].map((review) => (
                 <article key={review.name} className="fade-in rounded-2xl border border-white/10 bg-white/5 p-6" data-reveal>
@@ -269,20 +268,20 @@ export default function HomePage() {
         <section id="trust" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="fade-in mb-8 max-w-3xl" data-reveal>
             <p className="text-sm font-bold uppercase tracking-wide text-indigo-600">Why ExpressAid</p>
-            <h2 className="mt-2 text-3xl font-black text-slate-900">Healthcare that comes to you</h2>
+            <h2 className="mt-2 text-3xl font-black text-slate-900">A doctor who comes to you</h2>
             <p className="mt-4 text-slate-600 leading-relaxed">
-              Our mission is to make healthcare more accessible by bringing qualified professionals to
-              your home—reducing unnecessary hospital visits and helping families get timely care.
+              ExpressAid sends verified doctors to the patient&apos;s location, so families can get a
+              timely consultation at home instead of making an unnecessary hospital trip.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              'Fast dispatch in selected areas',
-              'Home healthcare without hospital visits',
-              'Qualified & verified professionals',
+              'Fast doctor dispatch in selected areas',
+              'Doctor visits the patient’s home',
+              'Verified doctors',
               'Convenient booking through the app',
               'Transparent pricing',
-              'Support for elderly, families & professionals'
+              'Useful for elders, families, and follow-ups'
             ].map((item) => (
               <div key={item} className="fade-in flex items-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm" data-reveal>
                 <FaCheckCircle className="mr-2 text-emerald-600" />
@@ -295,10 +294,9 @@ export default function HomePage() {
         <section id="download" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-[#5953eb] to-[#3f5cff] p-8 text-white shadow-[0_25px_70px_rgba(37,99,235,0.4)] md:p-10">
             <div className="pointer-events-none absolute -right-16 -top-8 h-40 w-40 rounded-full bg-[#a8f18f]/35 blur-2xl" />
-            <h2 className="relative z-10 text-3xl font-black">Healthcare at Home in Minutes</h2>
+            <h2 className="relative z-10 text-3xl font-black">A Doctor at Home in Minutes</h2>
             <p className="relative z-10 mt-3 max-w-2xl text-white/90">
-              Download ExpressAid and experience a faster, more convenient way to access healthcare
-              at home—starting in Bellandur.
+              Download ExpressAid and book a doctor who comes to you—starting in Bellandur.
             </p>
             <div className="relative z-10 mt-6 flex flex-col gap-3 sm:flex-row">
               <a
@@ -332,7 +330,7 @@ export default function HomePage() {
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-indigo-100 bg-white/95 p-3 shadow-[0_-10px_30px_rgba(30,41,59,0.1)] backdrop-blur sm:hidden">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="text-sm font-semibold text-slate-900 sm:text-base">
-            Healthcare at home in minutes — download ExpressAid
+            A doctor at home in minutes — download ExpressAid
           </p>
           <div className="flex w-full gap-2 sm:w-auto">
             <a

@@ -16,8 +16,8 @@ export default function Footer() {
               <span className="text-lg font-black tracking-tight">ExpressAid</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
-              Healthcare at home in minutes. Connect with qualified healthcare professionals for
-              on-demand visits, vitals, injections, wound care, and more—booked from your phone.
+              A doctor at home in minutes. Book a verified doctor who comes to the patient&apos;s
+              location in Bellandur—consultation arranged from your phone.
             </p>
             <p className="mt-3 text-xs text-slate-500">
               Now in Bellandur · expanding across Bengaluru
@@ -69,8 +69,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/support" className="text-slate-400 transition hover:text-white">
-                  For healthcare professionals
+                <Link href="/careers" className="text-slate-400 transition hover:text-white">
+                  Careers for doctors
                 </Link>
               </li>
               <li>

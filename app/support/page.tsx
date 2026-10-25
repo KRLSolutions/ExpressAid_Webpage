@@ -16,17 +16,17 @@ const faqs = [
   {
     question: 'What is ExpressAid?',
     answer:
-      'ExpressAid is a mobile app that connects you with verified healthcare professionals for on-demand home visits in Bengaluru — including vitals checks, injections, wound care, elderly support, and more.'
+      'ExpressAid is a mobile app that sends a verified doctor to the patient’s location for an on-demand home consultation in Bengaluru.'
   },
   {
-    question: 'How do I book home healthcare?',
+    question: 'How do I book a doctor home visit?',
     answer:
-      'Download the ExpressAid app, browse available services, confirm your location, and submit a booking. You will be notified when a verified professional accepts your request.'
+      'Download the ExpressAid app, choose a doctor visit, confirm the patient’s location, and submit the booking. You will be notified when a verified doctor accepts the request.'
   },
   {
-    question: 'How quickly will a professional arrive?',
+    question: 'How quickly will a doctor arrive?',
     answer:
-      'We aim for arrival within 20–30 minutes in active service areas. Response times may vary based on location, traffic, and demand at the time of booking.'
+      'We aim for the doctor to arrive within 20–30 minutes in active service areas. Response times may vary based on location, traffic, and demand at the time of booking.'
   },
   {
     question: 'What areas do you currently serve?',
@@ -36,12 +36,12 @@ const faqs = [
   {
     question: 'What services can I book?',
     answer:
-      'Book home visits for vitals monitoring (BP, sugar, temperature, O₂), injections and IV fluids, wound dressing, nursing procedures, elderly care, and general illness support — all from the in-app service catalog.'
+      'Book a doctor to visit the patient’s home for fever, cold, general illness, follow-up consultations, and care for elders and families.'
   },
   {
-    question: 'How are professionals verified?',
+    question: 'How are doctors verified?',
     answer:
-      'Every healthcare professional is qualified, identity-verified, and background-checked before joining ExpressAid. We monitor quality through user feedback and visit ratings.'
+      'Doctors are asked to share their qualification, medical registration, and identity details before joining ExpressAid. We review applications and monitor quality through visit feedback.'
   },
   {
     question: 'How does payment work?',
@@ -56,7 +56,19 @@ const faqs = [
   {
     question: 'Can I cancel or reschedule a booking?',
     answer:
-      'Yes. Cancel or reschedule through the app before the professional is dispatched. Please cancel as early as possible so the professional can be reassigned.'
+      'Yes. Cancel or reschedule through the app before the doctor is dispatched. Please cancel as early as possible so the doctor can be reassigned.'
+  },
+  {
+    question: 'I am a doctor. How do I apply?',
+    answer: (
+      <>
+        Open the{' '}
+        <Link href="/careers" className="text-indigo-600 underline hover:text-indigo-800">
+          Careers
+        </Link>{' '}
+        page for what the role involves, then email your resume and details to support@expressaid.in.
+      </>
+    )
   },
   {
     question: 'Is ExpressAid suitable for emergencies?',

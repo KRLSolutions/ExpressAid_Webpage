@@ -47,6 +47,7 @@ export default function Navigation() {
             <Link href="/terms-and-conditions" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Terms</Link>
             <Link href="/privacy-policy" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Privacy</Link>
             <Link href="/about-us" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">About</Link>
+            <Link href="/careers" className="text-sm font-semibold text-indigo-600 transition hover:text-indigo-800">Careers</Link>
             <Link href="/support" className="text-sm font-medium text-slate-600 transition hover:text-indigo-600">Support</Link>
           </div>
 
@@ -66,7 +67,7 @@ export default function Navigation() {
       <div
         id="mobile-menu"
         className={`mx-4 overflow-hidden rounded-2xl border border-indigo-100 bg-white shadow-lg transition-all duration-300 sm:mx-6 lg:hidden ${
-          isMobileMenuOpen ? 'max-h-[420px] p-3 opacity-100' : 'max-h-0 p-0 opacity-0'
+          isMobileMenuOpen ? 'max-h-[520px] p-3 opacity-100' : 'max-h-0 p-0 opacity-0'
         }`}
       >
         <div className="space-y-1">
@@ -78,6 +79,7 @@ export default function Navigation() {
           <Link href="/terms-and-conditions" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Terms & Conditions</Link>
           <Link href="/privacy-policy" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Privacy Policy</Link>
           <Link href="/about-us" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>About Us</Link>
+          <Link href="/careers" className="block rounded-xl px-3 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-50" onClick={closeMobileMenu}>Careers for doctors</Link>
           <Link href="/support" className="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50" onClick={closeMobileMenu}>Support</Link>
         </div>
       </div>

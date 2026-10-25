@@ -15,36 +15,46 @@ export default function AboutUsPage() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h1 className="text-4xl font-black text-slate-900">About ExpressAid</h1>
-            <p className="mt-3 text-slate-600">Healthcare at home in minutes</p>
+            <p className="mt-3 text-slate-600">A doctor at home in minutes</p>
           </div>
 
           <div className="prose prose-lg max-w-none text-slate-800">
             <p>
-              <strong>ExpressAid</strong> connects users with qualified healthcare professionals
-              for on-demand home healthcare—vitals checks, injections, IV therapy, wound care,
-              elderly support, and more—booked conveniently through the app.
+              <strong>ExpressAid</strong> connects patients with verified doctors for on-demand
+              home visits. A doctor travels to the patient&apos;s location for a consultation—
+              booked conveniently through the app.
             </p>
 
             <h2 className="mt-8 text-2xl font-semibold text-slate-900">Our mission</h2>
             <p>
-              To make healthcare more accessible by bringing qualified professionals directly to
+              To make doctor care more accessible by sending verified doctors directly to
               people&apos;s homes, reducing unnecessary hospital visits, and helping families receive
-              timely care when they need it most.
+              a timely consultation when they need it.
             </p>
 
             <h2 className="mt-8 text-2xl font-semibold text-slate-900">Why ExpressAid</h2>
             <ul className="list-disc pl-6">
-              <li>Fast dispatch in selected service areas</li>
-              <li>Home healthcare without hospital visits</li>
-              <li>Qualified and verified healthcare professionals</li>
+              <li>Fast doctor dispatch in selected service areas</li>
+              <li>A doctor visits the patient&apos;s home</li>
+              <li>Verified doctors</li>
               <li>Convenient booking and transparent pricing through the app</li>
-              <li>Support for elderly, families, and working professionals</li>
+              <li>Useful for elders, families, and follow-up consultations</li>
             </ul>
 
             <h2 className="mt-8 text-2xl font-semibold text-slate-900">Where we operate</h2>
             <p>
               We are starting with <strong>Bellandur</strong>, with plans to expand
               across Bengaluru. Check the app for the latest service areas.
+            </p>
+
+            <h2 className="mt-8 text-2xl font-semibold text-slate-900">Doctors</h2>
+            <p>
+              Registered doctors can apply to join ExpressAid and take home-visit bookings in
+              Bellandur. See the{' '}
+              <Link href="/careers" className="text-indigo-600 underline hover:text-indigo-800">
+                Careers
+              </Link>{' '}
+              page for what the role involves and how to send your resume to support@expressaid.in.
             </p>
 
             <p className="mt-8 text-sm text-slate-500">Page last updated: {LEGAL_LAST_UPDATED}</p>

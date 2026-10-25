@@ -1,7 +1,7 @@
 {
   "name": "ExpressAid",
   "short_name": "ExpressAid",
-  "description": "Healthcare at home in minutes",
+  "description": "A doctor at home in minutes",
   "icons": [
     { "src": "/logo.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/logo.png", "sizes": "512x512", "type": "image/png" }

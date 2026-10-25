@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
             <p>This policy applies to:</p>
             <ul className="list-disc pl-6">
               <li>Patients and caregivers using ExpressAid</li>
-              <li>Healthcare professionals onboarded on the platform</li>
+              <li>Doctors onboarded on the platform</li>
               <li>Visitors to our website and app</li>
             </ul>
 
@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
             <p>We may request the following permissions:</p>
             <ul className="list-disc pl-6">
               <li>
-                <strong>Location:</strong> To match users with nearby healthcare professionals and enable faster
+                <strong>Location:</strong> To match users with nearby doctors and enable faster
                 service delivery
               </li>
               <li>
@@ -99,7 +99,7 @@ export default function PrivacyPolicyPage() {
               including:
             </p>
             <ul className="list-disc pl-6">
-              <li>Connecting users with verified healthcare professionals</li>
+              <li>Connecting users with verified doctors</li>
               <li>Facilitating home healthcare services</li>
               <li>Enabling bookings and service coordination</li>
               <li>Processing payments and generating invoices</li>
@@ -129,7 +129,7 @@ export default function PrivacyPolicyPage() {
             <p>We may share data only in the following cases:</p>
             <ul className="list-disc pl-6">
               <li>
-                <strong>With healthcare professionals</strong> (nurses/doctors) to provide requested services
+                <strong>With doctors</strong> assigned to provide the requested home visit
               </li>
               <li>
                 <strong>Through secure in-app payment processing</strong> to complete bookings
@@ -212,11 +212,11 @@ export default function PrivacyPolicyPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">13. Platform Role Clarification</h2>
             <p>
               ExpressAid is a technology platform that facilitates connections between users and independent
-              healthcare professionals.
+              doctors.
             </p>
             <ul className="list-disc pl-6">
               <li>ExpressAid does not provide medical treatment directly</li>
-              <li>Healthcare professionals are responsible for services delivered</li>
+              <li>Doctors are responsible for consultations delivered</li>
               <li>ExpressAid does not make independent medical decisions</li>
             </ul>
 
@@ -257,8 +257,8 @@ export default function PrivacyPolicyPage() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">17. Medical Disclaimer</h2>
             <p>ExpressAid does not provide medical advice, diagnosis, or treatment.</p>
-            <p>All services are provided by independent licensed healthcare professionals.</p>
-            <p>Users should consult qualified professionals for medical decisions.</p>
+            <p>All consultations are provided by independent licensed doctors.</p>
+            <p>Users should follow the doctor&apos;s advice and seek hospital care when required.</p>
           </div>
           
           {/* Back to Home Button */}

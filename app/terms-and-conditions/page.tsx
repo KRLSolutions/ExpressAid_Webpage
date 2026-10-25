@@ -29,19 +29,19 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">1. Platform Nature</h2>
             <p>
               ExpressAid is a technology platform that connects users with
-              independent qualified healthcare professionals for on-demand home healthcare services.
+              independent qualified doctors for on-demand doctor home visits.
             </p>
             <ul className="list-disc pl-6">
               <li>We do not provide medical services directly.</li>
-              <li>We do not employ healthcare professionals (unless explicitly stated).</li>
-              <li>All services are delivered by independent practitioners.</li>
+              <li>We do not employ doctors (unless explicitly stated).</li>
+              <li>Consultations are delivered by independent doctors.</li>
             </ul>
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">2. Definitions</h2>
             <ul className="list-disc pl-6">
               <li><strong>User</strong>: Any individual using the platform for booking services.</li>
-              <li><strong>Provider</strong>: Independent healthcare professional listed on the platform.</li>
-              <li><strong>Services</strong>: Home healthcare visits, vitals monitoring, nursing procedures, consultations, and related support.</li>
+              <li><strong>Provider</strong>: Independent doctor listed on the platform.</li>
+              <li><strong>Services</strong>: Doctor home visits and related consultations at the patient&apos;s location.</li>
               <li><strong>Platform</strong>: Mobile app, website, and related systems.</li>
             </ul>
 
@@ -55,9 +55,8 @@ export default function TermsAndConditionsPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">4. Scope of Services</h2>
             <p>ExpressAid enables:</p>
             <ul className="list-disc pl-6">
-              <li>On-demand home healthcare visits.</li>
-              <li>Vitals monitoring, injections, IV therapy, wound care, and nursing procedures at home.</li>
-              <li>Doctor consultations where available (video/audio).</li>
+              <li>On-demand doctor visits at the patient&apos;s location.</li>
+              <li>Home consultations for illness, follow-up, and family care.</li>
               <li>Booking, scheduling, and payments through the app.</li>
             </ul>
             <p>
@@ -76,12 +75,12 @@ export default function TermsAndConditionsPage() {
             <p>You must not:</p>
             <ul className="list-disc pl-6">
               <li>Use services for illegal purposes.</li>
-              <li>Harass or abuse nurses/doctors.</li>
+              <li>Harass or abuse doctors.</li>
               <li>Share false medical information intentionally.</li>
             </ul>
 
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">6. Provider (Nurse/Doctor) Terms</h2>
-            <p>Providers are independent professionals and are responsible for:</p>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">6. Doctor Terms</h2>
+            <p>Doctors are independent practitioners and are responsible for:</p>
             <ul className="list-disc pl-6">
               <li>Medical decisions.</li>
               <li>Treatment provided.</li>
@@ -203,8 +202,7 @@ export default function TermsAndConditionsPage() {
 
             <h2 className="text-2xl font-semibold text-gray-900 mb-4 mt-8">Next</h2>
             <ol className="list-decimal pl-6">
-              <li>Nurse Agreement (freelancer contract).</li>
-              <li>Doctor Agreement.</li>
+              <li>Doctor agreement for doctors joining the platform.</li>
               <li>In-app patient consent before booking.</li>
             </ol>
           </div>
